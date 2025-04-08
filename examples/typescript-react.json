@@ -1,0 +1,149 @@
+{
+  "language": [
+    "typescriptreact",
+    "typescript"
+  ],
+  "substitutions": [
+    {
+      "ugly": "(&&)",
+      "pretty": "AND",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    },
+    {
+      "ugly": "(\\|\\|)",
+      "pretty": "OR",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    },
+    {
+      "ugly": "(\\(.*?\\))\\s*=>\\s*\\{",
+      "pretty": "fun $1:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "meta.arrow.ts",
+        "meta.arrow.tsx"
+      ]
+    },
+    {
+      "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "fun $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "meta.function.ts",
+        "meta.function.tsx"
+      ]
+    },
+    {
+      "ugly": "\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": " fun $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "meta.method.declaration.ts",
+        "meta.method.declaration.tsx"
+      ]
+    },
+    {
+      "ugly": ";$",
+      "pretty": " ",
+      "scope": [
+        "punctuation.terminator.statement.ts",
+        "punctuation.terminator.statement.tsx"
+      ]
+    },
+    {
+      "ugly": "switch\\s+\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "switch $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "switch-statement.expr.ts",
+        "switch-statement.expr.tsx"
+      ]
+    },
+    {
+      "ugly": "try\\s*\\{",
+      "pretty": "TRY:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+    },
+    {
+      "ugly": "\\}\\s*catch\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "CATCH $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+    },
+    {
+      "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "if $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx",
+        "!meta.function.ts",
+        "!meta.function.tsx"
+      ]
+    },
+    {
+      "ugly": "\\}\\s*else\\s*\\{",
+      "pretty": "else:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      }
+    },
+    {
+      "ugly": "\\}\\s*else\\s*if\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "elif $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      }
+    },
+    {
+      "ugly": "}\\w*$",
+      "pretty": " ",
+      "scope": [
+        "meta.block.ts",
+        "meta.block.tsx"
+      ]
+    },
+    {
+      "ugly": ",",
+      "pretty": " ",
+      "scope": [
+        "punctuation.separator.comma.tsx"
+      ]
+    }
+  ]
+}

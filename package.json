@@ -1,0 +1,405 @@
+{
+    "name": "md-prettify",
+    "displayName": "MD Prettify",
+    "description": "Displays identifiers & symbols using more aesthetically pleasing symbols.",
+    "version": "0.0.1",
+    "publisher": "DrBoria",
+    "license": "MIT license (MIT)",
+    "engines": {
+        "vscode": "^1.20.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "mdPrettify.copyWithSubstitutions",
+                "title": "Copy with Substitutions",
+                "category": "MD Prettify"
+            },
+            {
+                "command": "mdPrettify.enablePrettySymbols",
+                "title": "Enable",
+                "category": "MD Prettify"
+            },
+            {
+                "command": "mdPrettify.disablePrettySymbols",
+                "title": "Disable",
+                "category": "MD Prettify"
+            },
+            {
+                "command": "mdPrettify.togglePrettySymbols",
+                "title": "Toggle",
+                "category": "MD Prettify"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "MD Prettify",
+            "properties": {
+                "mdPrettify.revealOn": {
+                    "enum": [
+                        "cursor",
+                        "cursor-inside",
+                        "active-line",
+                        "selection",
+                        "none"
+                    ],
+                    "description": "When to reveal the original text. Options are -- 'cursor': reveal when a cursor contacts a symbol; 'cursor-inside': reveal when a cursor is inside a symbol; 'active-line': reveal all symbols on the same line as a cursor; 'selection': reveal all symbols that are selected or contact a cursor; 'none': do not reveal. This option may be overriden per-language by specifying 'revealOn' in a language entry.",
+                    "default": "cursor"
+                },
+                "mdPrettify.adjustCursorMovement": {
+                    "type": "boolean",
+                    "description": "If enabled, cursor movement will treat 'pretty' symbols as one character instead of stepping through the underlying 'ugly' text (this does not currently cover all situations). This option may be overriden per-language by specifying 'adjustCursorMovement' in a language entry.",
+                    "default": false
+                },
+                "mdPrettify.prettyCursor": {
+                    "enum": [
+                        "boxed",
+                        "none"
+                    ],
+                    "description": "Controls how a 'pretty' symbol is rendered when contacted by a cursor. Options are -- 'boxed': render an outline around the symbol; 'none': no change. This option may be overriden per-language by specifying 'prettyCursor' in a language entry.",
+                    "default": "boxed"
+                },
+                "mdPrettify.debug": {
+                    "type": "boolean",
+                    "description": "Enable debug logging for troubleshooting symbol substitution and scoping.",
+                    "default": false
+                },
+                "mdPrettify.substitutions": {
+                    "type": "array",
+                    "description": "A list of substitution settings can be specified for each language.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "language": {
+                                "description": "A pattern, or list of patterns, to specify which languages to apply these substitutions on.",
+                                "anyOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string",
+                                                    "description": "A language-id (e.g. 'plaintext' or 'fsharp')"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "description": "A complex filter",
+                                                    "properties": {
+                                                        "language": {
+                                                            "type": "string",
+                                                            "description": "A language-id (e.g. 'plaintext' or 'fsharp')"
+                                                        },
+                                                        "pattern": {
+                                                            "type": "string",
+                                                            "description": "glob pattern"
+                                                        },
+                                                        "scheme": {
+                                                            "type": "string",
+                                                            "description": "e.g. 'https' or 'file'"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "string",
+                                        "description": "A language-id (e.g. 'plaintext' or 'fsharp')"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "description": "A complex filter",
+                                        "properties": {
+                                            "language": {
+                                                "type": "string",
+                                                "description": "A language-id (e.g. 'plaintext' or 'fsharp')"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "glob pattern"
+                                            },
+                                            "scheme": {
+                                                "type": "string",
+                                                "description": "e.g. 'https' or 'file'"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "default": [
+                                    "coq",
+                                    {
+                                        "pattern": "**/*.v"
+                                    }
+                                ]
+                            },
+                            "revealOn": {
+                                "enum": [
+                                    "cursor",
+                                    "cursor-inside",
+                                    "active-line",
+                                    "selection",
+                                    "none"
+                                ],
+                                "description": "When to reveal the original text. Options are -- 'cursor': reveal when a cursor contacts a symbol; 'cursor-inside': reveal when a cursor is inside a symbol; 'active-line': reveal all symbols on the same line as a cursor; 'selection': reveal all symbols that are selected or contact a cursor; 'none': do not reveal.",
+                                "default": "cursor"
+                            },
+                            "adjustCursorMovement": {
+                                "type": "boolean",
+                                "description": "If enabled, cursor movement will treat 'pretty' symbols as one character instead of stepping through the underlying 'ugly' text (this does not currently cover all situations).",
+                                "default": false
+                            },
+                            "hideTextMethod": {
+                                "enum": [
+                                    "hack-fontSize",
+                                    "hack-letterSpacing",
+                                    "none"
+                                ],
+                                "description": "How to hide substituted text",
+                                "default": "hack-letterSpacing"
+                            },
+                            "prettyCursor": {
+                                "enum": [
+                                    "boxed",
+                                    "none"
+                                ],
+                                "description": "Controls how a 'pretty' symbol is rendered when contacted by a cursor. Options are -- 'boxed': render an outline around the symbol; 'none': no change",
+                                "default": "none"
+                            },
+                            "combineIdenticalScopes": {
+                                "type": "boolean",
+                                "default": false,
+                                "description": "If `true`, combine adjacent tokens if they have the same scope"
+                            },
+                            "textMateGrammar": {
+                                "type": "string",
+                                "description": "Specify the TextMate grammar file used to generate scope information for matching substitutions. If not specified, PSM will attempt to automatically find the grammar file that vscode uses."
+                            },
+                            "textMateInitialScope": {
+                                "type": "string",
+                                "description": "Override the initial scope used to identify the grammar. If undefined, then the initial scope will be inferred by searching for installed extensions that provide grammars for the current language."
+                            },
+                            "substitutions": {
+                                "type": "array",
+                                "description": "A list of substitutions",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ugly": {
+                                            "type": "string",
+                                            "default": "\\b(Qed.)",
+                                            "description": "A Javascript regular expression to specify the 'ugly' string to be replaced. For example, '\\\\\\b' matches a word boundary. Remember to escape your strings!! Writing '\\b' instead of '\\\\\\b' will denote a backspace instead of a word boundary. To match a literal backslash, you must write '\\\\\\\\\\\\\\' because it will be escaped by both JSON and Javascript's RegExp library. You may use non-matching groups, i.e. '(?:...)', but using matching groups, i.e. '(...)', will break substitutions."
+                                        },
+                                        "pretty": {
+                                            "type": "string",
+                                            "default": "∎",
+                                            "description": "The text to replace an 'ugly' string with. You may use fancy unicode symbols and multiple characters."
+                                        },
+                                        "pre": {
+                                            "type": "string",
+                                            "description": "If specified, the text before the 'ugly' text must match this pattern. E.g. '\\\\\\b'"
+                                        },
+                                        "post": {
+                                            "type": "string",
+                                            "description": "If specified, the text following the 'ugly' text must match this pattern. E.g. '\\\\\\b'"
+                                        },
+                                        "scope": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string",
+                                                    "description": "A scope expression: a whitespace-separated list of scope-names. If specified, then the `ugly` regular expression is only checked against individual tokens of matching scopes."
+                                                },
+                                                {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "An array of scope names. If specified, then the `ugly` regular expression is only checked against individual tokens of matching scopes."
+                                                }
+                                            ]
+                                        },
+                                        "style": {
+                                            "type": "object",
+                                            "properties": {
+                                                "hackCSS": {
+                                                    "type": "string",
+                                                    "description": "Hack: attempt to inject arbitrary CSS; this is unsupported and may cause problems"
+                                                },
+                                                "border": {
+                                                    "type": "string",
+                                                    "description": "CSS border property"
+                                                },
+                                                "textDecoration": {
+                                                    "type": "string",
+                                                    "description": "CSS text-decoration property",
+                                                    "anyOf": [
+                                                        {
+                                                            "pattern": "[^;]*"
+                                                        },
+                                                        {
+                                                            "enum": [
+                                                                "underline",
+                                                                "overline",
+                                                                "line-through"
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                "color": {
+                                                    "type": "string",
+                                                    "description": "CSS color property"
+                                                },
+                                                "backgroundColor": {
+                                                    "type": "string",
+                                                    "description": "CSS background-color property"
+                                                },
+                                                "light": {
+                                                    "type": "object",
+                                                    "description": "Styling options for vscode light themes",
+                                                    "properties": {
+                                                        "hackCSS": {
+                                                            "type": "string",
+                                                            "description": "Hack: attempt to inject arbitrary CSS; this is unsupported and may cause problems"
+                                                        },
+                                                        "border": {
+                                                            "type": "string",
+                                                            "description": "CSS border property"
+                                                        },
+                                                        "textDecoration": {
+                                                            "type": "string",
+                                                            "description": "CSS text-decoration property",
+                                                            "anyOf": [
+                                                                {
+                                                                    "pattern": "[^;]*"
+                                                                },
+                                                                {
+                                                                    "enum": [
+                                                                        "underline",
+                                                                        "overline",
+                                                                        "line-through"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        "color": {
+                                                            "type": "string",
+                                                            "description": "CSS color property"
+                                                        },
+                                                        "backgroundColor": {
+                                                            "type": "string",
+                                                            "description": "CSS background-color property"
+                                                        }
+                                                    }
+                                                },
+                                                "dark": {
+                                                    "type": "object",
+                                                    "description": "Styling options for vscode dark themes",
+                                                    "properties": {
+                                                        "hackCSS": {
+                                                            "type": "string",
+                                                            "description": "Hack: attempt to inject arbitrary CSS; this is unsupported and may cause problems"
+                                                        },
+                                                        "border": {
+                                                            "type": "string",
+                                                            "description": "CSS border property"
+                                                        },
+                                                        "textDecoration": {
+                                                            "type": "string",
+                                                            "description": "CSS text-decoration property",
+                                                            "anyOf": [
+                                                                {
+                                                                    "pattern": "[^;]*"
+                                                                },
+                                                                {
+                                                                    "enum": [
+                                                                        "underline",
+                                                                        "overline",
+                                                                        "line-through"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        "color": {
+                                                            "type": "string",
+                                                            "description": "CSS color property"
+                                                        },
+                                                        "backgroundColor": {
+                                                            "type": "string",
+                                                            "description": "CSS background-color property"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "pretty": [
+                                            "ugly"
+                                        ],
+                                        "style": [
+                                            "ugly"
+                                        ]
+                                    },
+                                    "anyOf": [
+                                        {
+                                            "required": [
+                                                "pretty"
+                                            ]
+                                        },
+                                        {
+                                            "required": [
+                                                "style"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "required": [
+                            "language",
+                            "substitutions"
+                        ]
+                    },
+                    "default": []
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "watch": "tsc -watch -p ./",
+        "compile": "tsc -p ./",
+        "test": "tsc -p ./ && mocha -u tdd ./out/test",
+        "test-debug": "tsc -p ./ && mocha -u tdd --debug-brk=5858 ./out/test"
+    },
+    "dependencies": {
+        "@types/copy-paste": "1.1.30",
+        "copy-paste": "1.3.0",
+        "vscode-oniguruma": "^2.0.1",
+        "vscode-textmate": "^9.2.0"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.32",
+        "@types/node": "^22.13.14",
+        "@types/proxyquire": "1.3.27",
+        "mocha": "^3.1.1",
+        "proxyquire": "1.7.10",
+        "typescript": "^5.8.2",
+        "vscode": "^1.0.3"
+    },
+    "bugs": {
+        "url": "https://github.com/DrBoria/md-prettify/issues"
+    },
+    "homepage": "https://github.com/DrBoria/md-prettify/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DrBoria/md-prettify.git"
+    }
+}

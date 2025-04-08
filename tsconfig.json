@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"target": "es2015",
+		"lib": ["es2015", "dom"],
+		"skipLibCheck": true,
+		"outDir": "out",
+		"sourceMap": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"noFallthroughCasesInSwitch": true,
+		"noLib": false,
+		"pretty": true,
+		"rootDir": "."
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
