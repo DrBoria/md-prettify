@@ -1,0 +1,30 @@
+{
+  "extends": "@md-prettify/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2020",
+    "lib": ["es2020"],
+    "skipLibCheck": true,
+    "outDir": "./out",
+    "rootDir": "../..",
+    "sourceMap": true,
+    "declaration": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "vscode": ["./node_modules/@types/vscode/index.d.ts"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "../../apps/backend/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "out",
+    "../../apps/backend/out"
+  ]
+}

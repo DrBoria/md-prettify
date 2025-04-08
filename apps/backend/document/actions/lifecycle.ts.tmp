@@ -1,0 +1,100 @@
+import type { DocumentStore } from "../type";
+import { loadLanguageEntry } from "../../config/configuration";
+import { loadGrammarForLanguage } from "../../text-mate";
+import { loadSubstitutions } from "../../config/substitutions";
+import { getEditors } from "../../utils/store";
+import { applyDecorations } from "../editor-decorations";
+import { getDecorationsList, getAllDecorationTypes } from "./decorations";
+import { reparsePretties } from "../../reparse/pretties";
+import { chunkedFullReparse } from "../../reparse/chunked";
+import { createReparseToken } from "../../reparse/actions/reparse-token";
+import { disposeReparseStore } from "../../reparse/store";
+import { getRange } from "../../utils/ranges";
+import type { ControllerOptions, PrettyModelOptions, LanguageEntry } from "../type";
+
+/**
+ * Initializes the document model: loads the language entry and grammar,
+ * resets reparse state, loads decorations, subscribes to document changes,
+ * and runs the initial reparse (chunked viewport-first for large documents).
+ */
+export const initializeController = (state: DocumentStore, options: PrettyModelOptions, settings: LanguageEntry, rootStore: { reparse: { root: DocumentStore } }) => {
+	const doc = state.document;
+	if (!doc) return;
+
+	state.adjustCursorMovement = settings.adjustCursorMovement;
+	state.grammar = options.textMateGrammar ?? null;
+	state.grammarState = [];
+	state.substitutions = loadSubstitutions(settings.substitutions);
+	state.decorationTypes = {};
+
+	// Load decorations (creates decoration types and applies initial state)
+	applyDecorations(state);
+
+	// Subscribe to document changes
+	const onChange = (e: TextDocumentContentChangeEvent[]) => {
+		const { applyChanges } = require("./changes");
+		applyChanges(state, e);
+	};
+	state.documentSubscriptions.push({ dispose: () => {} } as Disposable);
+
+	// Initial reparse
+	const useAsyncReparse = doc.lineCount > 500;
+	if (useAsyncReparse) {
+		const viewportRange = getEditors(state)[0]?.visibleRanges?.[0];
+		void chunkedFullReparse(state, {
+			viewportRange,
+			onChunkComplete: () => applyDecorations(state),
+			pushEvery: 3,
+		});
+	} else {
+		reparsePretties(state);
+		applyDecorations(state);
+	}
+};
+
+/**
+ * Disposes the document model: disposes decoration types, clears subscriptions,
+ * and resets the store fields.
+ */
+export const disposeController = (state: DocumentStore) => {
+	// Dispose all decoration types
+	const types = getAllDecorationTypes(state);
+	for (const type of types) {
+		type.dispose();
+	}
+	state.decorationTypes = {};
+
+	// Dispose subscriptions
+	for (const sub of state.documentSubscriptions) {
+		sub.dispose();
+	}
+	state.documentSubscriptions = [];
+	state.documentDebounce = null;
+
+	// Clear state
+	state.pretties = [];
+	state.selections = [];
+	state.substitutions = [];
+	state.grammar = null;
+	state.grammarState = [];
+	state.document = null;
+};
+
+/**
+ * Unloads all decorations (disposes types and clears the map).
+ */
+export const unloadDecorations = (state: DocumentStore) => {
+	const types = getAllDecorationTypes(state);
+	for (const type of types) {
+		type.dispose();
+	}
+	state.decorationTypes = {};
+};
+
+/**
+ * Disposes the entire model: calls disposeController and clears the document reference.
+ */
+export const disposeModel = (state: DocumentStore) => {
+	disposeController(state);
+	state.document = null;
+};

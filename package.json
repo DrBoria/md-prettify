@@ -1,0 +1,20 @@
+{
+  "name": "md-prettify-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.8.1",
+  "scripts": {
+    "dev": "turbo dev",
+    "lint": "eslint apps/backend packages/vscode-extension packages/webstorm-extension",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "@md-code/component-uniqueness": "file:../component-uniqueness",
+    "@md-code/entities-uniqueness": "file:../entities-uniqueness",
+    "@md-code/follow-architecture": "file:../follow-architecture",
+    "@md-code/utils-uniqueness": "file:../utils-uniqueness",
+    "@md-prettify/eslint": "workspace:*",
+    "@vscode/test-electron": "^3.1.0",
+    "eslint": "^9.22.0",
+    "turbo": "^2.8.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+	"mcpServers": {
+		"devtool": {
+			"type": "stdio",
+			"command": "node",
+			"args": [
+				"C:/Users/mikita.dusmikeev/Work/chomp-2/Jabberwock/packages/vscode-extension-devtool-mcp/dist/stdio.cjs"
+			]
+		}
+	}
+}
