@@ -1,0 +1,526 @@
+# Architecture for md-prettify.
+#
+# Four entities, each in its own section, none of them mixed:
+#   aliases    — import-name → role bindings (none needed here)
+#   codeRoles  — human-readable roles inferred from ts-morph facts
+#   nodes      — the folder/file tree and what kind of code may live where
+#   invariants — cross-cutting rules expressed as queries over file/candidate facts
+#
+# Scan scope (which dirs/exts to ignore) lives in the ESLint rule options
+# (eslint.config.mjs), NOT here.
+#
+# The built-in `finally-follow-architecture` rule does the structural work:
+# every runtime candidate (function, store model, type, ...) is classified by
+# codeRoles and checked against the `kind` of the node it lives in. Anything
+# that does not fit is reported with its destination (the node whose kind or
+# location.declaration declares that role). No per-rule yaml needed for
+# "X lives in the wrong
+# file" — declare the node, and the rule finds the rest.
+
+# ── codeRoles ────────────────────────────────────────────────────────────────
+# Order matters: the first matching role wins.
+
+codeRoles:
+  # A mobx-state-tree model: `const X = t.model("X", {...})`.
+  # `scopeAccessors` declares the STRUCTURED chain roots that REACH a store
+  # through the tree. Each entry is `{ kind, segments }`, where kind is the
+  # base shape of the access chain — the chain's shape decides which kind
+  # applies, so an accessor never competes with another kind on the same
+  # chain:
+  #   call:       `getRoot(self).x`            (call with an identifier callee)
+  #   identifier: `global.x.y`, `self.root.x`  (plain identifier base;
+  #                segments = base + leading property names)
+  #   methodCall: `parent.get("n").x`          (call with a property callee)
+  - slug: storeModel
+    name: store model
+    scopeAccessors:
+      - { kind: call, segments: [getRoot] }
+      - { kind: call, segments: [getParent] }
+      - { kind: call, segments: [get] }
+      - { kind: identifier, segments: [global] }
+      - { kind: identifier, segments: [self, root] }
+      - { kind: methodCall, segments: [parent, get] }
+    infer:
+      - kind: { equals: VariableDeclaration }
+      - initializer:
+          kind: { in: [CallExpression, NewExpression] }
+          origin: { equals: "t.model" }
+
+  # An action: a plain exported function that mutates its store parameter,
+  # living in the store's `actions/` folder and imported into `store.ts`.
+  # Location decides the role — the `location` operator takes the same entry
+  # interface as `location.allowedFrom` (glob / `{node: slug}` / query) and
+  # matches the candidate's file path against the node that declares
+  # `location.declaration: [action]`.
+  - slug: action
+    name: action
+    infer:
+      - location: { node: backend-feature-actions }
+      - returns:
+          none:
+            exprKind: { equals: ObjectLiteralExpression }
+    report:
+      message: "`{what}` is an action living in `{path}` — actions live in the store's `actions/` folder."
+      fix: "Move `{what}` OUT as a plain exported function (it mutates its `state` parameter) into `{destination}` (node `{destinationSlug}`), imported into the store's `store.ts`. Do NOT move the model declaration itself, and do NOT move it into a type file."
+
+  # An orchestrator: a function that calls a pure function from the same
+  # module (e.g. `createDocumentStore` composing `createBaseDocumentStore`).
+  # Commands live in `commands/`, not in feature store files.
+  - slug: orchestrator
+    name: orchestrator
+    infer:
+      - calls:
+          some:
+            targetRole: { equals: pureFunction }
+
+  # A type declaration (interface / type alias). Types must live in a
+  # `type.ts` file — the per-feature or utils type node.
+  - slug: sharedTypes
+    name: type
+    except:
+      - apps/backend/store.ts
+      - "**/type.ts"
+    report:
+      message: "`{what}` is a type declaration living in `{path}` — types must live in a `type.ts` file."
+      fix: "Move `{what}` to `{destination}` (node `{destinationSlug}`, the feature's `type.ts`) and re-export it from there. If `{destination}` is empty in the report, the architecture declares no node for shared types — add one."
+    infer:
+      - kind: { in: [InterfaceDeclaration, TypeAliasDeclaration] }
+
+  # Anything else function-shaped: a plain utility.
+  - slug: pureFunction
+    name: pure function
+    infer:
+      - kind: { in: [FunctionDeclaration, ArrowFunction, MethodDeclaration] }
+
+# ── nodes ────────────────────────────────────────────────────────────────────
+
+nodes:
+  - slug: root
+    name: .
+    closed: true
+    children:
+      - apps
+      - examples
+      - img
+      - packages
+      - scripts
+      - .claude
+      - .idea
+      - .turbo
+      - .vscode
+      - .gitignore
+      - architecture.md
+      - architecture.yaml
+      - CHANGELOG.md
+      - eslint.config.mjs
+      - LICENSE
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - read.md
+      - README.md
+      - tsconfig.json
+      - turbo.json
+
+  - slug: apps
+    name: apps
+    parent: root
+    closed: true
+    children:
+      - backend
+
+  - slug: examples
+    name: examples
+    parent: root
+
+  - slug: packages
+    name: packages
+    parent: root
+    closed: true
+    children:
+      - vscode-extension
+      - webstorm-extension
+      - eslint
+      - tsconfig
+
+  - slug: ext
+    name: vscode-extension
+    parent: packages
+    closed: true
+    children:
+      - "{kebab-case}.ts"
+      - "*.d.ts"
+      - package.json
+      - tsconfig.json
+
+  - slug: webstorm-ext
+    name: webstorm-extension
+    parent: packages
+    closed: true
+    children:
+      - "{kebab-case}.ts"
+      - "*.d.ts"
+      - package.json
+      - tsconfig.json
+
+  # ── backend ────────────────────────────────────────────────────────────────
+
+  - slug: backend
+    name: backend
+    parent: apps
+    closed: true
+    children:
+      - index.ts
+      - host.ts
+      - store.ts
+      - commands
+      - config
+      - document
+      - grammar
+      - reparse
+      - resolve
+      - test
+      - utils
+      - package.json
+      - tsconfig.json
+
+  # The root store: the root composition only. No `kind` on the node — its
+  # types and functions are exempt from structural checks (the `sharedTypes`
+  # role's `except` covers the types; functions fit any kind-less node).
+  #
+  # `location.scopeAccess` names the sibling-store fields this node holds.
+  # `getRoot(self).<field>` / `getParent(self).<field>` chains reach those
+  # stores without an import; `location.usage.allowedFrom` governs who may
+  # reach them. Reaching a sibling store through a field is the sanctioned
+  # path — a direct import of another feature's store is not.
+  - slug: backend-root-store
+    name: store.ts
+    parent: backend
+    location:
+      scopeAccess:
+        - documents
+        - grammar
+        - reparse
+        - resolve
+        - enabled
+        - loadedGrammars
+      usage:
+        allowedFrom:
+          - "apps/backend/**/*.ts"
+
+  # Commands: orchestrators (composition entry points like `createDocumentStore`).
+  - slug: backend-commands
+    name: commands
+    parent: backend
+    location:
+      declaration:
+        - orchestrator
+    closed: true
+    children:
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  - slug: backend-config
+    name: config
+    parent: backend
+    closed: true
+    children:
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  # Per-feature folders. Each has:
+  #   store.ts   — the feature's t.model + pure helpers ONLY (actions, types,
+  #                and orchestrators do not fit here and are reported with
+  #                their destination).
+  #   type.ts    — the feature's types (sharedTypes).
+  #   actions/   — the feature's actions (location.declaration: action).
+  #   *.ts       — plain feature code (pure functions).
+  - slug: backend-document
+    name: document
+    parent: backend
+    closed: true
+    children:
+      - store.ts
+      - type.ts
+      - actions
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  - slug: backend-grammar
+    name: grammar
+    parent: backend
+    closed: true
+    children:
+      - store.ts
+      - type.ts
+      - actions
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  - slug: backend-reparse
+    name: reparse
+    parent: backend
+    closed: true
+    children:
+      - store.ts
+      - type.ts
+      - actions
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  - slug: backend-resolve
+    name: resolve
+    parent: backend
+    closed: true
+    children:
+      - store.ts
+      - type.ts
+      - actions
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  # A feature store file: data only — the t.model (t.view included) and the
+  # model's own `Instance<typeof Model>` type. Actions live in actions/,
+  # orchestrators in the feature folder's own files. Anything else is
+  # flagged by finally-follow-architecture with its destination.
+  #
+  # `sharedTypes` is in `kind` ON PURPOSE: the model's instance type belongs
+  # to the model, and the model lives here — it must NOT be moved to
+  # type.ts, and no finding may name type.ts as its destination.
+  #
+  # `location.import` — a feature store's DATA is reachable through the tree
+  # (getRoot/getParent), never through a direct import. Importers of the
+  # file itself: the root store (composition), the feature's own files
+  # (the model type), and the test folder (setup). `{kebab-case}` is bound
+  # to the store's own feature folder, so the third entry matches only
+  # sibling files of the same feature.
+  - slug: backend-feature-store
+    name: store.ts
+    parent: [backend-document, backend-grammar, backend-reparse, backend-resolve]
+    kind:
+      - storeModel
+      - sharedTypes
+    location:
+      import:
+        allowedFrom:
+          - "apps/backend/store.ts"
+          - "apps/backend/{kebab-case}/**/*.ts"
+          - "apps/backend/test/**/*.ts"
+
+  # A feature type file: types only.
+  - slug: backend-feature-type
+    name: type.ts
+    parent: [backend-document, backend-grammar, backend-reparse, backend-resolve]
+    kind:
+      - sharedTypes
+
+  # Feature actions: the declaration node of the `action` role. Only the
+  # feature's own
+  # store.ts may import from here — no other file may import or call actions
+  # directly.
+  - slug: backend-feature-actions
+    name: actions
+    parent: [backend-document, backend-grammar, backend-reparse, backend-resolve]
+    kind:
+      - action
+    location:
+      declaration:
+        - action
+      import:
+        allowedFrom:
+          - "apps/backend/{kebab-case}/store.ts"
+      usage:
+        allowedFrom:
+          - "apps/backend/{kebab-case}/store.ts"
+    closed: true
+    children:
+      - "{kebab-case}.ts"
+
+  # ── utils ──────────────────────────────────────────────────────────────────
+
+  - slug: backend-utils
+    name: utils
+    parent: backend
+    closed: true
+    children:
+      - type.ts
+      - "{kebab-case}.ts"
+      - "*.test.ts"
+
+  # The utils type file: shared host/geometry/type declarations.
+  - slug: backend-utils-type
+    name: type.ts
+    parent: backend-utils
+    kind:
+      - sharedTypes
+
+  # ── test ───────────────────────────────────────────────────────────────────
+
+  - slug: backend-test
+    name: test
+    parent: backend
+    closed: true
+    children:
+      - "{kebab-case}.test.ts"
+      - synthetic-ts-grammar.ts
+
+# ── invariants ───────────────────────────────────────────────────────────────
+# Cross-cutting rules that finally-follow-architecture cannot express:
+# behavior (mutating a state bag), file size, and code shapes.
+
+invariants:
+  # State-bag pattern: a function that mutates a parameter's properties
+  # (`state.x = ...`) OUTSIDE an actions folder. An action is a plain
+  # exported function in `<feature>/actions/` that mutates its `state`
+  # parameter — that is its job, and the `role: action` exemption (inferred
+  # by the `path: {node: backend-feature-actions}` entry) lets it through.
+  # Everything else mutating a parameter is the state-bag pattern: state
+  # must live in the store's t.model.
+  - id: state-lives-in-store
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    forbid:
+      - mutatedParams: { length: { gt: 0 } }
+        role: { not: "action" }
+        report:
+          message: "Function `{what}` mutates its parameter(s) `{mutatedParams}` (`state.x = ...`) but is not classified as an `action`. This is the state-bag pattern: a plain mutable object handed in and mutated. The data must live in the feature store's `t.model` (declaration) and `t.view` (reading) — and this behavior must live in an action, because all model updates live in actions. Never mutate a plain object passed in as a parameter."
+          fix: "The end state: the mutated state becomes fields of the feature store's `t.model` (object literal, no classes), and this function becomes an action — a plain exported function in `<feature>/actions/<kebab-case>.ts` that mutates its `state` parameter, imported into the feature's `store.ts`. Inside an action use `state` for own state and `getRoot(state)` / `getParent(state)` to reach sibling stores. Never mutate a plain object passed in as a parameter. Never put actions in the store file — the store holds data only (t.model / t.view)."
+
+  # Files must stay small enough to hold in context.
+  - id: no-oversized-files
+    where: "apps/backend/**/*.ts"
+    forbid:
+      - lines: { gt: 200 }
+        report:
+          message: "File is {lines} lines (max 200). Split it into smaller, focused modules."
+          fix: "Extract cohesive groups of functions/types into separate files following the feature-folder layout."
+
+  # The backend is functional + mobx: state in a store, behavior in plain
+  # functions. Classes are the other paradigm — they do not belong here.
+  - id: no-classes
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    forbid:
+      - descendants:
+          some:
+            kind: { equals: "ClassDeclaration" }
+        report:
+          message: "This file declares a class. The backend is functional + mobx: state lives in a store, behavior in plain functions."
+          fix: "Replace the class with a mobx store (the feature's store.ts `t.model`) for its state and plain functions for its behavior."
+
+  # A folder is a unit of navigation: more than 7 files and it stops being
+  # scannable in one screen. One finding per folder, not per file.
+  # (The test folder is exempt: tests are 1:1 with source files by design.)
+  - id: no-large-folders
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    dedupeBy: path.dir
+    forbid:
+      - path:
+          filesPerFolder: { gt: 7 }
+        report:
+          message: "Folder `{dir}` holds {filesPerFolder} files — the limit is 7. A folder this large is not scannable."
+          fix: "Split it into feature subfolders (one concern per folder, each under the limit)."
+
+  # A named function with an empty body either must do something or not
+  # exist. Anonymous inline callbacks (.map((x) => …)) are exempt — they
+  # have no name and are arguments, not declarations.
+  - id: no-empty-functions
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    forbid:
+      - emptyBody: { equals: true }
+        name: { isSet: true }
+        report:
+          message: "`{what}` has an empty body. It either must do something or not exist."
+          fix: "Implement it, or delete it and its call sites."
+
+  # A function that accumulates more than one local collection (array,
+  # object, Map/Set) is doing the work of several functions at once: each
+  # collection is a separate piece of state, i.e. a separate concern.
+  # (Collections initialized from a parameter are not local state.)
+  - id: no-mixed-responsibilities
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    forbid:
+      - declarations:
+          where:
+            filter:
+              isCollectionType: { equals: true }
+              initializerIsParam: { equals: false }
+            by:
+              length: { gt: 1 }
+        report:
+          message: "`{what}` declares multiple local collections (limit 1) — it is accumulating several independent pieces of state, i.e. doing several things at once."
+          fix: "Split it: each collection belongs to its own module-scope function; the original becomes a thin orchestrator that passes state between them."
+
+  # Module-level mutable state is a global: it outlives any feature and is
+  # reachable from anywhere. State belongs in the feature's mobx store.
+  - id: no-global-state
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/test/**"
+    forbid:
+      - candidates:
+          some:
+            kind: { equals: VariableDeclaration }
+            moduleScope: { equals: true }
+            mutable: { equals: true }
+        report:
+          message: "This file has module-level `let`/`var` state. Module-level mutable state is a global: it is reachable from anywhere and outlives any feature."
+          fix: "Move the state into the feature's mobx store (the feature's store.ts `t.model`) and have the module read it from there."
+      # A module-level collection (`const cache = new Map()`) is the same
+      # global, just immutable in name — it still outlives any feature.
+      - candidates:
+          some:
+            kind: { equals: VariableDeclaration }
+            moduleScope: { equals: true }
+            initializer:
+              origin: { in: ["Map", "Set"] }
+        report:
+          message: "This file has a module-level `Map`/`Set`. A module-level collection is a global: it is reachable from anywhere and outlives any feature."
+          fix: "Move the collection into the feature's mobx store (the feature's store.ts `t.model`) and have the module read it from there."
+
+  # A store is declared exactly once, in place: the `t.model` object literal
+  # in the store file. A function that RETURNS the store's `.create(...)` is a
+  # factory — it can create the same store twice, and a second creation site
+  # is a second source of truth. The only sanctioned creation is the root
+  # store, which composes the tree. Generic: the return's origin must contain
+  # the candidate's own name followed by `.create` (`$name` is a query ref),
+  # so any `X` / `X.create(...)` pair matches — no framework names.
+  - id: no-store-factory
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/store.ts"
+      - "apps/backend/test/**"
+    forbid:
+      - candidates:
+          some:
+            name: { globMatches: "create*Store" }
+        report:
+          message: "`{what}` is a store factory. A store is declared exactly once, in place, as a `t.model` (the `storeModel` role); a factory can create it twice and a second creation is a second source of truth."
+          fix: "Delete the factory. The store's `t.model` is already declared in its feature's store.ts (object literal, no factory) and composed in the root store (apps/backend/store.ts). Reaching the store from elsewhere goes through the tree (getRoot/getParent), never through importing and calling a creator."
+
+  # A re-export (`export ... from "..."`) re-publishes another module's
+  # symbols, so the import graph no longer shows where a symbol is actually
+  # used — it hides the real edge behind an indirection. The `exports` fact
+  # records `from` (the resolved source) only for re-exports, so forbidding
+  # any export with a set `from` bans them all: named, namespace and star.
+  # Generic: no module names, no symbol names — the fact is structural.
+  - id: no-re-exports
+    where: "apps/backend/**/*.ts"
+    except:
+      - "apps/backend/store.ts"
+      - "apps/backend/test/**"
+    forbid:
+      - exports:
+          some:
+            from: { isSet: true }
+        report:
+          message: "This file re-exports symbols from another module. A re-export hides the real import edge, so the graph no longer shows where a symbol is actually used."
+          fix: "Delete the `export ... from` statement. Import the symbol directly from its defining module where it is used. Actions are imported from the feature's `actions/` folder, not re-exported through the store."

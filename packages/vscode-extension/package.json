@@ -1,0 +1,27 @@
+{
+  "name": "@md-prettify/vscode-extension",
+  "version": "1.0.0",
+  "description": "VS Code adapter for md-prettify — thin IDE layer over the IDE-agnostic backend.",
+  "main": "./out/packages/vscode-extension/activate.js",
+  "types": "./out/packages/vscode-extension/activate.d.ts",
+  "files": [
+    "out"
+  ],
+  "scripts": {
+    "build": "tsc -p ./",
+    "compile": "tsc -p ./",
+    "check:types": "tsc --noEmit",
+    "test": "tsc -p ./ && node -e \"const M=require('mocha');const m=new M({ui:'tdd',timeout:30000});m.addFile('out/apps/backend/test/extension-host-adapter.test.js');m.addFile('out/apps/backend/test/extension-grammar-discovery.test.js');m.addFile('out/apps/backend/test/extension-activation.test.js');m.addFile('out/apps/backend/test/extension-api-message-flow.test.js');m.run((f)=>process.exit(f||0))\""
+  },
+  "dependencies": {
+    "mobx": "^7.0.6",
+    "mobx-state-tree": "^8.0.0",
+    "vscode-extension-devtool-mcp": "file:../../../Jabberwock/packages/vscode-extension-devtool-mcp"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "mocha": "^3.1.1",
+    "typescript": "^5.5.0",
+    "@md-prettify/tsconfig": "workspace:*"
+  }
+}

@@ -1,0 +1,21 @@
+{
+	"name": "@md-prettify/eslint",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Shared ESLint flat config for md-prettify",
+	"exports": {
+		"./base": "./base.js",
+		"./backend": "./backend.js"
+	},
+	"files": [
+		"base.js",
+		"backend.js"
+	],
+	"devDependencies": {
+		"@eslint/js": "^9.9.1",
+		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/parser": "^7.18.0",
+		"eslint": "^9.22.0",
+		"globals": "^15.9.0"
+	}
+}
