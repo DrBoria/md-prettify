@@ -3,7 +3,7 @@
     "displayName": "MD Prettify",
     "description": "Displays identifiers & symbols using more aesthetically pleasing symbols.",
     "version": "0.0.1",
-    "publisher": "DrBoria",
+    "publisher": "drboria",
     "license": "MIT license (MIT)",
     "engines": {
         "vscode": "^1.20.0"
@@ -395,11 +395,11 @@
         "vscode": "^1.0.3"
     },
     "bugs": {
-        "url": "https://github.com/DrBoria/md-prettify/issues"
+        "url": "https://github.com/drboria/md-prettify/issues"
     },
-    "homepage": "https://github.com/DrBoria/md-prettify/README.md",
+    "homepage": "https://github.com/drboria/md-prettify/README.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/DrBoria/md-prettify.git"
+        "url": "https://github.com/drboria/md-prettify.git"
     }
 }

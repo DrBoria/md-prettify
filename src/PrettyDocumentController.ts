@@ -58,6 +58,17 @@ export class PrettyDocumentController implements vscode.Disposable {
     textMateGrammar?: tm.IGrammar | null; 
     outputChannel: vscode.OutputChannel;
   }) {
+    // Skip initialization for the prettify debug output channel
+    if (doc.fileName.includes('.md-prettify')) {
+      this.document = doc; // Keep reference for dispose logic if needed
+      this.prettyModel = null;
+      this.adjustCursorMovement = false;
+      this.debug = options.debug;
+      this.outputChannel = options.outputChannel;
+      console.log(`Skipping PrettyDocumentController initialization for debug channel: ${doc.fileName}`);
+      return;
+    }
+
     this.document = doc;
     this.adjustCursorMovement = settings.adjustCursorMovement ?? false;
     this.debug = options.debug;

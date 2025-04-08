@@ -90,7 +90,7 @@
       "style": {
         "color": "#da70d1",
         "hackCSS": "font-weight: 600;"
-      },
+      }
     },
     {
       "ugly": "\\}\\s*catch\\s*(\\(.*?\\))\\s*\\{",
@@ -98,7 +98,7 @@
       "style": {
         "color": "#da70d1",
         "hackCSS": "font-weight: 600;"
-      },
+      }
     },
     {
       "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
@@ -109,9 +109,7 @@
       },
       "scope": [
         "source.ts",
-        "source.tsx",
-        "!meta.function.ts",
-        "!meta.function.tsx"
+        "source.tsx"
       ]
     },
     {

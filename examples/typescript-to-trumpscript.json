@@ -1,0 +1,295 @@
+{
+  "language": [
+    "typescriptreact",
+    "typescript"
+  ],
+  "substitutions": [
+    // BOOLEAN
+    {
+      "ugly": "true",
+      "pretty": "fact",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "constant.language.boolean.true.ts",
+        "constant.language.boolean.true.tsx"
+      ]
+    },
+    {
+      "ugly": "false",
+      "pretty": "lie",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "constant.language.boolean.false.ts",
+        "constant.language.boolean.false.tsx"
+      ]
+    },
+    // LOG
+    {
+      "ugly": "console\\.log\\((.*?)\\)",
+      "pretty": "say \"$1\"",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    },
+    // OPERATORS
+    {
+      "ugly": "\\+",
+      "pretty": "plus",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.arithmetic.ts",
+        "keyword.operator.arithmetic.tsx"
+      ]
+    },
+    {
+      "ugly": "-",
+      "pretty": "minus",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.arithmetic.ts",
+        "keyword.operator.arithmetic.tsx"
+      ]
+    },
+    {
+      "ugly": "\\*",
+      "pretty": "times",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.arithmetic.ts",
+        "keyword.operator.arithmetic.tsx"
+      ]
+    },
+    {
+      "ugly": "/",
+      "pretty": "over",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.arithmetic.ts",
+        "keyword.operator.arithmetic.tsx"
+      ]
+    },
+    {
+      "ugly": "=",
+      "pretty": "now is",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.assignment.ts",
+        "keyword.operator.assignment.tsx"
+      ]
+    },
+    {
+      "ugly": "(&&)",
+      "pretty": "and",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    },
+    {
+      "ugly": "(\\|\\|)",
+      "pretty": "or",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    },
+    {
+      "ugly": "!",
+      "pretty": "not ",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.logical.ts",
+        "keyword.operator.logical.tsx"
+      ]
+    },
+    {
+      "ugly": ">",
+      "pretty": "is greater than",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.relational.ts",
+        "keyword.operator.relational.tsx"
+      ]
+    },
+    {
+      "ugly": "<",
+      "pretty": "is less than",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.relational.ts",
+        "keyword.operator.relational.tsx"
+      ]
+    },
+    {
+      "ugly": "==",
+      "pretty": "is",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.comparison.ts",
+        "keyword.operator.comparison.tsx"
+      ]
+    },
+    {
+      "ugly": "===",
+      "pretty": "definitely is",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.comparison.ts",
+        "keyword.operator.comparison.tsx"
+      ]
+    },
+    {
+      "ugly": "!==",
+      "pretty": "is not",
+      "style": {
+        "color": "#FF0000",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "keyword.operator.comparison.ts",
+        "keyword.operator.comparison.tsx"
+      ]
+    },
+    // CONDITIONS
+    {
+      "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "if $1:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx",
+      ]
+    },
+    {
+      "ugly": "\\}\\s*else\\s*\\{",
+      "pretty": "else:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      }
+    },
+    {
+      "ugly": "\\}\\s*else\\s*if\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "elif $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      }
+    },
+    // NUMBERS
+    {
+      "ugly": "\\d+",
+      "pretty": "$0,000,000",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "constant.numeric.decimal.ts",
+        "constant.numeric.decimal.tsx"
+      ]
+    },
+    // FUNCTIONS
+    {
+      "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "fun $1$2:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "meta.function.ts",
+        "meta.function.tsx"
+      ]
+    },
+    // PARENTHESIS
+    {
+      "ugly": "}\\w*$",
+      "pretty": " ",
+      "scope": [
+        "meta.block.ts",
+        "meta.block.tsx"
+      ]
+    },
+    {
+      "ugly": ",",
+      "pretty": " ",
+      "scope": [
+        "punctuation.separator.comma.tsx",
+      ]
+    },
+    {
+      "ugly": ";$",
+      "pretty": " ",
+      "scope": [
+        "punctuation.terminator.statement.ts",
+        "punctuation.terminator.statement.tsx"
+      ]
+    },
+    // WHILE LOOP
+    {
+      "ugly": "while\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "as long as $1:",
+      "style": {
+        "color": "#da70d1",
+        "hackCSS": "font-weight: 600;"
+      },
+      "scope": [
+        "source.ts",
+        "source.tsx"
+      ]
+    }
+  ]
+}

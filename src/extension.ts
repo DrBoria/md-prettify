@@ -105,7 +105,7 @@ const grammarLocator = {
 }
 
 /** initialize everything; main entry point */
-export function activate(context: vscode.ExtensionContext): void {
+export function activate(context: vscode.ExtensionContext): api.mdPrettify {
   // Create output channel
   outputChannel = vscode.window.createOutputChannel("MD Prettify Debug"); // Re-add output channel creation
   context.subscriptions.push(outputChannel); // Re-add output channel to subscriptions
@@ -117,7 +117,7 @@ export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(vscode.commands.registerCommand(commandId, run));
   }
 
-  registerTextEditorCommand('mdPrettify.copyWithSubstitutions', copyWithSubstitutions);
+  // registerTextEditorCommand('mdPrettify.copyWithSubstitutions', copyWithSubstitutions);
   registerCommand('mdPrettify.disablePrettySymbols', disablePrettySymbols);
   registerCommand('mdPrettify.enablePrettySymbols', enablePrettySymbols);
   registerCommand('mdPrettify.togglePrettySymbols', (editor: vscode.TextEditor) => {
@@ -142,31 +142,31 @@ export function activate(context: vscode.ExtensionContext): void {
 
   reloadConfiguration();
 
-  // const result: api.mdPrettify = {
-  //   onDidEnabledChange: function (handler: (enabled: boolean) => void): vscode.Disposable {
-  //     onEnabledChangeHandlers.add(handler);
-  //     return {
-  //       dispose() {
-  //         onEnabledChangeHandlers.delete(handler);
-  //       }
-  //     }
-  //   },
-  //   isEnabled: function (): boolean {
-  //     return prettySymbolsEnabled;
-  //   },
-  //   registerSubstitutions: function (substitutions: api.LanguageEntry): vscode.Disposable {
-  //     additionalSubstitutions.add(substitutions);
-  //     // TODO: this could be smart about not unloading & reloading everything 
-  //     reloadConfiguration();
-  //     return {
-  //       dispose() {
-  //         additionalSubstitutions.delete(substitutions);
-  //       }
-  //     }
-  //   }
-  // };
+  const result: api.mdPrettify = {
+    onDidEnabledChange: function (handler: (enabled: boolean) => void): vscode.Disposable {
+      onEnabledChangeHandlers.add(handler);
+      return {
+        dispose() {
+          onEnabledChangeHandlers.delete(handler);
+        }
+      }
+    },
+    isEnabled: function (): boolean {
+      return prettySymbolsEnabled;
+    },
+    registerSubstitutions: function (substitutions: api.LanguageEntry): vscode.Disposable {
+      additionalSubstitutions.add(substitutions);
+      // TODO: this could be smart about not unloading & reloading everything 
+      reloadConfiguration();
+      return {
+        dispose() {
+          additionalSubstitutions.delete(substitutions);
+        }
+      }
+    }
+  };
 
-  // return result;
+  return result;
 }
 
 function copyWithSubstitutions(editor: vscode.TextEditor) {
