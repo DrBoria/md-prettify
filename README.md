@@ -68,16 +68,12 @@ The following commands are available for keybinding:
 "mdPrettify.adjustCursorMovement": true,
 ```
 
-## Known issues:
-
-* You can write bad regular expressions that break substitutions and you will not get an error message.
-* The substitutions sometimes get into an inconsistent state when editing. To resolve, reenable md-prettify -- this will cause the whole document to be reparsed.
-
 ## Configuration Examples
 
 Explore pre-configured substitution settings for various languages in the [examples/](./examples) directory:
 
-*   **[TypeScript/React](./examples/typescript-react.json):** Example substitutions tailored for TypeScript and React development, including common symbols and JSX elements.
+*   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like Python language.
+*   **[TypeScript looks like TrumpScript](./examples/typescript-as-python.json):** Example substitutions for TypeScript to make it look like TrumpScript language.
 
 Feel free to contribute your own configurations for other languages!
 

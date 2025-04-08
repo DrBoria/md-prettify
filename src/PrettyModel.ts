@@ -546,106 +546,145 @@ export class PrettyModel implements vscode.Disposable {
         if (part === '') continue;
 
         const isDynamicPlaceholder = part.match(/^\$(\d+)$/);
-        let partOriginalText = '';
-        let partOriginalLength = 0;
+        let partOriginalText = ''; // Text from original match this part corresponds to
+        let partOriginalLength = 0; // Length from original match this part corresponds to
 
         if (isDynamicPlaceholder) {
-            // Placeholder like $1, $2
+            // Placeholder like $0, $1, $2
             const paramIndex = parseInt(isDynamicPlaceholder[1], 10);
+
             if (paramIndex < match.length && match[paramIndex] !== undefined) {
                 partOriginalText = match[paramIndex];
                 // Find the *actual* index of this group instance in the original string
                 // starting from currentOriginalIndex to handle repeated captures correctly.
                 const groupStartIndex = originalMatchText.indexOf(partOriginalText, currentOriginalIndex);
+
                 if (groupStartIndex !== -1) {
                      partOriginalLength = partOriginalText.length;
                      // Advance currentOriginalIndex past this group instance
                      currentOriginalIndex = groupStartIndex + partOriginalLength;
+
+                     // Add debug logging for dynamic part (successful match)
+                     if (this.debug && this.outputChannel) {
+                        this.outputChannel.appendLine(`Part '${part}' corresponds to original substring '${partOriginalText}' [${groupStartIndex}-${currentOriginalIndex}]`);
+                    }
                  } else {
                      // Group not found (e.g., optional group that didn't match this time)
-                     partOriginalLength = 0;
+                     partOriginalLength = 0; // Represents no original text segment
+                     // currentOriginalIndex remains unchanged
+                      if (this.debug && this.outputChannel) {
+                         this.outputChannel.appendLine(`Part '${part}' (group ${paramIndex}) did not find corresponding text starting from index ${currentOriginalIndex}. Original text: "${partOriginalText}"`);
+                    }
                  }
-
             } else {
-                // Invalid placeholder index
-                partOriginalLength = 0;
+                // Invalid placeholder index or group didn't capture anything (undefined)
+                partOriginalLength = 0; // Represents no original text segment
+                 if (this.debug && this.outputChannel) {
+                    this.outputChannel.appendLine(`Part '${part}' maps to invalid/unmatched group (Index ${paramIndex})`);
+                }
             }
 
-            // No decoration for the placeholder itself, just advance absolute position
+            // If it was $0, we only advance position, no decoration for $0 itself.
+            // For $1, $2 etc., we also just advance position here. Decorations are handled for static parts.
             currentAbsolutePos += partOriginalLength;
-            continue; // Move to the next part
+            continue; // Move to the next part (whether $0 or $1, $2...)
 
         } else {
             // Static part of the pretty string
+            const startPos = currentAbsolutePos; // Range for this static part starts here
+
             // Determine the segment of the original text this static part corresponds to.
-            // It's the text between the end of the previous part (placeholder or static)
-            // and the start of the next placeholder part.
+            // It's the text between the end of the previous placeholder match
+            // and the start of the next placeholder match.
 
-            let nextPlaceholderOriginalStart = originalMatchText.length; // Default to end of match
+            // Check if the PREVIOUS part processed was $0
+            const previousPart = i > 0 ? prettyParts[i - 1] : null;
+            const previousPartWasDollarZero = previousPart === '$0';
 
-            // Find the next placeholder in prettyParts
-            for (let j = i + 1; j < prettyParts.length; j++) {
-                const nextPart = prettyParts[j];
-                const nextPlaceholderMatch = nextPart.match(/^\$(\d+)$/);
-                if (nextPlaceholderMatch) {
-                    const nextParamIndex = parseInt(nextPlaceholderMatch[1], 10);
-                    if (nextParamIndex < match.length && match[nextParamIndex] !== undefined) {
-                        const nextGroupText = match[nextParamIndex];
-                        // Find the start index of this *next* group instance in the original string,
-                        // searching from the *current* original index.
-                        const nextGroupStartIndex = originalMatchText.indexOf(nextGroupText, currentOriginalIndex);
-                        if (nextGroupStartIndex !== -1) {
-                            nextPlaceholderOriginalStart = nextGroupStartIndex;
-                            break; // Found the start of the next placeholder's text
-                        }
-                        // If not found (optional group didn't match?), keep searching subsequent placeholders.
+            if (previousPartWasDollarZero) {
+                // If preceded by $0, this static part corresponds to a zero-length
+                // segment *after* the full match in the original text.
+                partOriginalLength = 0;
+            } else {
+                // Original logic needs refinement: Find the start of the *next* placeholder's
+                // corresponding text in the original string.
+                let nextPlaceholderOriginalStart = originalMatchText.length; // Default to end of full match
+
+                // Find the next placeholder in prettyParts *after* the current static part
+                for (let j = i + 1; j < prettyParts.length; j++) {
+                    const nextPart = prettyParts[j];
+                    const nextPlaceholderMatch = nextPart.match(/^\$(\d+)$/);
+                    if (nextPlaceholderMatch) {
+                        const nextParamIndex = parseInt(nextPlaceholderMatch[1], 10);
+                        // Get the text of the next matched group ($0, $1, $2...)
+                        let nextGroupText: string | undefined = undefined;
+                         if (nextParamIndex < match.length && match[nextParamIndex] !== undefined) {
+                             nextGroupText = match[nextParamIndex];
+                         }
+
+                         if (nextGroupText !== undefined) {
+                             // Find where this *next* group's text starts in the original string,
+                             // searching from the current original index.
+                             const nextGroupStartIndex = originalMatchText.indexOf(nextGroupText, currentOriginalIndex);
+                             if (nextGroupStartIndex !== -1) {
+                                 nextPlaceholderOriginalStart = nextGroupStartIndex;
+                                 break; // Found the start of the next relevant original segment
+                             }
+                             // If next group text not found (e.g. optional group not matched),
+                             // continue searching subsequent placeholders in prettyParts.
+                         }
+                        // If placeholder index is invalid or group didn't match, continue search
                     }
-                    // If placeholder index is invalid or group didn't match, continue searching
                 }
+
+                // The original text corresponding to the static part is between
+                // currentOriginalIndex and the start of the next placeholder's text.
+                partOriginalLength = nextPlaceholderOriginalStart - currentOriginalIndex;
+                partOriginalLength = Math.max(0, partOriginalLength); // Ensure not negative
             }
 
-            partOriginalLength = nextPlaceholderOriginalStart - currentOriginalIndex;
-            partOriginalText = originalMatchText.substring(currentOriginalIndex, currentOriginalIndex + partOriginalLength);
-
-            // Ensure length is not negative
-             partOriginalLength = Math.max(0, partOriginalLength);
-
-             // Create range for the original text segment being replaced/styled
-             const startPos = currentAbsolutePos;
-             const endPos = currentAbsolutePos + partOriginalLength;
+            // Create range for the original text segment being replaced/styled by this static part
+             partOriginalText = originalMatchText.substring(currentOriginalIndex, currentOriginalIndex + partOriginalLength);
+             const endPos = startPos + partOriginalLength; // End position based on original length
              const uglyRange = new vscode.Range(lineIdx, startPos, lineIdx, endPos);
 
-            // Only create decorations for non-empty static parts if range is valid
-            if (part && !uglyRange.isEmpty) {
-                // Use cache for the decoration of this specific part
-                const dynamicPartParams = {
-                    ugly: configData.ugly, // Keep original regex for key context? Or empty?
-                    pretty: part, // Key based on the static part
-                    scope: configData.scope,
-                    style: configData.style,
-                };
-                const key = this.getDecorationCacheKey(dynamicPartParams);
-                let cacheEntry = this.decorationCache.get(key);
-
-                if (!cacheEntry) {
-                    const newDecoration = decorations.makePrettyDecoration_letterSpacing_hack({
-                        ugly: '', // Ugly representation isn't really applicable here
-                        pretty: part,
-                        scope: configData.scope,
-                        style: configData.style,
-                    });
-                    cacheEntry = { decorationType: newDecoration, ranges: new Set(), pretty: part };
-                    this.decorationCache.set(key, cacheEntry);
-                }
-
-                // Add using the overlap handling logic
-                this.addOrUpdatePrettyRange(uglyRange, key);
+             // Add debug logging for static part
+             if (this.debug && this.outputChannel) {
+                 this.outputChannel.appendLine(`Static Part '${part}' corresponds to original substring '${partOriginalText}' [${currentOriginalIndex}-${currentOriginalIndex + partOriginalLength}] -> Range [${startPos}-${endPos}]`);
             }
 
-            // Update positions for the next iteration
-             currentAbsolutePos = endPos;
-             currentOriginalIndex += partOriginalLength; // Advance past the static part's original text
-        }
+             // Create decorations for non-empty static parts, mapped to the calculated uglyRange
+             // (which might be zero-width if partOriginalLength is 0).
+             if (part) {
+                 // Use cache for the decoration of this specific static part
+                 const dynamicPartParams = {
+                     ugly: configData.ugly, // Keep original regex for key context
+                     pretty: part, // Key based on the static part
+                     scope: configData.scope,
+                     style: configData.style,
+                 };
+                 const key = this.getDecorationCacheKey(dynamicPartParams);
+                 let cacheEntry = this.decorationCache.get(key);
+
+                 if (!cacheEntry) {
+                     const newDecoration = decorations.makePrettyDecoration_letterSpacing_hack({
+                         ugly: partOriginalText, // Pass the original text segment for context if needed by decoration function
+                         pretty: part,
+                         scope: configData.scope,
+                         style: configData.style,
+                     });
+                     cacheEntry = { decorationType: newDecoration, ranges: new Set(), pretty: part };
+                     this.decorationCache.set(key, cacheEntry);
+                 }
+
+                 // Add the calculated uglyRange using the overlap handling logic
+                 this.addOrUpdatePrettyRange(uglyRange, key);
+             }
+
+             // Update positions for the next iteration
+              currentAbsolutePos += partOriginalLength; // Advance absolute position by the length of the *original* text this static part covers
+              currentOriginalIndex += partOriginalLength; // Advance original index past the consumed segment
+         }
     }
   }
 
