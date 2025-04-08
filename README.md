@@ -81,5 +81,10 @@ Explore pre-configured substitution settings for various languages in the [examp
 
 Feel free to contribute your own configurations for other languages!
 
-Buy Me A Coffee
+## Support Me:
+
+If you find this extension useful, please consider donating to support its development:
+
 <a href="https://www.buymeacoffee.com/miki_du" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+<a href="https://etherscan.io/address/0x1A3471C0Fa1b8512b5423d3Bd715560639AF04Ea" target="_blank"><img src="img/eth.png" alt="Donate with Ethereum" style="height: 75px !important;width: 217px !important;" ></a>
