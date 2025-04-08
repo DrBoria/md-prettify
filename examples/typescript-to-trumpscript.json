@@ -93,7 +93,7 @@
     },
     {
       "ugly": "=",
-      "pretty": "now is",
+      "pretty": "is now",
       "style": {
         "color": "#FF0000",
         "hackCSS": "font-weight: 600;"

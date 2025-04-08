@@ -135,13 +135,6 @@
         "meta.block.ts",
         "meta.block.tsx"
       ]
-    },
-    {
-      "ugly": ",",
-      "pretty": " ",
-      "scope": [
-        "punctuation.separator.comma.tsx"
-      ]
     }
   ]
 }
