@@ -1,10 +1,11 @@
 {
     "name": "md-prettify",
     "displayName": "MD Prettify",
-    "description": "Displays identifiers & symbols using more aesthetically pleasing symbols.",
+    "description": "Turn Your Crappy Code into a Daily Delight",
     "version": "0.0.1",
     "publisher": "drboria",
     "license": "MIT license (MIT)",
+    "icon": "examples/logo.jpg",
     "engines": {
         "vscode": "^1.20.0"
     },
