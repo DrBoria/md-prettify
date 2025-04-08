@@ -3,6 +3,7 @@
 Sick of staring at the steaming pile of garbage that is your "favorite" project's code? 
 Can’t get your team to agree on whether to use !! or Boolean()? 
 Tired of endless arguments over code style? 
+
 Say hello to MD Prettify—the extension that slaps a shiny new coat of paint on your source code without ever touching the actual mess underneath! 🎨✨
 
 [Download MD Prettify](https://marketplace.visualstudio.com/items?itemName=drboria.md-prettify)
