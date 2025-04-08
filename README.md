@@ -68,17 +68,6 @@ The following commands are available for keybinding:
 "mdPrettify.adjustCursorMovement": true,
 ```
 
-## Variable-width symbols driving you crazy?
-
-Check out [*Monospacifier*](https://github.com/cpitclaudel/monospacifier) to fix your fonts!
-
-![example fix for variable-width fonts](https://github.com/cpitclaudel/monospacifier/blob/master/demo/symbola-loop.gif?raw=true)
-
-**Quick start example:** if your editor font is Consolas, download and install the [XITS Math fallback font for Consolas](https://github.com/cpitclaudel/monospacifier/blob/master/fonts/XITSMath_monospacified_for_Consolas.ttf?raw=true), then add the following to `settings.json`:
-```json
-  "editor.fontFamily": "Consolas, 'XITS Math monospacified for Consolas', 'Courier New', monospace"
-```
-
 ## Known issues:
 
 * You can write bad regular expressions that break substitutions and you will not get an error message.
@@ -92,13 +81,5 @@ Explore pre-configured substitution settings for various languages in the [examp
 
 Feel free to contribute your own configurations for other languages!
 
-## Extension API
-Usage:
-```typescript
-const psmExports = psm.activate()
-    .then(() => {
-        context.subscriptions.push(psm.exports.onDidEnabledChange(enabled:boolean => {
-            console.log("md-prettify is changed to: ' + enabled ? 'enabled' : 'disabled');
-        }));
-    })
-```
+Buy Me A Coffee
+<a href="https://www.buymeacoffee.com/miki_du" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
