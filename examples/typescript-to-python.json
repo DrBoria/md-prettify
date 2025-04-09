@@ -8,7 +8,7 @@
       "ugly": "(&&)",
       "pretty": "AND",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -20,7 +20,7 @@
       "ugly": "(\\|\\|)",
       "pretty": "OR",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -32,7 +32,7 @@
       "ugly": "(\\(.*?\\))\\s*=>\\s*\\{",
       "pretty": "fun $1:",
       "style": {
-        "color": "#da70d1",
+        "color": "#4d9aa5",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -44,7 +44,7 @@
       "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "fun $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#4d9aa5",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -56,7 +56,7 @@
       "ugly": "\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
       "pretty": " fun $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#4d9aa5",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -76,7 +76,7 @@
       "ugly": "switch\\s+\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "switch $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -88,7 +88,7 @@
       "ugly": "try\\s*\\{",
       "pretty": "TRY:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       }
     },
@@ -96,7 +96,7 @@
       "ugly": "\\}\\s*catch\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "CATCH $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       }
     },
@@ -104,7 +104,7 @@
       "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "if $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -116,7 +116,7 @@
       "ugly": "\\}\\s*else\\s*\\{",
       "pretty": "else:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       }
     },
@@ -124,7 +124,7 @@
       "ugly": "\\}\\s*else\\s*if\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "elif $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       }
     },
