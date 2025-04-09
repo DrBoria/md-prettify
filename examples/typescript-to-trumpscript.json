@@ -47,7 +47,7 @@
       "ugly": "\\+",
       "pretty": "plus",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -59,7 +59,7 @@
       "ugly": "-",
       "pretty": "minus",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -71,7 +71,7 @@
       "ugly": "\\*",
       "pretty": "times",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -83,7 +83,7 @@
       "ugly": "/",
       "pretty": "over",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -95,7 +95,7 @@
       "ugly": "=",
       "pretty": "is now",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -107,7 +107,7 @@
       "ugly": "(&&)",
       "pretty": "and",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -119,7 +119,7 @@
       "ugly": "(\\|\\|)",
       "pretty": "or",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -131,7 +131,7 @@
       "ugly": "!",
       "pretty": "not ",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -143,7 +143,7 @@
       "ugly": ">",
       "pretty": "is greater than",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -155,7 +155,7 @@
       "ugly": "<",
       "pretty": "is less than",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -167,7 +167,7 @@
       "ugly": "==",
       "pretty": "is",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -179,7 +179,7 @@
       "ugly": "===",
       "pretty": "definitely is",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -191,7 +191,7 @@
       "ugly": "!==",
       "pretty": "is not",
       "style": {
-        "color": "#FF0000",
+        "color": "#d96a73",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -233,7 +233,7 @@
       "ugly": "\\d+",
       "pretty": "$0,000,000",
       "style": {
-        "color": "#da70d1",
+        "color": "#c678dd",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
@@ -246,7 +246,7 @@
       "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "fun $1$2:",
       "style": {
-        "color": "#da70d1",
+        "color": "#4d9aa5",
         "hackCSS": "font-weight: 600;"
       },
       "scope": [
