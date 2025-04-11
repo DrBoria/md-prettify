@@ -1,0 +1,2769 @@
+{
+  "language": [
+    "typescriptreact",
+    "typescript"
+  ],
+  "substitutions": [
+    // Ключевые слова (Keywords)
+    {
+      "ugly": "\\bbreak\\b",
+      "pretty": "харэ",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bcase\\b",
+      "pretty": "лещ",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bcatch\\b",
+      "pretty": "гоп",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bcontinue\\b",
+      "pretty": "двигай",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bdebugger\\b",
+      "pretty": "логопед",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bdelete\\b",
+      "pretty": "ёбнуть",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bdo\\b",
+      "pretty": "крч",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\belse\\b",
+      "pretty": "иливжопураз",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfinally\\b",
+      "pretty": "тюряжка",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfor\\b",
+      "pretty": "го",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfunction\\b",
+      "pretty": "йопта",
+      "scope": ["meta.function.ts", "meta.function.tsx"],
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfunction\\*\\b",
+      "pretty": "пиздюли",
+      "scope": ["meta.function.ts", "meta.function.tsx"],
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bif\\b",
+      "pretty": "вилкойвглаз",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bin\\b",
+      "pretty": "чоунастут",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bdefault\\b",
+      "pretty": "пахану",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\binstanceof\\b",
+      "pretty": "шкура",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bnew\\b",
+      "pretty": "гыйбать",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\breturn\\b",
+      "pretty": "отвечаю",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\byield\\b",
+      "pretty": "поебалу",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\byield\\*\\b",
+      "pretty": "поебалуна",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bswitch\\b",
+      "pretty": "естьчо",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bthis\\b",
+      "pretty": "тырыпыры",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bthrow\\b",
+      "pretty": "пнх",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\btry\\b",
+      "pretty": "хапнуть",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\btypeof\\b",
+      "pretty": "чезажижан",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bvar\\b",
+      "pretty": "гыы",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\blet\\b",
+      "pretty": "участковый",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bvoid\\b",
+      "pretty": "куку",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bwhile\\b",
+      "pretty": "потрещим",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bwith\\b",
+      "pretty": "хзйопт",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\babstract\\b",
+      "pretty": "говнойбать",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bboolean\\b",
+      "pretty": "пацан",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bbyte\\b",
+      "pretty": "семка",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bchar\\b",
+      "pretty": "эээ",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bclass\\b",
+      "pretty": "клёво",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bconst\\b",
+      "pretty": "ясенХуй",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bdouble\\b",
+      "pretty": "двойные",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\benum\\b",
+      "pretty": "еээ",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bextends\\b",
+      "pretty": "батя",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfinal\\b",
+      "pretty": "бачок",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bfloat\\b",
+      "pretty": "плавник",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bgoto\\b",
+      "pretty": "пиздуй",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bimplements\\b",
+      "pretty": "силикон",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bimport\\b",
+      "pretty": "спиздить",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bint\\b",
+      "pretty": "хуйня",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\binterface\\b",
+      "pretty": "хуёво",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\blong\\b",
+      "pretty": "колонна",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bnative\\b",
+      "pretty": "чорт",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bpackage\\b",
+      "pretty": "клеёнка",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bprivate\\b",
+      "pretty": "мой",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bprotected\\b",
+      "pretty": "подкрыша",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bpublic\\b",
+      "pretty": "ебанное",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bshort\\b",
+      "pretty": "пипин",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bstatic\\b",
+      "pretty": "попонятия",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bsuper\\b",
+      "pretty": "яга",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bsynchronized\\b",
+      "pretty": "вписон",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bthrows\\b",
+      "pretty": "плюнуть",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\btransient\\b",
+      "pretty": "ахз",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bvolatile\\b",
+      "pretty": "вписос",
+      "style": { "color": "#56b6c2" }
+    },
+    // Значения (Values)
+    {
+      "ugly": "\\bnull\\b",
+      "pretty": "нуллио",
+      "scope": ["constant.language.null.ts", "constant.language.null.tsx"],
+      "style": { "color": "#569CD6" }
+    },
+    {
+      "ugly": "\\bNaN\\b",
+      "pretty": "нихуя",
+      "style": { "color": "#569CD6" }
+    },
+    {
+      "ugly": "\\bundefined\\b",
+      "pretty": "неибу",
+      "style": { "color": "#569CD6" }
+    },
+    {
+      "ugly": "\\btrue\\b",
+      "pretty": "трулио",
+      "scope": ["constant.language.boolean.true.ts", "constant.language.boolean.true.tsx"],
+      "style": { "color": "#569CD6" }
+    },
+    {
+      "ugly": "\\bfalse\\b",
+      "pretty": "нетрулио",
+      "scope": ["constant.language.boolean.false.ts", "constant.language.boolean.false.tsx"],
+      "style": { "color": "#569CD6" }
+    },
+    {
+      "ugly": "\\beval\\b",
+      "pretty": "ебал",
+      "style": { "color": "#92ba77" }
+    },
+    // Типы данных TypeScript (Types)
+    {
+      "ugly": "\\bstring\\b",
+      "pretty": "строка",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bnumber\\b",
+      "pretty": "цифры",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bboolean\\b",
+      "pretty": "пацан",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bArray\\b",
+      "pretty": "Помойка",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bObject\\b",
+      "pretty": "Петух",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bany\\b",
+      "pretty": "чотам",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bnever\\b",
+      "pretty": "никогда",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bunknown\\b",
+      "pretty": "незнаю",
+      "style": { "color": "#55b3bf" }
+    },
+    // Операторы и синтаксические конструкции (Operators) - #cf6770 (Light Gray)
+    {
+      "ugly": "\\{",
+      "pretty": "жЫ",
+      "scope": ["meta.block.ts", "meta.block.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "\\}",
+      "pretty": "есть",
+      "scope": ["meta.block.ts", "meta.block.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "==",
+      "pretty": "эквалио",
+      "scope": ["keyword.operator.comparison.ts", "keyword.operator.comparison.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "===",
+      "pretty": "блябуду",
+      "scope": ["keyword.operator.comparison.ts", "keyword.operator.comparison.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": ">=",
+      "pretty": "поцик",
+      "scope": ["keyword.operator.relational.ts", "keyword.operator.relational.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "<=",
+      "pretty": "поц",
+      "scope": ["keyword.operator.relational.ts", "keyword.operator.relational.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "&&",
+      "pretty": "ичо",
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "||",
+      "pretty": "иличо",
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": ">",
+      "pretty": "пизже",
+      "scope": ["keyword.operator.relational.ts", "keyword.operator.relational.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "<",
+      "pretty": "хуёвей",
+      "scope": ["keyword.operator.relational.ts", "keyword.operator.relational.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "=",
+      "pretty": "сука",
+      "scope": ["keyword.operator.assignment.ts", "keyword.operator.assignment.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": ";",
+      "pretty": " нах",
+      "scope": ["punctuation.terminator.statement.ts", "punctuation.terminator.statement.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "!",
+      "pretty": "чобля",
+      "scope": ["keyword.operator.logical.ts", "keyword.operator.logical.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "\\+\\+",
+      "pretty": "плюсуюНа",
+      "scope": ["keyword.operator.arithmetic.ts", "keyword.operator.arithmetic.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    {
+      "ugly": "--",
+      "pretty": "слилсяНа",
+      "scope": ["keyword.operator.arithmetic.ts", "keyword.operator.arithmetic.tsx"],
+      "style": { "color": "#cf6770" }
+    },
+    // Document методы (Methods) - #92ba77 (Yellow/Gold) и свойства (Properties) - #5ea7e3 (Light Blue)
+    {
+      "ugly": "\\bdocument\\b",
+      "pretty": "ксива",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcaptureEvents\\b",
+      "pretty": "зафотатьШняги",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateAttribute\\b",
+      "pretty": "намутитьЯжку",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateDocumentFragment\\b",
+      "pretty": "намутитьКусокМалявы",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateEvent\\b",
+      "pretty": "намутитьШнягу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateNodeIterator\\b",
+      "pretty": "намутитьГовнодыратор",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateRange\\b",
+      "pretty": "намутитьОпапа",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateTextNode\\b",
+      "pretty": "намутитьМалявуГовнодскую",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateTouch\\b",
+      "pretty": "намутитьЛеща",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateElement\\b",
+      "pretty": "намутитьЛошка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateTreeWalker\\b",
+      "pretty": "намутитьБуратино",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\belementFromPoint\\b",
+      "pretty": "терпилаИзПараши",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\belementsFromPoint\\b",
+      "pretty": "терпилыИзПараши",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\benableStyleSheetsForSet\\b",
+      "pretty": "намутитьСтруйкуДляХабара",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetAnimations\\b",
+      "pretty": "вычислитьДвижуху",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetElementsByClassName\\b",
+      "pretty": "вычислитьТерпилПоКлассу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetElementsByTagName\\b",
+      "pretty": "вычислитьТерпилПоТегу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bimportNode\\b",
+      "pretty": "влабазУзел",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bregisterElement\\b",
+      "pretty": "зашитьДело",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breleaseCapture\\b",
+      "pretty": "зафотатьХуякХуяк",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetElementById\\b",
+      "pretty": "вычислитьЛохаПоНомеру",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bquerySelector\\b",
+      "pretty": "хулиВыёбываешься",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bquerySelectorAll\\b",
+      "pretty": "хулиТутВсеВыёбываются",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreateExpression\\b",
+      "pretty": "намутитьБазар",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bevaluate\\b",
+      "pretty": "заценить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bclear\\b",
+      "pretty": "урыть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bclose\\b",
+      "pretty": "завали",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bexecCommand\\b",
+      "pretty": "идиРаботайБля",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetElementsByName\\b",
+      "pretty": "вычислитьТерпилПоИмени",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetSelection\\b",
+      "pretty": "сестьНаДваСтула",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bhasFocus\\b",
+      "pretty": "имеетЧёткость",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bopen\\b",
+      "pretty": "отрыть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bqueryCommandEnabled\\b",
+      "pretty": "хулиЧикаДоступная",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bqueryCommandState\\b",
+      "pretty": "хулиЧикаОтдыхает",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bqueryCommandSupported\\b",
+      "pretty": "хулиЧикаБезАйфона",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bqueryCommandIndeterm\\b",
+      "pretty": "хулиЧикаОйВсё",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bqueryCommandValue\\b",
+      "pretty": "хулиЧикаВалио",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bwrite\\b",
+      "pretty": "малява",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bwriteln\\b",
+      "pretty": "малявагоп",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcharacterSet\\b",
+      "pretty": "слышТыЧоЁба",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcharset\\b",
+      "pretty": "слышЁба",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcontentType\\b",
+      "pretty": "ухтыжёптыжТипчик",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdoctype\\b",
+      "pretty": "типКсивы",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdocumentElement\\b",
+      "pretty": "ксиваТерпилы",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdocumentURI\\b",
+      "pretty": "ксиваНаХате",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdomConfig\\b",
+      "pretty": "чёткоДерзко",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bhidden\\b",
+      "pretty": "кроить",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\binputEncoding\\b",
+      "pretty": "эйтыэтоПиздиш",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bpointerLockElement\\b",
+      "pretty": "тырколкуНаАнусТерпилы",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollingElement\\b",
+      "pretty": "намазиТерпила",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\btimeline\\b",
+      "pretty": "всяЖиза",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bvisibilityState\\b",
+      "pretty": "мутныйСюжет",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bchildren\\b",
+      "pretty": "пездюки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bfirstElementChild\\b",
+      "pretty": "первыйПездюкШняги",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blastElementChild\\b",
+      "pretty": "последнийПездюкШняги",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bchildElementCount\\b",
+      "pretty": "моиШняжныеПездюки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bactiveElement\\b",
+      "pretty": "активнаяШняга",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\banchors\\b",
+      "pretty": "якоряЁпт",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bbody\\b",
+      "pretty": "висяк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcookie\\b",
+      "pretty": "семки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdefaultView\\b",
+      "pretty": "моргалаВыколю",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdesignMode\\b",
+      "pretty": "хуйРисуйМод",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdir\\b",
+      "pretty": "буратино",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdomain\\b",
+      "pretty": "домойБлядь",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bembeds\\b",
+      "pretty": "мразоты",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bforms\\b",
+      "pretty": "еблища",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bhead\\b",
+      "pretty": "залупка",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bimages\\b",
+      "pretty": "мазни",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blastModified\\b",
+      "pretty": "когдаПетухомСтал",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blinks\\b",
+      "pretty": "зоны",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blocation\\b",
+      "pretty": "райончик",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bplugins\\b",
+      "pretty": "выебоны",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\breadyState\\b",
+      "pretty": "газуемБля",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\breferrer\\b",
+      "pretty": "корешСтарый",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscripts\\b",
+      "pretty": "гыебаты",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\btitle\\b",
+      "pretty": "вася",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bURL\\b",
+      "pretty": "хата",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bvalue\\b",
+      "pretty": "валио",
+      "style": { "color": "#5ea7e3" }
+    },
+    // Document обработчики событий (Event Handlers) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bonafterscriptexecute\\b",
+      "pretty": "послеВыполненияЙопты",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonbeforescriptexecute\\b",
+      "pretty": "доВыполненияЙопты",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boncopy\\b",
+      "pretty": "какВсунул",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boncut\\b",
+      "pretty": "какВысунул",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpaste\\b",
+      "pretty": "какВставил",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonselectionchange\\b",
+      "pretty": "покаДваСтулаМахнуть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonfullscreenchange\\b",
+      "pretty": "покаЕбальникПоказал",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonwheel\\b",
+      "pretty": "какНаХуюВертел",
+      "style": { "color": "#92ba77" }
+    },
+    // Глобальные обработчики событий (Global Event Handlers) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bonabort\\b",
+      "pretty": "когдаУронилМыло",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonblur\\b",
+      "pretty": "опаНичотка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonerror\\b",
+      "pretty": "наПапандос",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonfocus\\b",
+      "pretty": "опаЧотка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boncancel\\b",
+      "pretty": "покаТруханул",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonchange\\b",
+      "pretty": "опаЧозанахуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonclick\\b",
+      "pretty": "какПырну",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonclose\\b",
+      "pretty": "ебалоОфф",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boncontextmenu\\b",
+      "pretty": "какПоЛбуЁбну",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondblclick\\b",
+      "pretty": "какПырнуДваждыНахуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondrag\\b",
+      "pretty": "опаОчкоДёрнул",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragend\\b",
+      "pretty": "покаХарэОчкоДёргать",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragenter\\b",
+      "pretty": "покаДёргалкаНарисовалась",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragexit\\b",
+      "pretty": "анусСебеДёрниПёс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragleave\\b",
+      "pretty": "покаДергунСлинял",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragover\\b",
+      "pretty": "покаДёрнулПодошла",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondragstart\\b",
+      "pretty": "покаДёрнулКмон",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondrop\\b",
+      "pretty": "опаМабилкаЁбнулась",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boninput\\b",
+      "pretty": "покаЭйтыэтоПишибля",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boninvalid\\b",
+      "pretty": "гыйбатьИнвалидНахуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonkeydown\\b",
+      "pretty": "гыйбатьЛещДаун",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonkeypress\\b",
+      "pretty": "гыйбатьВмялЛеща",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonkeyup\\b",
+      "pretty": "гыйбатьЛещАут",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonloadstart\\b",
+      "pretty": "покаНесуСемки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmousedown\\b",
+      "pretty": "всунулНаРайоне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmouseenter\\b",
+      "pretty": "вошёлНаРайон",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmouseleave\\b",
+      "pretty": "съебалсяИзРайона",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmousemove\\b",
+      "pretty": "хожуПоРайону",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmouseout\\b",
+      "pretty": "покаТырколкаСъебала",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmouseover\\b",
+      "pretty": "покаТырколкаПодошла",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmouseup\\b",
+      "pretty": "вынулНаРайоне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonmousewheel\\b",
+      "pretty": "вертелНаРайоне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpause\\b",
+      "pretty": "покаСтопэ",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonplay\\b",
+      "pretty": "покаЖиви",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonplaying\\b",
+      "pretty": "покаЖивой",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerdown\\b",
+      "pretty": "покаТыркнулДауна",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointermove\\b",
+      "pretty": "покаХожуТырколйПоРайону",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerup\\b",
+      "pretty": "покаТыркнулАута",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointercancel\\b",
+      "pretty": "покаСтрелаТруханула",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerover\\b",
+      "pretty": "покаСтрелаПодошла",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerout\\b",
+      "pretty": "покаСтрелаСъебала",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerenter\\b",
+      "pretty": "покаСрелкаНарисовалась",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpointerleave\\b",
+      "pretty": "покаСтрелаСлиняла",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonprogress\\b",
+      "pretty": "покаМатаетсяСрок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonreset\\b",
+      "pretty": "покаПравим",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonscroll\\b",
+      "pretty": "покаКолесим",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonseeked\\b",
+      "pretty": "когдаОбоссал",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonseeking\\b",
+      "pretty": "когдаОбоссался",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonselect\\b",
+      "pretty": "опаДваСтула",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonshow\\b",
+      "pretty": "опаТуса",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonsort\\b",
+      "pretty": "опаСидор",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonstalled\\b",
+      "pretty": "опаНефартануло",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonsubmit\\b",
+      "pretty": "опаХуйВГовне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonsuspend\\b",
+      "pretty": "опаПодфартило",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bontimeupdate\\b",
+      "pretty": "опаНуЭтоКогдаЭто",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonvolumechange\\b",
+      "pretty": "покаТишеБудь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bontouchcancel\\b",
+      "pretty": "покаЛещТруханул",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bontouchend\\b",
+      "pretty": "покаЛещКончил",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bontouchmove\\b",
+      "pretty": "опаДвигайОтСюдаЛещ",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bontouchstart\\b",
+      "pretty": "опаЩаЛещаПоЩамДам",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonwaiting\\b",
+      "pretty": "покаМотаюСрок",
+      "style": { "color": "#92ba77" }
+    },
+    // Window методы (Methods) - #92ba77 (Yellow/Gold) и свойства (Properties) - #5ea7e3 (Light Blue)
+    {
+      "ugly": "\\bwindow\\b",
+      "pretty": "ебало",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bclosed\\b",
+      "pretty": "завалено",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bconsole\\b",
+      "pretty": "красноглазое",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcontrollers\\b",
+      "pretty": "мусора",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bcrypto\\b",
+      "pretty": "пиздишбля",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdevicePixelRatio\\b",
+      "pretty": "типАйфона",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bdialogArguments\\b",
+      "pretty": "тыэтаТавоэта",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bframeElement\\b",
+      "pretty": "кадрОпущенный",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bframes\\b",
+      "pretty": "кадры",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bfullScreen\\b",
+      "pretty": "воВсёЕбало",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bhistory\\b",
+      "pretty": "фон",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blength\\b",
+      "pretty": "писькомер",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blocation\\b",
+      "pretty": "белыйЛебедь",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bname\\b",
+      "pretty": "погоняло",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bnavigator\\b",
+      "pretty": "главпетух",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bopener\\b",
+      "pretty": "открывашка",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bpageXOffset\\b",
+      "pretty": "статьяПоЭксу",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bpageYOffset\\b",
+      "pretty": "статьяПоУгам",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bsessionStorage\\b",
+      "pretty": "хабрИзОтсидки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bparent\\b",
+      "pretty": "родаки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\breturnValue\\b",
+      "pretty": "ответитьЗаВалио",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bperformance\\b",
+      "pretty": "сестьНахуй",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscreen\\b",
+      "pretty": "всёЕбало",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscreenX\\b",
+      "pretty": "всёЕбалоПоЭксу",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscreenY\\b",
+      "pretty": "всёЕбалоПоУгам",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollbars\\b",
+      "pretty": "колеситьПоПивларькам",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollMaxX\\b",
+      "pretty": "колеситьПоГлавЭксу",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollMaxY\\b",
+      "pretty": "колеситьПоГлавУгам",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollX\\b",
+      "pretty": "колеситьПоЭксу",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bscrollY\\b",
+      "pretty": "колеситьПоУгам",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bself\\b",
+      "pretty": "пельмень",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bsidebar\\b",
+      "pretty": "стенкаЙбать",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\btop\\b",
+      "pretty": "КрышаЙбать",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\baddEventListener\\b",
+      "pretty": "добавитьВертухай",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\balert\\b",
+      "pretty": "шухер",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bblur\\b",
+      "pretty": "размытьЕбало",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcancelIdleCallback\\b",
+      "pretty": "харэПиздеть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bclearInterval\\b",
+      "pretty": "отсидетьСизо",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bclearTimeout\\b",
+      "pretty": "отсидетьСрок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bconfirm\\b",
+      "pretty": "канает",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bdispatchEvent\\b",
+      "pretty": "послатьНахуйШнягу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bdump\\b",
+      "pretty": "мусорка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfind\\b",
+      "pretty": "сигиЕсть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfocus\\b",
+      "pretty": "хуёкус",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetAttention\\b",
+      "pretty": "посвистеть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmatchMedia\\b",
+      "pretty": "феняНаШару",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmaximize\\b",
+      "pretty": "распидорась",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bminimize\\b",
+      "pretty": "спидорась",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmoveBy\\b",
+      "pretty": "щаТяПодвину",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmoveTo\\b",
+      "pretty": "нахуйЭтоТуда",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bopenDialog\\b",
+      "pretty": "побазарить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpostMessage\\b",
+      "pretty": "намутитьКсиву",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bprint\\b",
+      "pretty": "наПечать",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bprompt\\b",
+      "pretty": "поясниЗаБазар",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bremoveEventListener\\b",
+      "pretty": "урытьВертухая",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bresizeBy\\b",
+      "pretty": "распидораситьПоХуйне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bresizeTo\\b",
+      "pretty": "распидораситьОтносительно",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bscroll\\b",
+      "pretty": "колесить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bscrollBy\\b",
+      "pretty": "колеситьНа",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bscrollByLines\\b",
+      "pretty": "колеситьНаЛинии",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bscrollByPages\\b",
+      "pretty": "колеситьНаМалявах",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bscrollTo\\b",
+      "pretty": "колеситьНахуйНа",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsetInterval\\b",
+      "pretty": "посетитьСизо",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsetResizable\\b",
+      "pretty": "датьПопидорасить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsetTimeout\\b",
+      "pretty": "получитьСрок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsizeToContent\\b",
+      "pretty": "ухтыжёптыжбляПодгони",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bstop\\b",
+      "pretty": "стопээ",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bPromise\\b",
+      "pretty": "СловоПацана",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bupdateCommands\\b",
+      "pretty": "новыйАйфонДляЧики",
+      "style": { "color": "#92ba77" }
+    },
+    // Window обработчики событий (Event Handlers) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bonbeforeunload\\b",
+      "pretty": "покаСемкиКрутятся",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bondevicelight\\b",
+      "pretty": "покаХуйДлинный",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonhashchange\\b",
+      "pretty": "покаШнягаИзменяет",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\boninstall\\b",
+      "pretty": "покаХуйСтоитКакКолонна",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonload\\b",
+      "pretty": "опаСемкиНесу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonoffline\\b",
+      "pretty": "покаОффнусь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bononline\\b",
+      "pretty": "опаТутачки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpagehide\\b",
+      "pretty": "покаКсиваНаМалине",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpageshow\\b",
+      "pretty": "опаКсивуПоказал",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpaint\\b",
+      "pretty": "опаНарисовался",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonpopstate\\b",
+      "pretty": "покаИсторияМаляется",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonstorage\\b",
+      "pretty": "опаХабар",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bonunload\\b",
+      "pretty": "опаСемкиКрутятся",
+      "style": { "color": "#92ba77" }
+    },
+    // Node свойства (Properties) - #5ea7e3 (Light Blue) и методы (Methods) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bbaseURI\\b",
+      "pretty": "наХатеТип",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bbaseURIObject\\b",
+      "pretty": "мразотыНаХатеКрч",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bchildNodes\\b",
+      "pretty": "пездюкГовнод",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bfirstChild\\b",
+      "pretty": "первыйПездюк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blastChild\\b",
+      "pretty": "последнийПездюк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bnextSibling\\b",
+      "pretty": "следующийПездюк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bnodeName\\b",
+      "pretty": "погонялоПездюка",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bnodeType\\b",
+      "pretty": "типичныйПездюк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bnodeValue\\b",
+      "pretty": "валиоПездюка",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bownerDocument\\b",
+      "pretty": "главныйАвторитет",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bparentNode\\b",
+      "pretty": "братишка",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bparentElement\\b",
+      "pretty": "братишкаЭлемент",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bpreviousSibling\\b",
+      "pretty": "старыйПездюк",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\btextContent\\b",
+      "pretty": "ухтыжёптыжМалява",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bappendChild\\b",
+      "pretty": "заделатьПездюка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcloneNode\\b",
+      "pretty": "клонГовнод",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcompareDocumentPosition\\b",
+      "pretty": "сравниСтатусМалявы",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcontains\\b",
+      "pretty": "яТвойОтецЕбуОвец",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetRootNode\\b",
+      "pretty": "дайБатеГовнод",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bhasChildNodes\\b",
+      "pretty": "батяИмеетПездюков",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\binsertBefore\\b",
+      "pretty": "вставитьПездюкаДо",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisDefaultNamespace\\b",
+      "pretty": "деткаТыПростоКосмос",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisEqualNode\\b",
+      "pretty": "эквалиоГовнод",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bnormalize\\b",
+      "pretty": "нормандэ",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bremoveChild\\b",
+      "pretty": "уебатьПездюка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breplaceChild\\b",
+      "pretty": "сделатьАборт",
+      "style": { "color": "#92ba77" }
+    },
+    // String свойства (Properties) - #5ea7e3 (Light Blue) и методы (Methods) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bprototype\\b",
+      "pretty": "проточелик",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bfromCharCode\\b",
+      "pretty": "хуйняИзЁба",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfromCodePoint\\b",
+      "pretty": "хуйняИзЭтоТуданахНутыпоэл",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\braw\\b",
+      "pretty": "полоса",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcharAt\\b",
+      "pretty": "обаЁба",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcharCodeAt\\b",
+      "pretty": "обаЁбаХуйня",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcodePointAt\\b",
+      "pretty": "хуйняНутыпоэлОткуда",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bconcat\\b",
+      "pretty": "заебеньВсе",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bincludes\\b",
+      "pretty": "лучшеНетВлагалищаЧемОчкоТоварища",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bendsWith\\b",
+      "pretty": "отЗалупки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bindexOf\\b",
+      "pretty": "поТюряге",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blastIndexOf\\b",
+      "pretty": "последняяОтсидка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blocaleCompare\\b",
+      "pretty": "сравнитьГовор",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmatch\\b",
+      "pretty": "футбик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpadEnd\\b",
+      "pretty": "залупныйПадик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpadStart\\b",
+      "pretty": "начальныйПадик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\brepeat\\b",
+      "pretty": "непоэлПовтори",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breplace\\b",
+      "pretty": "пивасПодмени",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsearch\\b",
+      "pretty": "семкиЕсть",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bslice\\b",
+      "pretty": "поделитьСемки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsplit\\b",
+      "pretty": "поделитьЯгу",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bstartsWith\\b",
+      "pretty": "начатьЗалупку",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsubstr\\b",
+      "pretty": "спиздитьМеждуБукв",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsubstring\\b",
+      "pretty": "спиздитьМеждуСтрок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoLocaleLowerCase\\b",
+      "pretty": "поРайонуНеКапсом",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoLocaleUpperCase\\b",
+      "pretty": "поРайонуКапсом",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoLowerCase\\b",
+      "pretty": "неКапсом",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoString\\b",
+      "pretty": "поПацански",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoUpperCase\\b",
+      "pretty": "капсомБля",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btrim\\b",
+      "pretty": "вырезатьОчко",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btrimLeft\\b",
+      "pretty": "вырезатьОчкоСлева",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btrimRight\\b",
+      "pretty": "вырезатьОчкоСправа",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bvalueOf\\b",
+      "pretty": "валиоОф",
+      "style": { "color": "#92ba77" }
+    },
+    // String HTML wrapper методы (Methods) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\banchor\\b",
+      "pretty": "якорьЁпт",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bbig\\b",
+      "pretty": "большойЁпт",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bbold\\b",
+      "pretty": "жирныйЁпт",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfixed\\b",
+      "pretty": "ПМС",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bitalics\\b",
+      "pretty": "понаехавший",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blink\\b",
+      "pretty": "зона",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsmall\\b",
+      "pretty": "малорик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bstrike\\b",
+      "pretty": "въебиОчко",
+      "style": { "color": "#92ba77" }
+    },
+    // Number свойства (Properties) - #5ea7e3 (Light Blue) и методы (Methods) - #92ba77 (Yellow/Gold)
+    {
+      "ugly": "\\bEPSILON\\b",
+      "pretty": "ХУЕПСИЛОН",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bMAX_SAFE_INTEGER\\b",
+      "pretty": "ЛУЧШИЙ_ГАНДОН",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bMAX_VALUE\\b",
+      "pretty": "ОХУЕННОЕ_ВАЛИО",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bMIN_SAFE_INTEGER\\b",
+      "pretty": "ХУЁВЫЙ_ГАНДОН",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bMIN_VALUE\\b",
+      "pretty": "ХУЁВОЕ_ВАЛИО",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bNEGATIVE_INFINITY\\b",
+      "pretty": "НИХУЯ_ДОХУЯ",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bPOSITIVE_INFINITY\\b",
+      "pretty": "ОХУЕТЬ_ДОХУЯ",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bisFinite\\b",
+      "pretty": "оноКонченое",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisInteger\\b",
+      "pretty": "этоХуйня",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisNaN\\b",
+      "pretty": "этоНихуя",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisSafeInteger\\b",
+      "pretty": "этоОхуеннаяХуйня",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bparseFloat\\b",
+      "pretty": "шнырятьПоПлавникам",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bparseInt\\b",
+      "pretty": "шнырятьПоКарманам",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoExponential\\b",
+      "pretty": "наХуекспоненту",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoFixed\\b",
+      "pretty": "наПМС",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoLocaleString\\b",
+      "pretty": "кПацанамНаРайоне",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btoPrecision\\b",
+      "pretty": "кЧёткости",
+      "style": { "color": "#92ba77" }
+    },
+    // Console методы (Methods)
+    {
+      "ugly": "\\bassert\\b",
+      "pretty": "найтиСтукача",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcount\\b",
+      "pretty": "которыйСрок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bdirxml\\b",
+      "pretty": "йбатьБуратиноНахуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\berror\\b",
+      "pretty": "папандос",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgroup\\b",
+      "pretty": "банда",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgroupCollapsed\\b",
+      "pretty": "свернутьБанду",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgroupEnd\\b",
+      "pretty": "съебатьсяИзБанды",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\binfo\\b",
+      "pretty": "инфо",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blog\\b",
+      "pretty": "чмо",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bprofile\\b",
+      "pretty": "личка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bprofileEnd\\b",
+      "pretty": "вЛичкуПрописали",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btable\\b",
+      "pretty": "таблом",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btime\\b",
+      "pretty": "срок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btimeEnd\\b",
+      "pretty": "конецСрока",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btimeStamp\\b",
+      "pretty": "началоСрока",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btrace\\b",
+      "pretty": "складЧмошников",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bwarn\\b",
+      "pretty": "тыЭтоНуЭто",
+      "style": { "color": "#92ba77" }
+    },
+    // XMLHttpRequest свойства (Properties)
+    {
+      "ugly": "\\bXMLHttpRequest\\b",
+      "pretty": "запросПоЩам",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bonreadystatechange\\b",
+      "pretty": "опаГотовЙоптЧозанахуй",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\breadyState\\b",
+      "pretty": "готовностьЙопт",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\btimeout\\b",
+      "pretty": "длительностьСрока",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bupload\\b",
+      "pretty": "заебенить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bwithCredentials\\b",
+      "pretty": "зашкварить",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\babort\\b",
+      "pretty": "уронилМыло",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetResponseHeader\\b",
+      "pretty": "дайКепарикПолосатого",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsend\\b",
+      "pretty": "всёПиздуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bXMLHttpRequestEventTarget\\b",
+      "pretty": "запросСоШнягойПоЩам",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\bEventTarget\\b",
+      "pretty": "очкоНаПрицеле",
+      "style": { "color": "#55b3bf" } 
+    },
+    // XMLHttpRequest события (Events)
+    {
+      "ugly": "\\bloadstart\\b",
+      "pretty": "началТаскатьСемки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bprogress\\b",
+      "pretty": "сколькоСемокДонёс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bload\\b",
+      "pretty": "нестиСемки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bloadend\\b",
+      "pretty": "семкиДонёс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breadystatechange\\b",
+      "pretty": "готовЙоптЧозанахуй",
+      "style": { "color": "#92ba77" }
+    },
+    // Arrays методы (Methods)
+    {
+      "ugly": "\\bfrom\\b",
+      "pretty": "спиздитьИз",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisArray\\b",
+      "pretty": "этоПомойка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bof\\b",
+      "pretty": "сашаГрей",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcopyWithin\\b",
+      "pretty": "вынестиГовно",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bentries\\b",
+      "pretty": "вычислитьЛохов",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bevery\\b",
+      "pretty": "пошерстим",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfindIndex\\b",
+      "pretty": "найдиБомжа",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bforEach\\b",
+      "pretty": "пероПодРебро",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bjoin\\b",
+      "pretty": "вписаться",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bkeys\\b",
+      "pretty": "отмычки",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmap\\b",
+      "pretty": "засратьВсё",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpop\\b",
+      "pretty": "попка",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpush\\b",
+      "pretty": "пупок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breduce\\b",
+      "pretty": "редиска",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breduceRight\\b",
+      "pretty": "редискаПравая",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breverse\\b",
+      "pretty": "шухильмеМухильме",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bshift\\b",
+      "pretty": "первыйБачок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsplice\\b",
+      "pretty": "въебатьГовна",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsort\\b",
+      "pretty": "сидор",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsome\\b",
+      "pretty": "нарываешься",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bunshift\\b",
+      "pretty": "верниБачок",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bvalues\\b",
+      "pretty": "валиоси",
+      "style": { "color": "#92ba77" }
+    },
+    // Math свойства (Properties)
+    {
+      "ugly": "\\bMath\\b",
+      "pretty": "Гопец",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bE\\b",
+      "pretty": "ГОПСПАНЕНТА",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bLN10\\b",
+      "pretty": "ГОПОРИФМ10",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bLN2\\b",
+      "pretty": "ГОПОРИФМ2",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bLOG10E\\b",
+      "pretty": "СЛОЖНЫЙ_ГОПОРИФМ10",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bLOG2E\\b",
+      "pretty": "СЛОЖНЫЙ_ГОПОРИФМ2",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bPI\\b",
+      "pretty": "ПИЗДЕЦ",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bSQRT1_2\\b",
+      "pretty": "сквиртНаПолшишечки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bSQRT2\\b",
+      "pretty": "двойнойСквирт",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\babs\\b",
+      "pretty": "абсолютли",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bacos\\b",
+      "pretty": "агопосинус",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bacosh\\b",
+      "pretty": "агопосинусКупчинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\basin\\b",
+      "pretty": "агопинус",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\basinh\\b",
+      "pretty": "агопинусКупчинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\batan\\b",
+      "pretty": "агопангенс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\batan2\\b",
+      "pretty": "агопангенсПо2",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\batanh\\b",
+      "pretty": "агопангенсКупчинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcbrt\\b",
+      "pretty": "кубоСквирт",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bceil\\b",
+      "pretty": "чирикГони",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bclz32\\b",
+      "pretty": "поводырь32петухов",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcos\\b",
+      "pretty": "гопосинос",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcosh\\b",
+      "pretty": "гопосиносКолпинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bexp\\b",
+      "pretty": "гопспанента",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bexpm1\\b",
+      "pretty": "топГопспонента",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfloor\\b",
+      "pretty": "бабкиГони",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfround\\b",
+      "pretty": "мелочьТожеГони",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bhypot\\b",
+      "pretty": "вКореньЗыришь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bimul\\b",
+      "pretty": "петухПетухаВидитИздалека",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blog10\\b",
+      "pretty": "гопорифмПо10",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blog1p\\b",
+      "pretty": "чистыйГопорифмПо1",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\blog2\\b",
+      "pretty": "гопорифмПо2",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmax\\b",
+      "pretty": "хуйло",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bmin\\b",
+      "pretty": "хуйчик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpow\\b",
+      "pretty": "гопень",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\brandom\\b",
+      "pretty": "шара",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bround\\b",
+      "pretty": "подрезать",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsign\\b",
+      "pretty": "сиськи",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsin\\b",
+      "pretty": "гопинус",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsinh\\b",
+      "pretty": "гопинусКолпинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsqrt\\b",
+      "pretty": "сквирт",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btan\\b",
+      "pretty": "гопангенс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btanh\\b",
+      "pretty": "гопангенсКолпинский",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btrunc\\b",
+      "pretty": "верниЧирик",
+      "style": { "color": "#92ba77" }
+    },
+    // RegExp свойства (Properties) 
+    {
+      "ugly": "\\bRegExp\\b",
+      "pretty": "фильтруйБазар",
+      "style": { "color": "#55b3bf" }
+    },
+    {
+      "ugly": "\\binput\\b",
+      "pretty": "тыЭтоПишибля",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bflags\\b",
+      "pretty": "флагМнеВанус",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bglobal\\b",
+      "pretty": "глобалкаЙопта",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bignoreCase\\b",
+      "pretty": "игнорщикЕбаный",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bmultiline\\b",
+      "pretty": "стулБезПик",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bsource\\b",
+      "pretty": "обоснуй",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bsticky\\b",
+      "pretty": "петухОпущенный",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bunicode\\b",
+      "pretty": "хуйняНахуй",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\blastIndex\\b",
+      "pretty": "доКонцаОтсидки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bexec\\b",
+      "pretty": "работайМразь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\btest\\b",
+      "pretty": "ответыБудутЭээ",
+      "style": { "color": "#92ba77" }
+    },
+    // async/await - Ключевые слова (Keywords)
+    {
+      "ugly": "\\basync\\b",
+      "pretty": "ассо",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bawait\\b",
+      "pretty": "сидетьНахуй",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bAsyncFunction\\b",
+      "pretty": "АссоЙопта",
+      "style": { "color": "#55b3bf" }
+    },
+    // Promise методы (Methods)
+    {
+      "ugly": "\\ball\\b",
+      "pretty": "пацанСделал",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bthen\\b",
+      "pretty": "атоэто",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\brace\\b",
+      "pretty": "пацанСказал",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\breject\\b",
+      "pretty": "пацанЗабыл",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bresolve\\b",
+      "pretty": "щащаНамутитьКактоНадо",
+      "style": { "color": "#92ba77" }
+    },
+    // Object свойства (Properties)
+    {
+      "ugly": "\\bconstructor\\b",
+      "pretty": "стрельнутьБычки",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bassign\\b",
+      "pretty": "тащиВсёНаХату",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bcreate\\b",
+      "pretty": "намутить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bdefineProperties\\b",
+      "pretty": "ващеЧоткиеЧелики",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bdefineProperty\\b",
+      "pretty": "вотЭтоЗаебись",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bfreeze\\b",
+      "pretty": "датьЛеща",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetOwnPropertyDescriptor\\b",
+      "pretty": "вычислиЕблоКрысы",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetOwnPropertyDescriptors\\b",
+      "pretty": "вычислиСходкуКрыс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetOwnPropertyNames\\b",
+      "pretty": "вычислиПогонялаКрыс",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetOwnPropertySymbols\\b",
+      "pretty": "выучиАлфавитМразь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bgetPrototypeOf\\b",
+      "pretty": "чоЗаПроточелик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisExtensible\\b",
+      "pretty": "жратьБудешь",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisFrozen\\b",
+      "pretty": "далЛеща",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisSealed\\b",
+      "pretty": "теЧоЕбалоРаз NEEDLEбить",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bhasOwnProperty\\b",
+      "pretty": "соСвоейТемой",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bisPrototypeOf\\b",
+      "pretty": "чейПроточелик",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bpropertyIsEnumerable\\b",
+      "pretty": "лютаяТема",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bunwatch\\b",
+      "pretty": "съебись",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bwatch\\b",
+      "pretty": "смотрюСюда",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bseal\\b",
+      "pretty": "сдохниНахуй",
+      "style": { "color": "#92ba77" }
+    },
+    {
+      "ugly": "\\bsetPrototypeOf\\b",
+      "pretty": "замутитьПроточелика",
+      "style": { "color": "#92ba77" }
+    },
+    // NodeJS/modules свойства (Properties)
+    {
+      "ugly": "\\bmodule\\b",
+      "pretty": "братва",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bexports\\b",
+      "pretty": "предъявляет",
+      "style": { "color": "#5ea7e3" }
+    },
+    {
+      "ugly": "\\bexport\\b",
+      "pretty": "предъявa",
+      "style": { "color": "#56b6c2" }
+    },
+    {
+      "ugly": "\\bglobal\\b",
+      "pretty": "общак",
+      "style": { "color": "#5ea7e3" }
+    }
+  ]
+}

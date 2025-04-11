@@ -27,7 +27,8 @@ The following commands are available for keybinding:
 Explore pre-configured substitution settings for various languages in the [examples/](./examples) directory:
 
 *   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like Python language.
-*   **[TypeScript looks like TrumpScript](./examples/typescript-as-python.json):** Example substitutions for TypeScript to make it look like TrumpScript language.
+*   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like TrumpScript language.
+*   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like YoptaScript language.
 
 ![Example Video](./examples/example.gif)
 
