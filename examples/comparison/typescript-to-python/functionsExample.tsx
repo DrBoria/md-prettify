@@ -1,4 +1,4 @@
-function processOrder(seed: string, qty: number, vip: boolean, zone: string): void {
+function processOrder<T>(seed: string, qty: number, vip: boolean, zone: string): void {
   try {
       if (qty > 0) {
           switch (seed) {
