@@ -393,6 +393,34 @@ export class PrettyModel implements vscode.Disposable {
     return finalSegmentMap;
   }
 
+  /** Helper function to get all unique scopes intersecting a given character range on a line */
+  private getScopesForRange(lineTokens: tm.IToken[], targetRangeStartChar: number, targetRangeEndChar: number): Set<string> {
+    const intersectingScopes = new Set<string>();
+    // If grammar isn't loaded or no tokens, return empty set (or default scope later)
+    if (!this.grammar || !lineTokens) return intersectingScopes;
+
+    for (const token of lineTokens) {
+        // Check for intersection: token overlaps with targetRange
+        // Intersection condition: !(token ends before target starts || token starts after target ends)
+        // Simplified: (token.endIndex > targetRangeStartChar) AND (token.startIndex < targetRangeEndChar)
+        if (token.endIndex > targetRangeStartChar && token.startIndex < targetRangeEndChar) {
+            // Add all scopes from the TextMate token (they are hierarchical in the array)
+            for (const scope of token.scopes) {
+                intersectingScopes.add(scope);
+            }
+        }
+    }
+
+    // If no specific scopes were found intersecting the range, add the default document scope.
+    // This ensures rules without specific scope requirements can still apply to text
+    // that might not have explicit tokens (like whitespace between tokens) but is part of the document.
+    if (intersectingScopes.size === 0 && this.defaultScope) {
+      intersectingScopes.add(this.defaultScope);
+    }
+
+    return intersectingScopes;
+  }
+
   /** Reparses the given range or the entire document if no range is provided.
    * Updates decoration ranges within the parsed scope, utilizing the cache and supporting negative scopes.
    * @returns the range that was acutally reparsed
@@ -441,47 +469,76 @@ export class PrettyModel implements vscode.Disposable {
 
            // Iterate through ALL substitution rules
            for (const configData of this.prettySubstitutions) {
+               const regex = configData.ugly;
+               if (!(regex instanceof RegExp)) continue; // Should not happen, but safe check
 
-               // --- Scope Check ---
-               const positiveScopes = new Set<string>();
-               const negativeScopes = new Set<string>();
-               // Ensure configData.scope is treated as an array, handle undefined/null safely
-               const ruleScopes = configData.scope
-                   ? (Array.isArray(configData.scope) ? configData.scope : [configData.scope])
-                   : [];
+               // Ensure regex has 'g' flag for matchAll
+               const flags = regex.flags.includes('g') ? regex.flags : regex.flags + 'g';
+               const regexGlobal = new RegExp(regex.source, flags);
+               const matchIterator = substring.matchAll(regexGlobal); // Match against the full line
 
-               for (const scope of ruleScopes) {
-                   if (typeof scope === 'string') { // Ensure scope is a string
-                       if (scope.startsWith('!')) {
-                           // Add the scope name without the '!'
-                           if(scope.length > 1) negativeScopes.add(scope.substring(1));
-                       } else {
-                           positiveScopes.add(scope);
+               for (const match of matchIterator) {
+                   if (match.index === undefined || match[0].length === 0) continue;
+
+                   const startChar = match.index;
+                   const endChar = startChar + match[0].length;
+                   const uglyRange = new vscode.Range(lineIdx, startChar, lineIdx, endChar);
+
+                   if (uglyRange.isEmpty) continue;
+
+                   // Get *all* scopes intersecting the match range using the helper
+                   const matchScopes = this.getScopesForRange(tokens, startChar, endChar);
+
+                   // --- Start Scope Check (using matchScopes) ---
+                   const positiveScopes = new Set<string>();
+                   const negativeScopes = new Set<string>();
+                   const ruleScopes = configData.scope
+                       ? (Array.isArray(configData.scope) ? configData.scope : [configData.scope])
+                       : [];
+
+                   for (const scope of ruleScopes) {
+                       if (typeof scope === 'string') { // Ensure scope is a string
+                           if (scope.startsWith('!')) {
+                               // Add the scope name without the '!'
+                               if(scope.length > 1) negativeScopes.add(scope.substring(1));
+                           } else {
+                               positiveScopes.add(scope);
+                           }
                        }
                    }
-               }
 
-               const ruleNeedsPositiveMatch = positiveScopes.size > 0;
-                // Rule matches positive scopes if:
-                // 1. The rule specifies positive scopes AND at least one matches the token's scopes.
-                // OR 2. The rule does NOT specify any positive scopes.
-               const hasPositiveMatch = ruleNeedsPositiveMatch
-                    ? [...positiveScopes].some(s => tokenScopes.has(s))
-                    : true;
+                   const ruleNeedsPositiveMatch = positiveScopes.size > 0;
+                   let hasPositiveMatch = !ruleNeedsPositiveMatch; // Assume true if no positive scopes needed
+                   if (ruleNeedsPositiveMatch) {
+                       for (const posScope of positiveScopes) {
+                           for (const matchScope of matchScopes) { // Check against scopes at the match location
+                               // Check if matchScope starts with posScope OR posScope starts with matchScope
+                               if (matchScope.startsWith(posScope) || posScope.startsWith(matchScope)) {
+                                   hasPositiveMatch = true;
+                                   break; // Found a positive match for this posScope
+                               }
+                           }
+                           if (hasPositiveMatch) break; // Found a positive match overall
+                       }
+                   }
 
-                // Rule matches negative scopes if ANY specified negative scope is present in the token's scopes.
-               const hasNegativeMatch = [...negativeScopes].some(s => tokenScopes.has(s));
+                   let hasNegativeMatch = false;
+                   for (const negScope of negativeScopes) {
+                       for (const matchScope of matchScopes) { // Check against scopes at the match location
+                           // Check if matchScope starts with negScope OR negScope starts with matchScope
+                           if (matchScope.startsWith(negScope) || negScope.startsWith(matchScope)) {
+                               hasNegativeMatch = true;
+                               break; // Found a negative match for this negScope
+                           }
+                       }
+                       if (hasNegativeMatch) break; // Found a negative match overall
+                   }
 
-               // Apply the rule only if positive condition met AND negative condition NOT met.
-               const isApplicable = hasPositiveMatch && !hasNegativeMatch;
-               // --- End Scope Check ---
+                   // Apply the rule only if positive condition met AND negative condition NOT met.
+                   const isApplicable = hasPositiveMatch && !hasNegativeMatch;
+                   // --- End Scope Check ---
 
-               if (isApplicable) {
-                   const regex = configData.ugly;
-                   if (regex instanceof RegExp) {
-                       // Ensure regex has 'g' flag for matchAll
-                       const flags = regex.flags.includes('g') ? regex.flags : regex.flags + 'g';
-                       const regexGlobal = new RegExp(regex.source, flags);
+                   if (isApplicable) {
                        const hasDynamicParams = /\$\d+/.test(configData.pretty);
                        const matchIterator = substring.matchAll(regexGlobal);
 
@@ -520,13 +577,13 @@ export class PrettyModel implements vscode.Disposable {
                                // Add the matched range to the appropriate cache entry using overlap logic
                                // Only add if there's a pretty version (i.e., we are actually hiding/replacing)
                                if (configData.pretty) {
-                                    this.addOrUpdatePrettyRange(uglyRange, key);
+                                   this.addOrUpdatePrettyRange(uglyRange, key);
                                }
                            }
                        }
-                   }
-               } // End if(isApplicable)
-           } // End loop rules (configData)
+                   } // End if(isApplicable)
+               } // End loop matches
+           } // End loop rules
       } // End loop segments
     } // End loop lines
 

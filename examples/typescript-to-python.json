@@ -4,12 +4,12 @@
     "typescript"
   ],
   "substitutions": [
+    // OPERATORS
     {
       "ugly": "(&&)",
       "pretty": "AND",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
       },
       "scope": [
         "source.ts",
@@ -21,19 +21,18 @@
       "pretty": "OR",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
       },
       "scope": [
         "source.ts",
         "source.tsx"
       ]
     },
+    // FUNCTIONS
     {
-      "ugly": "(\\(.*?\\))\\s*=>\\s*\\{",
-      "pretty": "fun $1:",
+      "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
+      "pretty": " fun $1$2 -> $3:",
       "style": {
-        "color": "#4d9aa5",
-        "hackCSS": "font-weight: 600;"
+        "color": "#56b5c1",
       },
       "scope": [
         "meta.arrow.ts",
@@ -41,43 +40,67 @@
       ]
     },
     {
-      "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
-      "pretty": "fun $1$2:",
+      "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*=>\\s*\\{",
+      "pretty": " fun $1$2:",
       "style": {
-        "color": "#4d9aa5",
-        "hackCSS": "font-weight: 600;"
+        "color": "#56b5c1",
+      },
+      "scope": [
+        "meta.arrow.ts",
+        "meta.arrow.tsx"
+      ]
+    },
+    {
+      "ugly": "function\\s+([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "fun $1$2$3:",
+      "style": {
+        "color": "#56b5c1",
       },
       "scope": [
         "meta.function.ts",
-        "meta.function.tsx"
+        "meta.function.tsx",
       ]
     },
     {
-      "ugly": "\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
-      "pretty": " fun $1$2:",
+      "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+      "pretty": "fun $1$2$3 -> $4:",
       "style": {
-        "color": "#4d9aa5",
-        "hackCSS": "font-weight: 600;"
+        "color": "#56b5c1",
+      },
+      "scope": [
+        "meta.function.ts",
+        "meta.function.tsx",
+      ]
+    },
+    {
+      "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+      "pretty": "fun $1$2$3 -> $4:",
+      "style": {
+        "color": "#56b5c1",
       },
       "scope": [
         "meta.method.declaration.ts",
-        "meta.method.declaration.tsx"
+        "meta.method.declaration.tsx",
       ]
     },
     {
-      "ugly": ";$",
-      "pretty": " ",
+      "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "fun $1$2$3:",
+      "style": {
+        "color": "#56b5c1",
+      },
       "scope": [
-        "punctuation.terminator.statement.ts",
-        "punctuation.terminator.statement.tsx"
+        "meta.method.declaration.ts",
+        "meta.method.declaration.tsx",
       ]
     },
+    // CONTROL FLOW
     {
       "ugly": "switch\\s+\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "switch $1$2:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       },
       "scope": [
         "switch-statement.expr.ts",
@@ -89,7 +112,7 @@
       "pretty": "TRY:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       }
     },
     {
@@ -97,7 +120,7 @@
       "pretty": "CATCH $1$2:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       }
     },
     {
@@ -105,7 +128,7 @@
       "pretty": "if $1$2:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       },
       "scope": [
         "source.ts",
@@ -117,7 +140,7 @@
       "pretty": "else:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       }
     },
     {
@@ -125,16 +148,27 @@
       "pretty": "elif $1$2:",
       "style": {
         "color": "#d96a73",
-        "hackCSS": "font-weight: 600;"
+
       }
     },
+    // PARENTHESIS & PUNCTUATION
     {
       "ugly": "}\\w*$",
       "pretty": " ",
       "scope": [
         "meta.block.ts",
-        "meta.block.tsx"
+        "meta.block.tsx",
+        "!meta.import.ts",
+        "!meta.import.tsx",
       ]
-    }
+    },
+    {
+      "ugly": ";$",
+      "pretty": " ",
+      "scope": [
+        "punctuation.terminator.statement.ts",
+        "punctuation.terminator.statement.tsx"
+      ]
+    },
   ]
 }

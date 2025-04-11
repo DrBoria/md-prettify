@@ -35,7 +35,6 @@ export interface LanguageEntry {
 	textMateInitialScope?: string;
 }
 
-
 export interface mdPrettify {
   /** Register a handler to receive notifications when PSM is enabled or disabled.
    * @returns a disposable object to unregister the handler
