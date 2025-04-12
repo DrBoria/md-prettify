@@ -3,6 +3,7 @@
     "typescriptreact",
     "typescript"
   ],
+  "excludedScopes": ["comment.line.double-slash.ts", "comment.block.documentation.ts", "comment.block.ts"],
   "substitutions": [
     // Ключевые слова (Keywords)
     {

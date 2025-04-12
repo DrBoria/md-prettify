@@ -59,6 +59,8 @@ export interface LanguageEntry {
 	language:  vscode.DocumentSelector;
 	/** substitution rules */
 	substitutions: Substitution[];
+	/** A list of TextMate scope prefixes to completely ignore for all substitutions in this language entry. */
+	excludedScopes?: string[];
 	/** If `true`, combine adjacent tokens if they have the same scope name */
 	combineIdenticalScopes: boolean;
 	/** try to make pretty-symbol act like a single character */

@@ -337,27 +337,19 @@
                                                     }
                                                 }
                                             }
-                                        }
-                                    },
-                                    "dependencies": {
-                                        "pretty": [
-                                            "ugly"
-                                        ],
-                                        "style": [
-                                            "ugly"
-                                        ]
-                                    },
-                                    "anyOf": [
-                                        {
-                                            "required": [
-                                                "pretty"
-                                            ]
                                         },
-                                        {
-                                            "required": [
-                                                "style"
-                                            ]
+                                        "excludedScopes": {
+                                            "type": "array",
+                                            "description": "A list of TextMate scope prefixes (e.g., 'comment', 'string.quoted'). Any text segment where ANY scope starts with one of these prefixes will be ignored by ALL substitution rules within this language entry. Do not include the leading '!'.",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "default": []
                                         }
+                                    },
+                                    "required": [
+                                        "language",
+                                        "substitutions"
                                     ]
                                 }
                             }
