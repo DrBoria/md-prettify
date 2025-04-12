@@ -41,6 +41,8 @@ class DebounceFunction implements vscode.Disposable {
   }
 }
 
+
+ 
 export class PrettyDocumentController implements vscode.Disposable {
   private prettyModel: PrettyModel | null;
   private readonly subscriptions: vscode.Disposable[] = [];
@@ -80,7 +82,13 @@ export class PrettyDocumentController implements vscode.Disposable {
       getLineCount: () => this.document?.lineCount ?? 0,
       validateRange: (r: vscode.Range) => this.document?.validateRange(r) ?? r,
     }
-    this.prettyModel = new PrettyModel(docModel, settings, { ...options, languageId: doc.languageId });
+    this.prettyModel = new PrettyModel(docModel, settings, {
+        hideTextMethod: options.hideTextMethod,
+        debug: options.debug,
+        textMateGrammar: options.textMateGrammar,
+        outputChannel: options.outputChannel,
+        languageId: doc.languageId,
+    });
 
     this.subscriptions.push(vscode.workspace.onDidChangeTextDocument((e) => {
       if (this.document && e.document == this.document)

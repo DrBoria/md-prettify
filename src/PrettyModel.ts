@@ -84,6 +84,7 @@ export class PrettyModel implements vscode.Disposable {
   private debug: boolean;
   private outputChannel: vscode.OutputChannel;
   private defaultScope: string; // Added to store the default scope
+  private excludedScopes: Set<string>; // Added to store excluded scopes for this language entry
 
   public constructor(doc: DocumentModel, settings: LanguageEntry, options: { 
     hideTextMethod: HideTextMethod; 
@@ -101,6 +102,7 @@ export class PrettyModel implements vscode.Disposable {
     this.debug = options.debug;
     this.outputChannel = options.outputChannel;
     this.defaultScope = getLanguageScopeName(options.languageId); // Use helper function
+    this.excludedScopes = new Set(settings.excludedScopes || []); // Initialize excluded scopes from the language entry
     this.loadDecorations(settings.substitutions);
 
     // Parse whole document
@@ -466,6 +468,30 @@ export class PrettyModel implements vscode.Disposable {
       for (const [/*rangeKey*/, segmentData] of lineSegments.entries()) { // rangeKey is unused currently
            const substring = line.substring(segmentData.range.startIndex, segmentData.range.endIndex);
            const tokenScopes = segmentData.scopes; // Scopes for this specific segment
+
+           // --- Language-Specific Exclude Check --- START ---
+           let isExcluded = false;
+           if (this.excludedScopes.size > 0 && tokenScopes.size > 0) {
+               for (const scope of tokenScopes) {
+                   for (const excludedPrefix of this.excludedScopes) {
+                       if (scope.startsWith(excludedPrefix)) {
+                           isExcluded = true;
+                           break;
+                       }
+                   }
+                   if (isExcluded) break;
+               }
+           }
+
+           if (isExcluded) {
+               if (this.debug && this.outputChannel) {
+                   const segmentText = line.substring(segmentData.range.startIndex, segmentData.range.endIndex);
+                   const scopeArray = Array.from(tokenScopes);
+                   this.outputChannel.appendLine(`  -> Segment [${segmentData.range.startIndex}-${segmentData.range.endIndex}] ('${segmentText}') excluded by language entry due to scopes: [${scopeArray.join(', ')}] matching excludes: [${Array.from(this.excludedScopes).join(', ')}]`);
+               }
+               continue; // Skip this segment entirely if excluded by the language entry
+           }
+           // --- Language-Specific Exclude Check --- END ---
 
            // Iterate through ALL substitution rules
            for (const configData of this.prettySubstitutions) {
