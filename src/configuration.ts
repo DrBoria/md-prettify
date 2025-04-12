@@ -93,5 +93,6 @@ export interface Settings {
   prettyCursor: PrettyCursor,
 	/** */
 	hideTextMethod: HideTextMethod,
+	predefinedConfig?: string,
 	debug: boolean,
 }

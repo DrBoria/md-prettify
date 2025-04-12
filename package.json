@@ -43,6 +43,16 @@
             "type": "object",
             "title": "MD Prettify",
             "properties": {
+                "mdPrettify.predefinedConfig": {
+                    "type": "string",
+                    "description": "Select a predefined set of substitutions. User-defined substitutions will be added after the predefined ones.",
+                    "enum": [
+                        "",
+                        "typescript-to-python"
+                    ],
+                    "default": "",
+                    "scope": "resource"
+                },
                 "mdPrettify.revealOn": {
                     "enum": [
                         "cursor",
@@ -360,6 +370,178 @@
                         ]
                     },
                     "default": []
+                },
+                "mdPrettify.predefinedConfigurations": {
+                    "type": "object",
+                    "description": "Internal storage for predefined configurations. Do not edit manually.",
+                    "default": {
+                        "typescript-to-python": {
+                            "language": [
+                                "typescriptreact",
+                                "typescript"
+                            ],
+                            "excludedScopes": ["comment.line.double-slash.ts", "comment.block.documentation.ts", "comment.block.ts"],
+                            "substitutions": [
+                                {
+                                    "ugly": "(&&)",
+                                    "pretty": "AND",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    },
+                                    "scope": [
+                                        "source.ts",
+                                        "source.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "(\\|\\|)",
+                                    "pretty": "OR",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    },
+                                    "scope": [
+                                        "source.ts",
+                                        "source.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
+                                    "pretty": " fun $1$2 -> $3:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.arrow.ts",
+                                        "meta.arrow.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*=>\\s*\\{",
+                                    "pretty": " fun $1$2:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.arrow.ts",
+                                        "meta.arrow.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "function\\s+([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "fun $1$2$3:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.function.ts",
+                                        "meta.function.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+                                    "pretty": "fun $1$2$3 -> $4:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.function.ts",
+                                        "meta.function.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+                                    "pretty": "fun $1$2$3 -> $4:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.method.declaration.ts",
+                                        "meta.method.declaration.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "fun $1$2$3:",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.method.declaration.ts",
+                                        "meta.method.declaration.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "switch\\s+\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "switch $1$2:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    },
+                                    "scope": [
+                                        "switch-statement.expr.ts",
+                                        "switch-statement.expr.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "try\\s*\\{",
+                                    "pretty": "TRY:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    }
+                                },
+                                {
+                                    "ugly": "\\}\\s*catch\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "CATCH $1$2:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    }
+                                },
+                                {
+                                    "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "if $1$2:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    },
+                                    "scope": [
+                                        "source.ts",
+                                        "source.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "\\}\\s*else\\s*\\{",
+                                    "pretty": "else:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    }
+                                },
+                                {
+                                    "ugly": "\\}\\s*else\\s*if\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "elif $1$2:",
+                                    "style": {
+                                        "color": "#d96a73"
+                                    }
+                                },
+                                {
+                                    "ugly": "}\\w*$",
+                                    "pretty": " ",
+                                    "scope": [
+                                        "meta.block.ts",
+                                        "meta.block.tsx",
+                                        "!meta.import.ts",
+                                        "!meta.import.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": ";$",
+                                    "pretty": " ",
+                                    "scope": [
+                                        "punctuation.terminator.statement.ts",
+                                        "punctuation.terminator.statement.tsx"
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "scope": "window"
                 }
             }
         }
