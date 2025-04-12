@@ -14,6 +14,8 @@ MD Prettify is your escape hatch from the chaos of ugly code and petty debates.
 It’s a **Visual Studio Code extension** that lets you prettify your source code—visually transforming it into something cleaner and more stylish—without changing a single character of the actual file. 
 Think of it as a makeover for your codebase: all the glamour, none of the refactoring drama.
 
+## Settings
+
 ### Commands
 
 The following commands are available for keybinding:
@@ -21,14 +23,32 @@ The following commands are available for keybinding:
 * `mdPrettify.disablePrettySymbols`: Kill the vibe (why tho?).
 * `mdPrettify.togglePrettySymbols`: Switch it up whenever you feel like it!
 
+### Reveal On
+
+By default, "ugly" text lights up when contacted by a cursor. 
+Customize it with **mdPrettify.revealOn** globally or per-language with a revealOn setting in the language entry. Here’s the lineup:
+
+*  **cursor**: Symbols shine when your cursor grazes them (default).
+*  **cursor-inside**: Glows when your cursor’s chilling inside the symbol.
+*  **active-line**: Every symbol on the cursor’s line gets the spotlight.
+*  **selection**: Symbols dazzle when selected or cursor-touched.
+*  **none**: Keep it stealth—no reveal, just raw code vibes.
 
 ## Configuration Examples
 
 Explore pre-configured substitution settings for various languages in the [examples/](./examples) directory:
 
-*   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like Python language.
-*   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like TrumpScript language.
-*   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like YoptaScript language.
+
+*   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like Python.
+*   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like TrumpScript.
+*   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like YoptaScript.
+
+### Predefined Config
+use ```mdPrettify.predefinedConfig: "value"``` to activate predefined config
+
+* **typescript-to-python** — Make TypeScript strut like Python. 🐍
+* **typescript-to-trumpscript** — Turn TypeScript into bold TrumpScript swagger. 🦁
+* **typescript-to-yoptascript** — Flip TypeScript to quirky YoptaScript chaos. 😎
 
 ![Example Video](./examples/example.gif)
 

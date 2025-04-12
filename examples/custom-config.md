@@ -7,6 +7,7 @@ MD Prettify allows you to transform "ugly" code patterns into "pretty" versions 
 **Structure:** A configuration has a:
  * `"language"` field (array of target languages) 
  * `"substitutions"` array containing substitution objects.
+ * `"excludedScopes"` scopes that will be excluded for every substitution.
 
 **Substitution Object Fields:**
 * `"ugly"`: A regular expression (regex) to match the code you want to replace.
