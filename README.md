@@ -39,9 +39,9 @@ Customize it with **mdPrettify.revealOn** globally or per-language with a reveal
 Explore pre-configured substitution settings for various languages in the [examples/](./examples) directory:
 
 
-*   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like Python.
-*   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like TrumpScript.
-*   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like YoptaScript.
+*   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like [Python](https://docs.python.org/3/tutorial/index.html).
+*   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like [TrumpScript](https://github.com/samshadwell/TrumpScript).
+*   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like [YoptaScript](https://github.com/samgozman/YoptaScript).
 
 ### Predefined Config
 use ```mdPrettify.predefinedConfig: "value"``` to activate predefined config
