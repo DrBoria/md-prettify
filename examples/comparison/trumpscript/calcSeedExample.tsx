@@ -29,6 +29,7 @@ while (total > 10 && !isCheap) {
   console.log(`Reduced cost: ${total}`);
 }
 
+
 let checkCount = 0;
 while (checkCount < 3) {
   console.log(`Check #${checkCount + 1}: Cost at ${total}`);
@@ -43,3 +44,5 @@ if (!isPremium && total * 4 === 40) {
   total = total + 10;
   console.log(`Final adjusted: ${total}`);
 }
+
+let pricesArray: number[] = [1, 2, 3, 4, 5, 6];

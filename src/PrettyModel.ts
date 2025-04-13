@@ -619,6 +619,43 @@ export class PrettyModel implements vscode.Disposable {
   }
 
   private handlePrettiesWithDynamicParams(lineIdx: number, matchStart: number, matchEnd: number, configData: PrettySubstitution, match: RegExpMatchArray) {
+    // --- Special Case: Handle pretties containing only $0 and static text ---
+    const containsOtherPlaceholders = /\$(?!0\b)\d+/.test(configData.pretty);
+    if (!containsOtherPlaceholders && configData.pretty.includes('$0')) {
+        const uglyRange = new vscode.Range(lineIdx, matchStart, lineIdx, matchEnd);
+        // Calculate the actual pretty text by substituting $0
+        const resolvedPretty = configData.pretty.replace('$0', match[0]);
+
+        // Use a cache key specific to the *resolved* text to ensure unique decorations
+        const keyParams = {
+            ugly: configData.ugly, // Keep original ugly for context
+            pretty: resolvedPretty, // Use RESOLVED pretty text for key
+            scope: configData.scope,
+            style: configData.style,
+        };
+        const key = this.getDecorationCacheKey(keyParams);
+        let cacheEntry = this.decorationCache.get(key);
+
+        if (!cacheEntry) {
+            // Create the decoration type using the resolved pretty text
+            const newDecoration = decorations.makePrettyDecoration_letterSpacing_hack({
+                ugly: match[0], // Original matched text
+                pretty: resolvedPretty,
+                scope: configData.scope,
+                style: configData.style,
+            });
+            // Store the resolved pretty text in the cache entry
+            cacheEntry = { decorationType: newDecoration, ranges: new Set(), pretty: resolvedPretty };
+            this.decorationCache.set(key, cacheEntry);
+        }
+
+        // Add the range to the specific cache entry for this resolved text
+        this.addOrUpdatePrettyRange(uglyRange, key);
+        return; // Handled directly, skip the part-by-part logic
+    }
+    // --- End Special Case ---
+
+    // Original logic for handling complex substitutions with $1, $2, etc.
     const prettyParts = configData.pretty.split(/(\$\d+)/g);
     const originalMatchText = match[0];
     let currentOriginalIndex = 0; // Index within originalMatchText
