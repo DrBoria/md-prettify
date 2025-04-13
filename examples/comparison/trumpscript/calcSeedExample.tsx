@@ -9,7 +9,6 @@ function calcSeedCost(base: number, qty: number, discount: boolean): number {
           price = price - 2;
       }
       cost = cost + price;
-      console.log(`Cost for ${seeds} seeds: ${cost}`);
       seeds = seeds - 1;
   }
   if (cost == 0) console.log(`No cost!`);
@@ -26,13 +25,11 @@ console.log(`Total cost: ${total}`);
 
 while (total > 10 && !isCheap) {
   total = total / 2;
-  console.log(`Reduced cost: ${total}`);
 }
 
 
 let checkCount = 0;
 while (checkCount < 3) {
-  console.log(`Check #${checkCount + 1}: Cost at ${total}`);
   checkCount = checkCount + 1;
 }
 
@@ -42,7 +39,6 @@ let overFive = total > 5;
 console.log(`Is 20? ${isTwenty} | Not 10? ${notTen} | Over 5? ${overFive}`);
 if (!isPremium && total * 4 === 40) {
   total = total + 10;
-  console.log(`Final adjusted: ${total}`);
 }
 
 let pricesArray: number[] = [1, 2, 3, 4, 5, 6];
