@@ -44,6 +44,7 @@ Explore pre-configured substitution settings for various languages in the [examp
 *   **[TypeScript looks like Python](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like [Python](https://docs.python.org/3/tutorial/index.html).
 *   **[TypeScript looks like TrumpScript](./examples/typescript-to-python.json):** Example substitutions for TypeScript to make it look like [TrumpScript](https://github.com/samshadwell/TrumpScript).
 *   **[TypeScript looks like YoptaScript](./examples/typescript-to-yoptascript.json):** Example substitutions for TypeScript to make it look like [YoptaScript](https://github.com/samgozman/YoptaScript).
+*   **[TypeScript looks like LOTRScript](./examples/typescript-to-LOTRScript.json):** Example substitutions for TypeScript to make it look like LotrScript (no links, I just made it).
 
 ### Predefined Config
 use ```mdPrettify.predefinedConfig: "value"``` to activate predefined config
@@ -51,6 +52,7 @@ use ```mdPrettify.predefinedConfig: "value"``` to activate predefined config
 * **typescript-to-python** — Make TypeScript strut like Python. 🐍
 * **typescript-to-trumpscript** — Turn TypeScript into bold TrumpScript swagger. 🦁
 * **typescript-to-yoptascript** — Flip TypeScript to quirky YoptaScript chaos. 😎
+* **typescript-to-lotrscript** — Flip TypeScript to middle age with LOTRScript. 😎
 
 ![Example Video](./examples/example.gif)
 
