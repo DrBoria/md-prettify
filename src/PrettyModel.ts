@@ -447,6 +447,8 @@ export class PrettyModel implements vscode.Disposable {
 
       const line = this.document.getLine(lineIdx);
       const { tokens } = this.refreshTokensOnLine(line, lineIdx);
+      // Keep track of $0 ranges logged on this line to avoid duplicates from overlapping segments
+      const loggedDollarZeroRangesThisLine = new Set<string>();
 
       // Get segments and their scopes for the line using the new helper
       const lineSegments = this.getLineSegmentsWithScopes(line, tokens);
@@ -582,7 +584,7 @@ export class PrettyModel implements vscode.Disposable {
                            if (uglyRange.isEmpty) continue;
 
                            if (hasDynamicParams) {
-                               this.handlePrettiesWithDynamicParams(lineIdx, start, end, configData, match);
+                               this.handlePrettiesWithDynamicParams(lineIdx, start, end, configData, match, loggedDollarZeroRangesThisLine);
                            } else {
                                // Handle static pretties (most common case)
                                const key = this.getDecorationCacheKey(configData);
@@ -618,13 +620,23 @@ export class PrettyModel implements vscode.Disposable {
      this.changedUglies = true;
   }
 
-  private handlePrettiesWithDynamicParams(lineIdx: number, matchStart: number, matchEnd: number, configData: PrettySubstitution, match: RegExpMatchArray) {
+  private handlePrettiesWithDynamicParams(lineIdx: number, matchStart: number, matchEnd: number, configData: PrettySubstitution, match: RegExpMatchArray, loggedDollarZeroRangesThisLine: Set<string>) {
     // --- Special Case: Handle pretties containing only $0 and static text ---
     const containsOtherPlaceholders = /\$(?!0\b)\d+/.test(configData.pretty);
     if (!containsOtherPlaceholders && configData.pretty.includes('$0')) {
         const uglyRange = new vscode.Range(lineIdx, matchStart, lineIdx, matchEnd);
         // Calculate the actual pretty text by substituting $0
         const resolvedPretty = configData.pretty.replace('$0', match[0]);
+
+        // Check if this specific $0 range has already been logged for this line
+        const rangeKey = `${uglyRange.start.line}:${uglyRange.start.character}-${uglyRange.end.character}`;
+        if (!loggedDollarZeroRangesThisLine.has(rangeKey)) {
+            loggedDollarZeroRangesThisLine.add(rangeKey);
+            // Add debug logging specifically for this $0 case
+            if (this.debug && this.outputChannel) {
+                this.outputChannel.appendLine(` Part '$0' corresponds to original substring '${match[0]}' [${matchStart}-${matchEnd}]`);
+            }
+        }
 
         // Use a cache key specific to the *resolved* text to ensure unique decorations
         const keyParams = {
