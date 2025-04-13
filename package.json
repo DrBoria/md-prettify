@@ -2,7 +2,7 @@
     "name": "md-prettify",
     "displayName": "MD Prettify",
     "description": "Turn Your Crappy Code into a Daily Delight",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "drboria",
     "license": "MIT license (MIT)",
     "icon": "examples/logo.jpg",
