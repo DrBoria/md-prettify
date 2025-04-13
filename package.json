@@ -2,7 +2,7 @@
     "name": "md-prettify",
     "displayName": "MD Prettify",
     "description": "Turn Your Crappy Code into a Daily Delight",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "publisher": "drboria",
     "license": "MIT license (MIT)",
     "icon": "examples/logo.jpg",
@@ -50,7 +50,8 @@
                         "",
                         "typescript-to-python",
                         "typescript-to-trumpscript",
-                        "typescript-to-yoptascript"
+                        "typescript-to-yoptascript",
+                        "typescript-to-lotrscript"
                     ],
                     "default": "",
                     "scope": "resource"
@@ -4727,6 +4728,419 @@
                                     "pretty": "общак",
                                     "style": {
                                         "color": "#5ea7e3"
+                                    }
+                                }
+                            ]
+                        },
+                        "typescript-to-lotrscript": {
+                            "language": [
+                                "typescript",
+                                "javascript",
+                                "typescriptreact",
+                                "javascriptreact"
+                            ],
+                            "substitutions": [
+                                {
+                                    "ugly": "if\\s*\\((.*?)\\)\\s*\\{",
+                                    "pretty": "Should $1:",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    }
+                                },
+                                {
+                                    "ugly": "\\}\\s*else\\s*\\{",
+                                    "pretty": "Otherwise:",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    }
+                                },
+                                {
+                                    "ugly": "\\}\\s*else\\s*if\\s*\\((.*?)\\)\\s*\\{",
+                                    "pretty": "Or should $1:",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    }
+                                },
+                                {
+                                    "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(\\(.*?\\))\\s*\\{",
+                                    "pretty": "Quest $1$2:",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "meta.function.ts",
+                                        "meta.function.tsx",
+                                        "meta.function.js",
+                                        "meta.function.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+                                    "pretty": "Quest $1$2$3 -> $4:",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "meta.function.ts",
+                                        "meta.function.tsx",
+                                        "meta.function.js",
+                                        "meta.function.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "\\((.*?)\\)\\s*=>\\s*\\{",
+                                    "pretty": "Journey ($1):",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "meta.arrow.ts",
+                                        "meta.arrow.tsx",
+                                        "meta.arrow.js",
+                                        "meta.arrow.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
+                                    "pretty": "Journey $1$2 -> $3:",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "meta.arrow.ts",
+                                        "meta.arrow.tsx",
+                                        "meta.arrow.js",
+                                        "meta.arrow.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "\\+",
+                                    "pretty": "unites with",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.arithmetic.ts",
+                                        "keyword.operator.arithmetic.tsx",
+                                        "keyword.operator.arithmetic.js",
+                                        "keyword.operator.arithmetic.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "-",
+                                    "pretty": "parts from",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.arithmetic.ts",
+                                        "keyword.operator.arithmetic.tsx",
+                                        "keyword.operator.arithmetic.js",
+                                        "keyword.operator.arithmetic.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "\\*",
+                                    "pretty": "empowered by",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.arithmetic.ts",
+                                        "keyword.operator.arithmetic.tsx",
+                                        "keyword.operator.arithmetic.js",
+                                        "keyword.operator.arithmetic.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "/",
+                                    "pretty": "distributed among",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.arithmetic.ts",
+                                        "keyword.operator.arithmetic.tsx",
+                                        "keyword.operator.arithmetic.js",
+                                        "keyword.operator.arithmetic.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "===",
+                                    "pretty": "stands as one with",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.comparison.ts",
+                                        "keyword.operator.comparison.tsx",
+                                        "keyword.operator.comparison.js",
+                                        "keyword.operator.comparison.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "!==",
+                                    "pretty": "parts ways from",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.comparison.ts",
+                                        "keyword.operator.comparison.tsx",
+                                        "keyword.operator.comparison.js",
+                                        "keyword.operator.comparison.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "=",
+                                    "pretty": "takes the form of",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.assignment.ts",
+                                        "keyword.operator.assignment.tsx",
+                                        "keyword.operator.assignment.js",
+                                        "keyword.operator.assignment.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": ">",
+                                    "pretty": "rises above",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.relational.ts",
+                                        "keyword.operator.relational.tsx",
+                                        "keyword.operator.relational.js",
+                                        "keyword.operator.relational.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "<",
+                                    "pretty": "bows before",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.relational.ts",
+                                        "keyword.operator.relational.tsx",
+                                        "keyword.operator.relational.js",
+                                        "keyword.operator.relational.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": ">=",
+                                    "pretty": "at least",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.relational.ts",
+                                        "keyword.operator.relational.tsx",
+                                        "keyword.operator.relational.js",
+                                        "keyword.operator.relational.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "<=",
+                                    "pretty": "at most",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.relational.ts",
+                                        "keyword.operator.relational.tsx",
+                                        "keyword.operator.relational.js",
+                                        "keyword.operator.relational.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "this\\.",
+                                    "pretty": "Pathfinder ",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "variable.language.this.ts",
+                                        "variable.language.this.tsx",
+                                        "variable.language.this.js",
+                                        "variable.language.this.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "return",
+                                    "pretty": "pass",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.control.ts",
+                                        "keyword.control.tsx",
+                                        "keyword.control.js",
+                                        "keyword.control.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "class",
+                                    "pretty": "Castle",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "meta.class.ts",
+                                        "meta.class.tsx",
+                                        "meta.class.js",
+                                        "meta.class.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "public",
+                                    "pretty": "vanguard",
+                                    "style": {
+                                        "color": "#77d6e2"
+                                    },
+                                    "scope": [
+                                        "storage.modifier.ts",
+                                        "storage.modifier.tsx",
+                                        "storage.modifier.js",
+                                        "storage.modifier.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "private",
+                                    "pretty": "rearguard",
+                                    "style": {
+                                        "color": "#77d6e2"
+                                    },
+                                    "scope": [
+                                        "storage.modifier.ts",
+                                        "storage.modifier.tsx",
+                                        "storage.modifier.js",
+                                        "storage.modifier.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "Error",
+                                    "pretty": "you fools!",
+                                    "style": {
+                                        "color": "#CD5C5C"
+                                    },
+                                    "scope": [
+                                        "support.class.error.ts",
+                                        "support.class.error.tsx",
+                                        "support.class.error.js",
+                                        "support.class.error.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "!",
+                                    "pretty": "shall not",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    },
+                                    "scope": [
+                                        "keyword.operator.logical.ts",
+                                        "keyword.operator.logical.tsx",
+                                        "keyword.operator.logical.js",
+                                        "keyword.operator.logical.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "new\\s+Error\\((.*?)\\)",
+                                    "pretty": "Run, you fools! \"$1\"",
+                                    "style": {
+                                        "color": "#e06c75"
+                                    }
+                                },
+                                {
+                                    "ugly": "console\\.log\\((.*?)\\)",
+                                    "pretty": "One does not simply \"$1\"",
+                                    "style": {
+                                        "color": "#60acec"
+                                    }
+                                },
+                                {
+                                    "ugly": "\\blet\\b",
+                                    "pretty": "Mortal",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "storage.type.ts",
+                                        "storage.type.tsx",
+                                        "storage.type.js",
+                                        "storage.type.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "\\bconst\\b",
+                                    "pretty": "Immortal",
+                                    "style": {
+                                        "color": "#FFD700"
+                                    },
+                                    "scope": [
+                                        "storage.type.ts",
+                                        "storage.type.tsx",
+                                        "storage.type.js",
+                                        "storage.type.jsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "Promise",
+                                    "pretty": "Prophecy",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "any",
+                                    "pretty": "mystery",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "void",
+                                    "pretty": "silence",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "number",
+                                    "pretty": "reckoning",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "boolean",
+                                    "pretty": "fate",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "string",
+                                    "pretty": "lore",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "null",
+                                    "pretty": "absence",
+                                    "style": {
+                                        "color": "#53adb9"
+                                    }
+                                },
+                                {
+                                    "ugly": "undefined",
+                                    "pretty": "unspoken",
+                                    "style": {
+                                        "color": "#53adb9"
                                     }
                                 }
                             ]
