@@ -261,7 +261,10 @@
       "pretty": " ",
       "scope": [
         "meta.block.ts",
-        "meta.block.tsx"
+        "meta.block.tsx",
+        "!meta.import.ts",
+        "!meta.import.tsx",
+        "!meta.jsx.children.tsx"
       ]
     },
     {

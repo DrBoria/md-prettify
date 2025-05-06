@@ -412,8 +412,8 @@
                                     ]
                                 },
                                 {
-                                    "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
-                                    "pretty": " fun $1$2 -> $3:",
+                                    "ugly": "(<[^>]+>)?\\s*(\\([^()]*\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
+                                    "pretty": "fun $1$2 -> $3:",
                                     "style": {
                                         "color": "#56b5c1"
                                     },
@@ -423,8 +423,19 @@
                                     ]
                                 },
                                 {
-                                    "ugly": "(<[^>]+>)?\\s*(\\(.*?\\))\\s*=>\\s*\\{",
-                                    "pretty": " fun $1$2:",
+                                    "ugly": "(=)\\s*(\\(.*?\\))\\s*:\\s*([^=]+)\\s*=>\\s*(\\()",
+                                    "pretty": "$1 fun $2 -> $3: $4",
+                                    "style": {
+                                        "color": "#56b5c1"
+                                    },
+                                    "scope": [
+                                        "meta.arrow.ts",
+                                        "meta.arrow.tsx"
+                                    ]
+                                },
+                                {
+                                    "ugly": "(<[^>]+>)?(=)\\s+(\\([^()]*\\))\\s*=>\\s*\\{",
+                                    "pretty": "$1$2 fun $3:",
                                     "style": {
                                         "color": "#56b5c1"
                                     },
@@ -534,7 +545,8 @@
                                         "meta.block.ts",
                                         "meta.block.tsx",
                                         "!meta.import.ts",
-                                        "!meta.import.tsx"
+                                        "!meta.import.tsx",
+                                        "!meta.jsx.children.tsx"
                                     ]
                                 },
                                 {
@@ -807,7 +819,10 @@
                                     "pretty": " ",
                                     "scope": [
                                         "meta.block.ts",
-                                        "meta.block.tsx"
+                                        "meta.block.tsx",
+                                        "!meta.import.ts",
+                                        "!meta.import.tsx",
+                                        "!meta.jsx.children.tsx"
                                     ]
                                 },
                                 {
