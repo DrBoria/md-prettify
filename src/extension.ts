@@ -171,17 +171,6 @@ export function activate(context: vscode.ExtensionContext): api.mdPrettify {
   return result;
 }
 
-function copyWithSubstitutions(editor: vscode.TextEditor) {
-  try {
-    if (!editor)
-      return;
-    const prettyDoc = documents.get(editor.document.uri);
-    if (prettyDoc)
-      prettyDoc.copyDecorated(editor);
-  } catch (e) {
-  }
-}
-
 function changeActiveTextEditor(editor: vscode.TextEditor) {
   try {
     if (!editor)
