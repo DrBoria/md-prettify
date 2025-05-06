@@ -1,3 +1,4 @@
+
 {
   "language": [
     "typescriptreact",
@@ -14,30 +15,33 @@
       "ugly": "(&&)",
       "pretty": "AND",
       "style": {
-        "color": "#d96a73",
-      },
-      "scope": [
-        "source.ts",
-        "source.tsx"
-      ]
+        "color": "#d96a73"
+      }
     },
     {
       "ugly": "(\\|\\|)",
       "pretty": "OR",
       "style": {
-        "color": "#d96a73",
-      },
-      "scope": [
-        "source.ts",
-        "source.tsx"
-      ]
+        "color": "#d96a73"
+      }
     },
     // FUNCTIONS
     {
-      "ugly": "(<[^>]+>)?\\s*(\\([^()]*\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
-      "pretty": "fun $1$2 -> $3:",
+      "ugly": "(=)\\s*(<[^>]+>)?\\s*(\\([^()]*\\))\\s*:\\s*([^=>]+)\\s*=>\\s*\\{",
+      "pretty": "$1 fun $2$3 -> $4:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
+      },
+      "scope": [
+        "meta.arrow.ts",
+        "meta.arrow.tsx",
+      ]
+    },
+    {
+      "ugly": "(\\(\\)) => {",
+      "pretty": "fun $1:",
+      "style": {
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.arrow.ts",
@@ -59,7 +63,7 @@
       "ugly": "(<[^>]+>)?(=)\\s+(\\([^()]*\\))\\s*=>\\s*\\{",
       "pretty": "$1$2 fun $3:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.arrow.ts",
@@ -70,44 +74,79 @@
       "ugly": "function\\s+([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "fun $1$2$3:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.function.ts",
-        "meta.function.tsx",
+        "meta.function.tsx"
       ]
     },
     {
       "ugly": "function\\s+([a-zA-Z_]\\w*)\\s*(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
       "pretty": "fun $1$2$3 -> $4:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.function.ts",
-        "meta.function.tsx",
+        "meta.function.tsx"
       ]
     },
     {
-      "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
-      "pretty": "fun $1$2$3 -> $4:",
+      "ugly": "(\\([^()]*\\))\\s*=>\\s*\\{",
+      "pretty": "fun $1:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
+      },
+      "scope": [
+        "meta.function.expression.ts",
+        "meta.function.expression.tsx"
+      ]
+    },
+    {
+      "ugly": "(\\([^()]*\\))\\s*=>\\s*\\{",
+      "pretty": "fun $1:",
+      "style": {
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.method.declaration.ts",
-        "meta.method.declaration.tsx",
+        "meta.method.declaration.tsx"
+      ]
+    },
+    {
+      "ugly": "((?:\\w+\\s+)*)(\\w+)(\\(.*?\\))\\s*:\\s*([^\\{]+)\\s*\\{",
+      "pretty": "$1fun $2$3 -> $4:",
+      "style": {
+        "color": "#56b5c1"
+      },
+      "scope": [
+        "meta.method.declaration.ts",
+        "meta.method.declaration.tsx"
       ]
     },
     {
       "ugly": "([a-zA-Z_]\\w*)(<[^>]+>)?\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "fun $1$2$3:",
       "style": {
-        "color": "#56b5c1",
+        "color": "#56b5c1"
       },
       "scope": [
         "meta.method.declaration.ts",
         "meta.method.declaration.tsx",
+        "!meta.block.ts",
+        "!meta.block.tsx"
+      ]
+    },
+    {
+      "ugly": "constructor\\s*(\\(.*?\\))\\s*\\{",
+      "pretty": "constructor$1:",
+      "style": {
+        "color": "#56b5c1"
+      },
+      "scope": [
+        "meta.method.declaration.ts",
+        "meta.method.declaration.tsx"
       ]
     },
     // CONTROL FLOW
@@ -115,7 +154,7 @@
       "ugly": "switch\\s+\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "switch $1$2:",
       "style": {
-        "color": "#d96a73",
+        "color": "#d96a73"
       },
       "scope": [
         "switch-statement.expr.ts",
@@ -126,40 +165,55 @@
       "ugly": "try\\s*\\{",
       "pretty": "TRY:",
       "style": {
-        "color": "#d96a73",
+        "color": "#d96a73"
       }
     },
     {
-      "ugly": "\\}\\s*catch\\s*(\\(.*?\\))\\s*\\{",
-      "pretty": "CATCH $1$2:",
+      "ugly": "\\}\\s*catch\\s*\\((.*?)\\)\\s*\\{",
+      "pretty": "CATCH $1:",
       "style": {
-        "color": "#d96a73",
+        "color": "#d96a73"
       }
     },
     {
-      "ugly": "if\\s*(\\(.*?\\))\\s*\\{",
+      "ugly": "if\\s*\\((.*?)\\)\\s*\\{",
       "pretty": "if $1$2:",
       "style": {
-        "color": "#d96a73",
-      },
-      "scope": [
-        "source.ts",
-        "source.tsx"
-      ]
+        "color": "#d96a73"
+      }
+    },
+    {
+      "ugly": "\\}\\s*finally\\s*\\{",
+      "pretty": "FINALLY:",
+      "style": {
+        "color": "#d96a73"
+      }
     },
     {
       "ugly": "\\}\\s*else\\s*\\{",
       "pretty": "else:",
       "style": {
-        "color": "#d96a73",
+        "color": "#d96a73"
       }
     },
     {
       "ugly": "\\}\\s*else\\s*if\\s*(\\(.*?\\))\\s*\\{",
       "pretty": "elif $1$2:",
       "style": {
-        "color": "#d96a73",
+        "color": "#d96a73"
       }
+    },
+    // DATA TYPES
+    {
+      "ugly": "\\{([^}]+)\\}",
+      "pretty": "{$1}",
+      "style": {
+        "color": "#bbbbbb"
+      },
+      "scope": [
+        "meta.objectliteral.ts!",
+        "meta.objectliteral.tsx!"
+      ]
     },
     // PARENTHESIS & PUNCTUATION
     {
@@ -168,10 +222,29 @@
       "scope": [
         "meta.block.ts",
         "meta.block.tsx",
+        "!meta.tag.tsx",
         "!meta.import.ts",
         "!meta.import.tsx",
         "!meta.jsx.children.tsx",
-        "!meta.var.expr.tsx"
+      ]
+    },
+    {
+      "ugly": "\\{([^}]+)\\}",
+      "pretty": "{$1}",
+      "scope": [
+        "meta.var.expr.ts!",
+        "meta.var.expr.tsx!"
+      ],
+      "style": {
+        "color": "#c678dd"
+      }
+    },
+    {
+      "ugly": "\\${([^}]+)}",
+      "pretty": " $1 ",
+      "scope": [
+        "string.template.ts!",
+        "string.template.tsx!"
       ]
     },
     {

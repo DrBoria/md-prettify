@@ -35,10 +35,23 @@ If **two rules** have similar `"ugly"` patterns (e.g., `"if ("` and `"$1 if ("`,
 
 For example, a rule matching a longer or more detailed pattern takes priority.
 
+### 3.1. Advanced: Prioritizing Rules with `!`
+
+To give a rule higher priority, add an exclamation mark (`!`) to the end of a scope name in its `"scope"` array (e.g., `"comment.line.double-slash.ts!"`). This ensures that very specific rules (for instance, for text within comments or strings) are applied even if they overlap with broader, more general rules.
+
+*   **How it Works:** A rule with a scope ending in `!` will take precedence over a rule with a standard scope if they both match the same piece of code. The prioritized rule applies even if the other rule's scope is broader or would normally apply due to matching a larger text segment.
+
+*   **Example:**
+    Suppose you have two rules:
+    1.  A general rule: `"TODO"` becomes `"TASK"` (scope: `["source.ts"]`).
+    2.  A specific, prioritized rule: `"TODO"` becomes `"[PENDING]"` but *only* in comments (scope: `["comment.line.double-slash.ts!"]`).
+
+    With this setup, `// TODO: Fix this` will change to `// [PENDING]: Fix this` (due to the `!` priority), while `TODO` elsewhere will become `TASK`.
+
 ### 4. Debugging Your Configuration
 
 Enable debug mode by adding "mdPrettify.debug": true to your config.
-Check the output in your IDE (e.g., Output -> MD Prettify Debug Output). You’ll see:
+Check the output in your IDE (e.g., Output -> MD Prettify Debug Output). You'll see:
 * **Segments**: Code broken into parts with their scopes and positions (e.g., 'if (qty > 0) {' at [0-22] with scopes [source.tsx, meta.function.tsx]).
 * **Substitution Mapping**: How each part of "pretty" corresponds to the original code (e.g., 'if ' maps to [8-11], $1 to (qty > 0)).
 Use this to refine your regex and scopes.
