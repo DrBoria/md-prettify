@@ -18,53 +18,36 @@
  */
 import { types as t, type Instance, unprotect } from "mobx-state-tree";
 import type { Host, IGrammar, ITextMateRegistry, OutputChannel } from "./host";
-import type { LanguageEntry, PredefinedConfig, Settings } from "./config/configuration";
-import type { PrettyDocumentController } from "./document/controller";
+import type { LanguageEntry, PredefinedConfig, Settings } from "./store.d/type";
+import type { PrettyDocumentController } from "./document/store";
+import { CommandsStoreModel } from "./commands/store";
+import { passthrough } from "@md-prettify/utils";
 import { GrammarStoreModel } from "./grammar/store";
 import { ReparseStoreModel } from "./reparse/store";
 import { ResolveStoreModel } from "./resolve/store";
 
-export type OnEnabledChangeHandler = (enabled: boolean) => void;
-
-/** A passthrough map value: stored as-is, no snapshot processing or proxying. */
-const grammarValue = t.custom<IGrammar, IGrammar>({
-	name: "IGrammar",
-	fromSnapshot: (s) => s,
-	toSnapshot: (s) => s,
-	isTargetType: () => true,
-	getValidationMessage: () => "",
-});
-
-const controllerValue = t.custom<PrettyDocumentController, PrettyDocumentController>({
-	name: "PrettyDocumentController",
-	fromSnapshot: (s) => s,
-	toSnapshot: (s) => s,
-	isTargetType: () => true,
-	getValidationMessage: () => "",
-});
-
 export const RootStoreModel = t.model("RootStore", {
 	/** Cache for loaded grammars, keyed by scope name. */
-	loadedGrammars: t.map(grammarValue),
+	loadedGrammars: t.map(passthrough<IGrammar>("IGrammar")),
 	/** Every open document's controller, keyed by document uri. */
-	documents: t.map(controllerValue),
-	/** Whether pretty symbols are enabled at all. */
-	enabled: t.boolean,
+	documents: t.map(passthrough<PrettyDocumentController>("PrettyDocumentController")),
+	/** The commands feature store (the enabled flag and its handlers). */
+	commands: CommandsStoreModel,
 	/** The grammar feature store (the loaded Oniguruma WASM promise). */
 	grammar: GrammarStoreModel,
 	/** The reparse feature store (the in-flight reparse cancellation token). */
 	reparse: ReparseStoreModel,
 	/** The resolve feature store (last resolved range + its cache key). */
 	resolve: ResolveStoreModel,
+	/** The commands feature's logger channel (wired by `configureLogger`). */
+	loggerChannel: t.maybeNull(passthrough<OutputChannel>("OutputChannel")),
 })
 // Host/registry/handlers and the config feature state are IDE API objects or
 // live collections: not serializable, not observable.
 .volatile(() => ({
 	host: undefined as Host | undefined,
 	textMateRegistry: undefined as ITextMateRegistry | undefined,
-	enabledHandlers: new Set<OnEnabledChangeHandler>(),
-	// Config feature state (formerly the settings/logger/predefined stores):
-	loggerChannel: undefined as OutputChannel | undefined,
+	// Config feature state (formerly the settings/predefined stores):
 	predefinedConfigs: new Map<string, PredefinedConfig>(),
 	settings: undefined as Settings,
 	outputChannel: undefined as OutputChannel,
@@ -87,13 +70,20 @@ export const requireRootStore = (): RootStore => {
 	return store;
 };
 
+/** The root store, or an error if it has not been created yet. */
+export const getRoot = requireRootStore;
+
+/** Whether pretty symbols are currently enabled. */
+export const isEnabled = (): boolean => rootStoreRef.current?.commands.enabled ?? false;
+
 /** Creates the root store; called by the extension's entry point. */
 export const createRootStore = (): RootStore => {
 	const store = RootStoreModel.create({
-		enabled: true,
+		commands: CommandsStoreModel.create({ enabled: true, enabledHandlers: new Set() }),
 		grammar: GrammarStoreModel.create(),
 		reparse: ReparseStoreModel.create(),
 		resolve: ResolveStoreModel.create({ lastResolvedRange: null, lastResolvedCacheKey: "" }),
+		loggerChannel: null,
 	});
 
 	unprotect(store);

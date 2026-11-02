@@ -4,7 +4,7 @@ import type {
   Range,
   OutputChannel,
 } from '../host';
-import type { HideTextMethod, Substitution } from '../config/configuration';
+import type {HideTextMethod, Substitution} from '../store.d/type';
 import type * as tm from '../grammar/text-mate';
 import type { IGrammar, IToken, ITokenizeLineResult, StateStack } from 'vscode-textmate';
 import type { Instance } from 'mobx-state-tree';
@@ -75,6 +75,8 @@ export interface ControllerOptions {
   hideTextMethod: HideTextMethod;
   debug: boolean;
   textMateGrammar?: tm.IGrammar | null;
+  /** The scope the grammar covers, when the settings do not name one. */
+  textMateGrammarScope?: string;
   outputChannel: OutputChannel;
 }
 

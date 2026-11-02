@@ -100,7 +100,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       substitutions: [{ ugly: "&&", pretty: "AND" }],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     const ranges = model.getPrettySubstitutionsRanges();
     assert.strictEqual(ranges.length, 1);
     // "const r = a " = 12 chars; "&&" spans indices 12..14
@@ -124,7 +124,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       substitutions: [{ ugly: "function", pretty: "fun", scope: "meta.function.ts" }],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     const ranges = model.getPrettySubstitutionsRanges();
     assert.strictEqual(ranges.length, 1, "only the in-scope `function` keyword matches");
     assert.strictEqual(ranges[0].start.line, 0);
@@ -142,7 +142,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       substitutions: [{ ugly: "&&", pretty: "AND", scope: "meta.arrow.ts" }],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     assert.strictEqual(model.getPrettySubstitutionsRanges().length, 0, "scope never present in this grammar");
   });
 
@@ -156,7 +156,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       excludedScopes: ["comment.line.double-slash.ts"],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     assert.strictEqual(model.getPrettySubstitutionsRanges().length, 0, "comment segment excluded");
   });
 
@@ -168,7 +168,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       substitutions: [{ ugly: "&&", pretty: "AND" }],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     assert.strictEqual(model.getPrettySubstitutionsRanges().length, 2, "one marker per line");
 
     // Insert a new blank line at the very top of the document.
@@ -190,7 +190,7 @@ suite("PrettyModel (synthetic TypeScript grammar)", () => {
       substitutions: [{ ugly: "&&", pretty: "AND" }],
       combineIdenticalScopes: true,
     };
-    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar });
+    const model = createPrettyModel(makeFakeHost(), doc, settings, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
     const first = model.getPrettySubstitutionsRanges().length;
     model.recomputeDecorations();
     const second = model.getPrettySubstitutionsRanges().length;

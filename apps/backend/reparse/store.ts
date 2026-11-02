@@ -5,7 +5,7 @@
  */
 import { types as t } from "mobx-state-tree";
 import type { Instance } from "mobx-state-tree";
-import { passthrough } from "../utils/mst-passthrough";
+import { passthrough } from "@md-prettify/utils";
 import { createReparseToken } from "./actions/reparse-token";
 
 export const ReparseStoreModel = t.model("ReparseStore", {

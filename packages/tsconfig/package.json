@@ -1,7 +1,17 @@
 {
 	"name": "@md-prettify/tsconfig",
-	"version": "0.0.0",
+	"version": "0.0.7-beta",
 	"private": true,
+	"license": "Apache-2.0",
+	"author": "DrBoria <dr.boria@gmail.com>",
+	"repository": {
+	  "type": "git",
+	  "url": "git+https://github.com/DrBoria/md-prettify.git"
+	},
+	"bugs": {
+	  "url": "https://github.com/DrBoria/md-prettify/issues"
+	},
+	"homepage": "https://github.com/DrBoria/md-prettify#readme",
 	"files": ["base.json"],
 	"exports": {
 		"./base.json": "./base.json"

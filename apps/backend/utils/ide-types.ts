@@ -2,7 +2,7 @@
  * Decoration types for the host contract: range behavior, render options,
  * and the decoration type handle the adapter maps to a real IDE decoration.
  */
-import type { Disposable } from '../config/host-events';
+import type { Disposable } from '../store.d/type';
 
 /**
  * Mirrors vscode.DecorationRangeBehavior: how the decoration range reacts

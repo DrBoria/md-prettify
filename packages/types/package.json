@@ -1,0 +1,17 @@
+{
+  "name": "@md-prettify/types",
+  "version": "0.0.7-beta",
+  "license": "Apache-2.0",
+  "author": "DrBoria <dr.boria@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrBoria/md-prettify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DrBoria/md-prettify/issues"
+  },
+  "homepage": "https://github.com/DrBoria/md-prettify#readme",
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "private": true
+}

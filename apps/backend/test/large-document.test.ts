@@ -3,7 +3,7 @@ import { rangeFrom } from "../host";
 import type { Host, TextEditorDecorationType, DecorationRenderOptions, OutputChannel, Disposable } from "../host";
 import { createPrettyModel } from '../document/pretty-model';
 import type { DocumentView } from '../document/type';
-import type { LanguageEntry } from '../config/configuration';
+import type {LanguageEntry} from '../store.d/type';
 import { parseRawGrammar, Registry } from '../grammar/text-mate';
 import type { IGrammar } from '../grammar/text-mate';
 import { loadOnigLib } from '../grammar/onig-wasm';
@@ -118,7 +118,7 @@ suite("large document", () => {
     const grammar = await loadGrammar();
     const lines = buildDocument(LINE_COUNT);
     const doc = makeDocModel(lines);
-    const makeModel = () => createPrettyModel(new FakeHost(), doc, SETTINGS, { ...OPTIONS, textMateGrammar: grammar });
+    const makeModel = () => createPrettyModel(new FakeHost(), doc, SETTINGS, { ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts" });
 
     const t0 = process.hrtime.bigint();
     const model = makeModel();

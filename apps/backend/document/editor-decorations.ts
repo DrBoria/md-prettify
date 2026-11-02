@@ -1,8 +1,11 @@
 import type { TextDocument, TextEditor, TextDocumentChange, Range } from '../host';
 import { rangeIntersection } from '../host';
 import type { UpdateDecorationEntry, UpdateDecorationInstanceEntry } from './type';
-import { logError, logWarn } from '../config/logger';
 import type { DocumentStore } from './type';
+import type { PrettyModel } from './pretty-model';
+
+/** The engine model of the store, when it has one. */
+const modelOf = (state: DocumentStore): PrettyModel => state.prettyModel as PrettyModel;
 
 /** All visible editors showing the controlled document. */
 export const getEditors = (state: DocumentStore): TextEditor[] => {
@@ -26,12 +29,13 @@ const applyDecorationEntry = (state: DocumentStore, editor: TextEditor, d: Updat
     }
     editor.setDecorations(d.decoration, visible)
   } else {
-    logWarn(`Skipping invalid decoration entry in applyActiveEditorDecorations for ${state.document?.uri}`);
+    console.warn(`Skipping invalid decoration entry in applyActiveEditorDecorations for ${state.document?.uri}`);
   }
 };
 
+
 /** Computes the reveal ranges: explicit ones, or derived from the active editor's selections. */
-const computeRevealRanges = (state: DocumentStore, prettyModel: NonNullable<DocumentStore['prettyModel']>, document: NonNullable<DocumentStore['document']>, revealRanges?: Range[]): Range[] => {
+const computeRevealRanges = (state: DocumentStore, prettyModel: PrettyModel, document: NonNullable<DocumentStore['document']>, revealRanges?: Range[]): Range[] => {
   if (revealRanges) return revealRanges;
   const activeEditor = state.host.activeTextEditor;
   const currentSelections = activeEditor?.document?.uri === document.uri
@@ -60,14 +64,14 @@ const runDecorationUpdate = (
 ): void => {
   if (!state.prettyModel || !state.document) return;
   try {
-    const reveal = computeRevealRanges(state, state.prettyModel, state.document, revealRanges);
+    const reveal = computeRevealRanges(state, modelOf(state), state.document, revealRanges);
 
     for (const editor of editors) {
       if (!isEditorUsable(editor)) continue;
       applyEntriesToEditor(state, editor, decs, reveal);
     }
   } catch (err) {
-    logError(`Error in applyActiveEditorDecorations callback for ${state.document?.uri}:`, err)
+    console.error(`Error in applyActiveEditorDecorations callback for ${state.document?.uri}:`, err)
   }
 };
 
@@ -101,15 +105,17 @@ export const applyDecorations = (state: DocumentStore, editors: Iterable<TextEdi
 export const onChangeDocument = (state: DocumentStore, document: TextDocument, changes: TextDocumentChange[]): void => {
   if (!state.prettyModel || !state.document || document.uri !== state.document.uri) return;
 
-  state.prettyModel.applyChanges(changes);
-  state.prettyModel.recomputeDecorations();
+  const model = modelOf(state);
+  model.applyChanges(changes);
+  model.recomputeDecorations();
 
-  applyDecorations(state, getEditors(state), Array.from(state.prettyModel.getDecorationsList()));
+  applyDecorations(state, getEditors(state), Array.from(model.getDecorationsList()));
 };
 
 /** Recomputes the decorations and reapplies them to all editors of the document. */
 export const refresh = (state: DocumentStore): void => {
   if (!state.prettyModel || !state.document) return;
-  state.prettyModel.recomputeDecorations();
-  applyDecorations(state, getEditors(state), Array.from(state.prettyModel.getDecorationsList()));
+  const model = modelOf(state);
+  model.recomputeDecorations();
+  applyDecorations(state, getEditors(state), Array.from(model.getDecorationsList()));
 };

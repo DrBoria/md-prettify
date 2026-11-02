@@ -15,12 +15,13 @@ import type {
   DecorationRenderOptions,
   TextDocument as HostTextDocument,
   TextLine as HostTextLine,
-} from '../../apps/backend/host';
+  ContentBlock,
+} from '@md-prettify/types';
 import {
   positionFrom,
   rangeFromPositions,
   selectionFrom,
-} from '../../apps/backend/host';
+} from '@md-prettify/utils';
 
 // ---------------------------------------------------------------------------
 // Geometry: host → vscode
@@ -148,8 +149,6 @@ const stringOptionKeys = [
   'textDecoration',
   'cursor',
 ] as const;
-
-type ContentBlock = NonNullable<Partial<DecorationRenderOptions>['before']>;
 
 const copyContentBlock = (
   source: ContentBlock | undefined,

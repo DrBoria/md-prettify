@@ -71,7 +71,7 @@ const positionFromLineStart = (text: string, offset: number, startLine: number, 
   let lastIndex = 0;
   let lineEnd = nextLineEnd(text, lastIndex);
   let crossed = 0;
-  while (lineEnd < offset) {
+  while (lineEnd <= offset && lineEnd < text.length) {
     lastIndex = lineEnd;
     crossed += 1;
     lineEnd = nextLineEnd(text, lastIndex);

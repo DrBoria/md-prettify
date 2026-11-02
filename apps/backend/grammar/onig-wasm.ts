@@ -3,7 +3,6 @@ import * as fs from 'fs';
 
 import * as oniguruma from 'vscode-oniguruma';
 import type { IOnigLib } from 'vscode-textmate';
-import { logError, logInfo } from '../config/logger';
 
 // Resolve the wasm via the package itself — works from any install layout
 // (pnpm hoisting, the extension bundle, or a plain node_modules).
@@ -20,12 +19,12 @@ const onigLib: IOnigLib = {
 };
 
 const finishLoad = (): IOnigLib => {
-  logInfo('Oniguruma WASM loaded successfully');
+  console.info('Oniguruma WASM loaded successfully');
   return onigLib;
 };
 
 const failLoad = (err: unknown): never => {
-  logError('Failed to load Oniguruma WASM:', err);
+  console.error('Failed to load Oniguruma WASM:', err);
   throw err;
 };
 
@@ -33,9 +32,9 @@ const failLoad = (err: unknown): never => {
  * promise belongs to the caller (the grammar store caches it). */
 export const loadOnigLib = (): Promise<IOnigLib> => {
   const wasmFile = wasmPath();
-  logInfo(`Loading Oniguruma WASM from ${wasmFile}`);
+  console.info(`Loading Oniguruma WASM from ${wasmFile}`);
   if (!fs.existsSync(wasmFile)) {
-    logError(`Oniguruma WASM file not found at ${wasmFile}`);
+    console.error(`Oniguruma WASM file not found at ${wasmFile}`);
   }
   return oniguruma.loadWASM({ data: fs.readFileSync(wasmFile) }).then(finishLoad).catch(failLoad);
 };

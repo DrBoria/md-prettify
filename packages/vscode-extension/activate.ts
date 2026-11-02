@@ -13,7 +13,7 @@ import { createHost } from './host-adapter';
 import { registerCommands } from './commands';
 import { registerListeners } from './listeners';
 import { activate as backendActivate, deactivate as backendDeactivate, createRootStore } from '../../apps/backend/index';
-import type { mdPrettify } from '../../apps/backend/config/api';
+import type { mdPrettify } from '@md-prettify/types';
 import type { RootStore } from '../../apps/backend/store';
 
 // The root store lives for the extension's lifetime; deactivate needs it.
@@ -47,15 +47,8 @@ const devtoolIdentity: HostIdentity = {
   getFocused: () => vscode.window.state.focused,
 };
 
-export function activate(context: vscode.ExtensionContext): mdPrettify {
-  rootRef.current = createRootStore();
-  const host = createHost();
-
-  // Create output channel via the host
-  const outputChannel = host.createOutputChannel('MD Prettify Debug');
-  context.subscriptions.push(outputChannel);
-
-  // Devtool MCP server — starts the WS (60060) + HTTP status (60061) transports.
+// Devtool MCP server — starts the WS (60060) + HTTP status (60061) transports.
+const startDevtool = (outputChannel: { appendLine(value: string): void }): void => {
   const devtool = new DevtoolServer(
     { provider: devtoolProvider },
     undefined,
@@ -72,6 +65,17 @@ export function activate(context: vscode.ExtensionContext): mdPrettify {
       outputChannel.appendLine(`[devtool] failed to start: ${err}`);
     },
   );
+};
+
+export function activate(context: vscode.ExtensionContext): mdPrettify {
+  rootRef.current = createRootStore();
+  const host = createHost();
+
+  // Create output channel via the host
+  const outputChannel = host.createOutputChannel('MD Prettify Debug');
+  context.subscriptions.push(outputChannel);
+
+  startDevtool(outputChannel);
 
   // Register commands and listeners
   context.subscriptions.push(...registerCommands(host));

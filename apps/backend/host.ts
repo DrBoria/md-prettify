@@ -13,7 +13,7 @@
  *  - `decorations/host-types` — decoration behavior + render options
  *  - `stores/document/text`    — TextLine, TextDocument interfaces
  *  - `stores/document/editor`  — TextEditor, TextEditorSelectionEvent
- *  - `config/host-events`           — changes, Disposable, OutputChannel
+ *  - `config/type`                  — changes, Disposable, OutputChannel
  *  - `stores/document/textmate` — TextMate registry + token types
  *
  * This file is the facade: it holds the `Host` interface itself and
@@ -21,15 +21,15 @@
  * keep working unchanged.
  */
 import type { TextDocument, TextEditor, TextEditorSelectionEvent } from './utils/ide-editor';
-import type { TextEditorDecorationType, DecorationRenderOptions } from './utils/ide-types';
+import type { TextEditorDecorationType, DecorationRenderOptions } from '@md-prettify/types';
 import type {
   TextDocumentChange,
   ConfigurationChangeEvent,
   Disposable,
   OutputChannel,
-} from './config/host-events';
+} from './store.d/type';
 
-export type { Position, Range, Selection } from './utils/range';
+export type { Position, Range, Selection } from '@md-prettify/types';
 export {
   positionFrom,
   positionCompare,
@@ -51,21 +51,21 @@ export {
   rangeTranslate,
   rangeWith,
   selectionFrom,
-} from './utils/range';
+} from '@md-prettify/utils';
 export {
   DecorationRangeBehavior,
   type DecorationRangeBehaviorValue,
   type DecorationRenderOptions,
   type DecorationInstanceRenderOptions,
   type TextEditorDecorationType,
-} from './utils/ide-types';
+} from '@md-prettify/types';
 export type { TextLine, TextDocument, TextEditor, TextEditorSelectionEvent } from './utils/ide-editor';
 export type {
   TextDocumentChange,
   ConfigurationChangeEvent,
   Disposable,
   OutputChannel,
-} from './config/host-events';
+} from './store.d/type';
 export type {
   IGrammar,
   IToken,

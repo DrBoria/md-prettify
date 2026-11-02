@@ -5,7 +5,7 @@ import { getDecorationCacheKey, hasPriorityScopes, getCacheKeyPriority, addOrUpd
 import { DocumentStoreModel } from '../document/store';
 import type { DocumentView, PrettySubstitution } from '../document/type';
 import type { DocumentStore } from '../document/type';
-import type { DebounceFunction } from '../document/debounce';
+import type { DebounceFunction } from '@md-prettify/utils';
 
 class FakeHost implements Host {
   textDocuments: never[] = [];

@@ -1,6 +1,17 @@
 {
   "name": "md-prettify-monorepo",
+  "version": "0.0.7-beta",
   "private": true,
+  "license": "Apache-2.0",
+  "author": "DrBoria <dr.boria@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrBoria/md-prettify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DrBoria/md-prettify/issues"
+  },
+  "homepage": "https://github.com/DrBoria/md-prettify#readme",
   "packageManager": "pnpm@10.8.1",
   "scripts": {
     "dev": "turbo dev",

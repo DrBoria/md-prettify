@@ -1,10 +1,11 @@
 import * as assert from "assert";
+import { unprotect } from "mobx-state-tree";
 import type { Range } from "../host";
 import { rangeFrom } from "../host";
 import type { Host, TextEditorDecorationType, DecorationRenderOptions, OutputChannel, Disposable } from "../host";
 import { createPrettyModel } from '../document/pretty-model';
 import type { DocumentView } from '../document/type';
-import type { LanguageEntry } from '../config/configuration';
+import type {LanguageEntry} from '../store.d/type';
 import { parseRawGrammar, Registry } from '../grammar/text-mate';
 import type { IGrammar } from '../grammar/text-mate';
 import { loadOnigLib } from '../grammar/onig-wasm';
@@ -88,7 +89,7 @@ suite("chunked reparse", () => {
     const lines = buildLines(5000);
     const doc = makeDocModel(lines);
     const model = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar, skipInitialReparse: true,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts", skipInitialReparse: true,
     });
 
     const order: string[] = [];
@@ -111,7 +112,7 @@ suite("chunked reparse", () => {
     const lines = buildLines(8000);
     const doc = makeDocModel(lines);
     const model = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar, skipInitialReparse: true,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts", skipInitialReparse: true,
     });
 
     // A 1ms setInterval must keep firing while the reparse yields to the event
@@ -132,7 +133,7 @@ suite("chunked reparse", () => {
     const lines = buildLines(5000);
     const doc = makeDocModel(lines);
     const model = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar, skipInitialReparse: true,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts", skipInitialReparse: true,
     });
 
     const chunks: Range[] = [];
@@ -156,13 +157,13 @@ suite("chunked reparse", () => {
 
     // Full-sync model (the reference).
     const syncModel = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts",
     });
     const syncRanges = syncModel.getPrettySubstitutionsRanges();
 
     // Chunked model.
     const asyncModel = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar, skipInitialReparse: true,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts", skipInitialReparse: true,
     });
     await asyncModel.reparseViewportFirst(rangeFrom(100, 0, 200, 0));
     const asyncRanges = asyncModel.getPrettySubstitutionsRanges();
@@ -176,7 +177,7 @@ suite("chunked reparse", () => {
     const lines = buildLines(4096);
     const doc = makeDocModel(lines);
     const model = createPrettyModel(new FakeHost(), doc, SETTINGS, {
-      ...OPTIONS, textMateGrammar: grammar, skipInitialReparse: true,
+      ...OPTIONS, textMateGrammar: grammar, textMateGrammarScope: "source.ts", skipInitialReparse: true,
     });
 
     const chunks: Range[] = [];
@@ -192,6 +193,7 @@ suite("chunked reparse", () => {
 
   test("cancellation token flips state", () => {
     const store = ReparseStoreModel.create();
+    unprotect(store);
     createReparseToken(store);
     const token = store.currentToken;
     assert.ok(token, "token was created");

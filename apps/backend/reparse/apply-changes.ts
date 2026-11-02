@@ -1,3 +1,4 @@
+import { unprotect } from 'mobx-state-tree';
 import type { Range } from '../host';
 import { positionFrom, rangeFrom, rangeFromPositions, positionCompare } from '../host';
 import * as textUtil from '../utils/text-deltas';
@@ -42,18 +43,21 @@ const deleteRangesInLineRange = (ranges: Set<Range>, minLine: number, maxLine: n
   }
 };
 
-/** Computes the line range to reparse after a bulk edit, clamped to the document. */
-const reparseLineSpan = (minLine: number, maxLine: number, totalLinesDelta: number, docLineCount: number): [number, number] => {
+/**
+ * Computes the line range to reparse after a bulk edit, clamped to the document.
+ * Every line after an inserted or deleted line has moved, so the edit shifts all
+ * following ranges; the reparse therefore runs to the end of the document.
+ */
+const reparseLineSpan = (minLine: number, totalLinesDelta: number, docLineCount: number): [number, number] => {
   const finalMinLine = Math.max(0, minLine);
-  const estimatedFinalMaxLine = maxLine + totalLinesDelta;
-  const finalEndLine = Math.min(Math.max(0, docLineCount - 1), Math.max(estimatedFinalMaxLine, finalMinLine));
+  const finalEndLine = totalLinesDelta === 0 ? finalMinLine : Math.max(0, docLineCount - 1);
   return [finalMinLine, finalEndLine];
 };
 
 /** Clears decoration ranges within a line range and reparses that range. */
-const reparseAffectedLines = (state: DocumentStore, minLine: number, maxLine: number, totalLinesDelta: number): void => {
+const reparseAffectedLines = (state: DocumentStore, minLine: number, totalLinesDelta: number): void => {
   const docLineCount = state.document.getLineCount();
-  const [finalMinLine, finalEndLine] = reparseLineSpan(minLine, maxLine, totalLinesDelta, docLineCount);
+  const [finalMinLine, finalEndLine] = reparseLineSpan(minLine, totalLinesDelta, docLineCount);
 
   if (finalMinLine > finalEndLine) {
     state.changedUglies = false;
@@ -89,6 +93,7 @@ export const recomputeDecorations = (state: DocumentStore): void => {
   state.lineIndex.clear();
   state.rangeKeyToCacheKey.clear();
   state.grammarState = []; // Reset grammar state
+  unprotect(state);
 
   const docRange = rangeFrom(0, 0, state.document.getLineCount(), 0);
   reparsePretties(state, docRange); // Repopulates ranges in the cache
@@ -123,7 +128,7 @@ export const applyChanges = (state: DocumentStore, changes: { range: Range, text
 
   // Second pass: Determine final affected range and reparse
   if (minAffectedLineInitial <= maxAffectedLineInitial) {
-    reparseAffectedLines(state, minAffectedLineInitial, maxAffectedLineInitial, totalLinesDelta);
+    reparseAffectedLines(state, minAffectedLineInitial, totalLinesDelta);
   } else {
     state.changedUglies = false;
   }

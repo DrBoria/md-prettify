@@ -35,6 +35,12 @@ importers:
 
   apps/backend:
     dependencies:
+      '@md-prettify/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@md-prettify/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@types/copy-paste':
         specifier: 1.1.30
         version: 1.1.30
@@ -102,8 +108,22 @@ importers:
 
   packages/tsconfig: {}
 
+  packages/types: {}
+
+  packages/utils:
+    dependencies:
+      mobx-state-tree:
+        specifier: ^8.0.0
+        version: 8.0.0(mobx@7.0.6)(typescript@5.9.3)
+
   packages/vscode-extension:
     dependencies:
+      '@md-prettify/types':
+        specifier: workspace:*
+        version: link:../types
+      '@md-prettify/utils':
+        specifier: workspace:*
+        version: link:../utils
       mobx:
         specifier: ^7.0.6
         version: 7.0.6
@@ -129,6 +149,12 @@ importers:
 
   packages/webstorm-extension:
     dependencies:
+      '@md-prettify/types':
+        specifier: workspace:*
+        version: link:../types
+      '@md-prettify/utils':
+        specifier: workspace:*
+        version: link:../utils
       vscode-extension-devtool-mcp:
         specifier: file:../../../Jabberwock/packages/vscode-extension-devtool-mcp
         version: file:../Jabberwock/packages/vscode-extension-devtool-mcp(mobx@7.0.6)(react-dom@19.3.1(react@18.3.1))

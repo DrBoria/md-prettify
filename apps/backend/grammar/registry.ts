@@ -2,7 +2,6 @@ import * as fs from 'fs';
 
 import * as vsctm from 'vscode-textmate';
 import type { IGrammar, ITextMateRegistry, StackElement } from '../host';
-import { log } from '../config/logger';
 
 // Export IGrammarLocator interface for compatibility
 export interface IGrammarLocator {
@@ -56,15 +55,15 @@ const loadGrammarViaLocator = async (locator: IGrammarLocator, scopeName: string
   try {
     const grammarPath = locator.getFilePath(scopeName);
     if (!grammarPath) {
-      log.warn(`Grammar file not found for scope ${scopeName}`);
+      console.warn(`Grammar file not found for scope ${scopeName}`);
       return null;
     }
 
-    log.info(`Loading grammar file for ${scopeName} from ${grammarPath}`);
+    console.info(`Loading grammar file for ${scopeName} from ${grammarPath}`);
     const data = await readFile(grammarPath);
     return vsctm.parseRawGrammar(data.toString(), grammarPath);
   } catch (err) {
-    log.error(`Failed to load grammar for ${scopeName}:`, err);
+    console.error(`Failed to load grammar for ${scopeName}:`, err);
     return null;
   }
 };
@@ -84,7 +83,7 @@ const loadGrammarFromRegistry = (registry: vsctm.Registry, scopeName: string): P
 // Create TextMate registry with the grammar locator and the loaded WASM library.
 export const createRegistry = (locator: IGrammarLocator, onigLibPromise: Promise<vsctm.IOnigLib>): ITextMateRegistry | null => {
   if (!vsctm) {
-    log.error('TextMate module not available');
+    console.error('TextMate module not available');
     return null;
   }
 
@@ -117,7 +116,7 @@ export const loadGrammarSync = (scopeName: string, filePath: string): IGrammar =
     const raw: unknown = vsctm.parseRawGrammar(content, filePath);
     return raw as IGrammar;
   } catch (err) {
-    log.error(`Error loading grammar synchronously: ${err.message}`);
+    console.error(`Error loading grammar synchronously: ${err.message}`);
     return dummyGrammar;
   }
 };

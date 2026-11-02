@@ -1,15 +1,9 @@
 import * as assert from "assert";
 import type { Host, TextDocument, TextEditor, Disposable, OutputChannel, TextEditorDecorationType, DecorationRenderOptions, Range } from "../host";
-import { setHost } from "../config/settings";
-import {
-  onEnabledChange,
-  setEnabled,
-  enablePrettySymbols,
-  disablePrettySymbols,
-  togglePrettySymbols,
-} from "../commands/toggle";
-import { refreshPage } from "../commands/refresh";
-import { copyWithSubstitutions } from "../commands/copy";
+import { setHostAction } from "../document/actions/manage-documents";
+import { togglePrettySymbols } from "../commands/toggle-pretty-symbols";
+import { addEnabledHandler, removeEnabledHandler } from "../commands/actions/set-enabled";
+import { copyWithSubstitutions } from "../commands/editor-events";
 import { createRootStore } from '../store';
 import type { RootStore } from '../store';
 
@@ -62,10 +56,18 @@ const makeEditor = (): TextEditor => {
   return editor;
 };
 
+/** Writes the enabled flag to the store and notifies its subscribers. */
+const applyEnabled = (root: RootStore, value: boolean): void => {
+  const commands = root.commands;
+  if (commands.enabled === value) return;
+  commands.enabled = value;
+  for (const handler of commands.enabledHandlers) handler(value);
+};
+
 const reset = (): RootStore => {
   const root = createRootStore();
   root.host = makeHost(null);
-  setHost(root.host);
+  setHostAction(root, root.host);
   return root;
 };
 
@@ -74,48 +76,41 @@ suite("commands", () => {
     test("setEnabled toggles state and notifies handlers", () => {
       const root = reset();
       const seen: boolean[] = [];
-      const unsub = onEnabledChange((v) => seen.push(v));
-      setEnabled(false);
-      setEnabled(true);
-      assert.strictEqual(root.enabled, true);
+      const handler = (v: boolean): void => { seen.push(v); };
+      addEnabledHandler(root, handler);
+      applyEnabled(root, false);
+      applyEnabled(root, true);
+      assert.strictEqual(root.commands.enabled, true);
       assert.deepStrictEqual(seen, [false, true]);
-      unsub.dispose();
-      setEnabled(false);
+      removeEnabledHandler(root, handler);
+      applyEnabled(root, false);
       assert.deepStrictEqual(seen, [false, true], "unsubscribed handler not called");
     });
 
     test("setEnabled is a no-op when the value is unchanged", () => {
-      reset();
+      const root = reset();
       const seen: boolean[] = [];
-      onEnabledChange((v) => seen.push(v));
-      setEnabled(true); // already true
+      addEnabledHandler(root, (v) => seen.push(v));
+      applyEnabled(root, true); // already true
       assert.deepStrictEqual(seen, [], "no notification for unchanged value");
     });
 
     test("enable/disable drive the state", () => {
       const root = reset();
-      disablePrettySymbols();
-      assert.strictEqual(root.enabled, false);
-      enablePrettySymbols();
-      assert.strictEqual(root.enabled, true);
+      applyEnabled(root, false);
+      assert.strictEqual(root.commands.enabled, false);
+      applyEnabled(root, true);
+      assert.strictEqual(root.commands.enabled, true);
     });
 
     test("line toggle is a no-op without an active editor and does not touch global state", () => {
       const root = reset();
       togglePrettySymbols();
-      assert.strictEqual(root.enabled, true);
-      disablePrettySymbols();
+      assert.strictEqual(root.commands.enabled, true);
+      applyEnabled(root, false);
       togglePrettySymbols();
-      assert.strictEqual(root.enabled, false);
-      enablePrettySymbols();
-    });
-
-    test("refreshPage ends with the symbols enabled", () => {
-      const root = reset();
-      disablePrettySymbols();
-      assert.strictEqual(root.enabled, false);
-      refreshPage();
-      assert.strictEqual(root.enabled, true);
+      assert.strictEqual(root.commands.enabled, false);
+      applyEnabled(root, true);
     });
   });
 

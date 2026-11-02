@@ -1,0 +1,20 @@
+{
+  "name": "@md-prettify/utils",
+  "version": "0.0.7-beta",
+  "license": "Apache-2.0",
+  "author": "DrBoria <dr.boria@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrBoria/md-prettify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DrBoria/md-prettify/issues"
+  },
+  "homepage": "https://github.com/DrBoria/md-prettify#readme",
+  "private": true,
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "dependencies": {
+    "mobx-state-tree": "^8.0.0"
+  }
+}

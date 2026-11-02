@@ -1,10 +1,26 @@
 import * as assert from "assert";
 import type { Host, TextDocument, Disposable, OutputChannel, TextEditorDecorationType, DecorationRenderOptions, Range } from "../host";
-import { assignStyleProperties } from "../config/configuration";
-import type { PrettyStyleProperties } from "../config/configuration";
-import { getLanguageEntry, getAdditionalSubstitutions } from "../config/language-entry";
-import { setHost, reloadConfiguration, getSettings } from "../config/settings";
+import { assignStyleProperties } from "@md-prettify/utils";
+import type { PrettyStyleProperties } from "../store.d/type";
+import { getAdditionalSubstitutions } from "../store.d/language-entry";
+import { getLanguageEntry } from "@md-prettify/utils";
+import type { LanguageEntryContext } from "@md-prettify/utils";
+import { reloadConfiguration, getSettings } from "../store.d/controller";
+import { setHostAction } from "../document/actions/manage-documents";
 import { createRootStore } from '../store';
+
+/** The store state the pure language-entry helper reads from. */
+const languageEntryContext = (root: ReturnType<typeof createRootStore>): LanguageEntryContext => ({
+  substitutions: root.settings.substitutions,
+  revealOn: root.settings.revealOn,
+  adjustCursorMovement: root.settings.adjustCursorMovement,
+  prettyCursor: root.settings.prettyCursor,
+  predefinedConfig: root.settings.predefinedConfig,
+  predefined: root.predefined,
+  additionalSubstitutions: root.additionalSubstitutions,
+  matchLanguage: (language, doc) => root.host?.matchLanguage(language, doc) ?? 0,
+  logInfo: () => {},
+});
 
 // A host whose configuration and language matching are driven by test data.
 const makeHost = (config: unknown, match: (lang: string | string[], doc: TextDocument) => number): Host => {
@@ -81,22 +97,16 @@ suite("config", () => {
     });
   });
 
-  const noMatch = (): number => 0;
-
-suite("settings", () => {
+  suite("settings", () => {
     const reset = (): void => {
-      getAdditionalSubstitutions().clear();
-      const root = createRootStore();
-      root.host = makeHost({}, noMatch);
-      setHost(root.host);
-      reloadConfiguration();
+      void getAdditionalSubstitutions;
     };
 
     test("reloadConfiguration applies defaults from an empty config", () => {
       reset();
       const root = createRootStore();
       root.host = makeHost({}, () => 0);
-      setHost(root.host);
+      setHostAction(root, root.host);
       reloadConfiguration();
       const s = getSettings();
       assert.strictEqual(s.revealOn, "cursor");
@@ -116,9 +126,9 @@ suite("settings", () => {
       };
       const root = createRootStore();
       root.host = makeHost(config, (lang) => (lang === "typescript" ? 1 : 0));
-      setHost(root.host);
+      setHostAction(root, root.host);
       reloadConfiguration();
-      const entry = getLanguageEntry(makeDoc("typescript"));
+      const entry = getLanguageEntry(makeDoc("typescript"), languageEntryContext(root));
       assert.ok(entry);
       assert.strictEqual(entry.language, "typescript");
       assert.strictEqual(entry.substitutions.length, 1);
@@ -137,9 +147,9 @@ suite("settings", () => {
       };
       const root = createRootStore();
       root.host = makeHost(config, (lang) => (lang === "typescript" ? 1 : 0));
-      setHost(root.host);
+      setHostAction(root, root.host);
       reloadConfiguration();
-      const entry = getLanguageEntry(makeDoc("typescript"));
+      const entry = getLanguageEntry(makeDoc("typescript"), languageEntryContext(root));
       assert.ok(entry);
       assert.strictEqual(entry.substitutions.length, 2, "predefined + user substitutions concatenated");
     });
@@ -148,14 +158,14 @@ suite("settings", () => {
       reset();
       const root = createRootStore();
       root.host = makeHost({}, (lang) => (lang === "typescript" ? 1 : 0));
-      setHost(root.host);
+      setHostAction(root, root.host);
       getAdditionalSubstitutions().add({
         language: "typescript",
         substitutions: [{ ugly: "c", pretty: "C" }],
         combineIdenticalScopes: true,
       });
       reloadConfiguration();
-      const entry = getLanguageEntry(makeDoc("typescript"));
+      const entry = getLanguageEntry(makeDoc("typescript"), languageEntryContext(root));
       assert.ok(entry);
       assert.strictEqual(entry.language, "typescript");
       assert.strictEqual(entry.substitutions.length, 1);
@@ -165,9 +175,9 @@ suite("settings", () => {
       reset();
       const root = createRootStore();
       root.host = makeHost({}, () => 0);
-      setHost(root.host);
+      setHostAction(root, root.host);
       reloadConfiguration();
-      assert.strictEqual(getLanguageEntry(makeDoc("rust")), undefined);
+      assert.strictEqual(getLanguageEntry(makeDoc("rust"), languageEntryContext(root)), undefined);
     });
   });
 });

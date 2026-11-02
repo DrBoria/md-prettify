@@ -10,7 +10,7 @@
 import { types as t } from "mobx-state-tree";
 import type { Instance } from "mobx-state-tree";
 import type { Range } from "../host";
-import { passthrough } from "../utils/mst-passthrough";
+import { passthrough } from "@md-prettify/utils";
 import { getDecorationCacheKeyAction, addResolvedRangeAction } from "./actions/resolved-range";
 
 export const ResolveStoreModel = t.model("ResolveStore", {

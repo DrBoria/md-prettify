@@ -2,8 +2,9 @@
   "name": "md-prettify",
   "displayName": "MD Prettify",
   "description": "Turn Your Crappy Code into a Daily Delight",
-  "version": "0.0.9",
+  "version": "0.0.7-beta",
   "publisher": "drboria",
+  "author": "DrBoria <dr.boria@gmail.com>",
   "license": "Apache-2.0",
   "icon": "examples/logo.jpg",
   "engines": {
@@ -218,7 +219,7 @@
                     },
                     "pretty": {
                       "type": "string",
-                      "default": "∎",
+                      "default": "\u220e",
                       "description": "The text to replace an 'ugly' string with. You may use fancy unicode symbols and multiple characters."
                     },
                     "pre": {
@@ -945,77 +946,77 @@
               "substitutions": [
                 {
                   "ugly": "\\bbreak\\b",
-                  "pretty": "харэ",
+                  "pretty": "\u0445\u0430\u0440\u044d",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bcase\\b",
-                  "pretty": "лещ",
+                  "pretty": "\u043b\u0435\u0449",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bcatch\\b",
-                  "pretty": "гоп",
+                  "pretty": "\u0433\u043e\u043f",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bcontinue\\b",
-                  "pretty": "двигай",
+                  "pretty": "\u0434\u0432\u0438\u0433\u0430\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bdebugger\\b",
-                  "pretty": "логопед",
+                  "pretty": "\u043b\u043e\u0433\u043e\u043f\u0435\u0434",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bdelete\\b",
-                  "pretty": "ёбнуть",
+                  "pretty": "\u0451\u0431\u043d\u0443\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bdo\\b",
-                  "pretty": "крч",
+                  "pretty": "\u043a\u0440\u0447",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\belse\\b",
-                  "pretty": "иливжопураз",
+                  "pretty": "\u0438\u043b\u0438\u0432\u0436\u043e\u043f\u0443\u0440\u0430\u0437",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bfinally\\b",
-                  "pretty": "тюряжка",
+                  "pretty": "\u0442\u044e\u0440\u044f\u0436\u043a\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bfor\\b",
-                  "pretty": "го",
+                  "pretty": "\u0433\u043e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bfunction\\b",
-                  "pretty": "йопта",
+                  "pretty": "\u0439\u043e\u043f\u0442\u0430",
                   "scope": [
                     "meta.function.ts",
                     "meta.function.tsx"
@@ -1026,7 +1027,7 @@
                 },
                 {
                   "ugly": "\\bfunction\\*\\b",
-                  "pretty": "пиздюли",
+                  "pretty": "\u043f\u0438\u0437\u0434\u044e\u043b\u0438",
                   "scope": [
                     "meta.function.ts",
                     "meta.function.tsx"
@@ -1037,336 +1038,336 @@
                 },
                 {
                   "ugly": "\\bif\\b",
-                  "pretty": "вилкойвглаз",
+                  "pretty": "\u0432\u0438\u043b\u043a\u043e\u0439\u0432\u0433\u043b\u0430\u0437",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bin\\b",
-                  "pretty": "чоунастут",
+                  "pretty": "\u0447\u043e\u0443\u043d\u0430\u0441\u0442\u0443\u0442",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bdefault\\b",
-                  "pretty": "пахану",
+                  "pretty": "\u043f\u0430\u0445\u0430\u043d\u0443",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\binstanceof\\b",
-                  "pretty": "шкура",
+                  "pretty": "\u0448\u043a\u0443\u0440\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bnew\\b",
-                  "pretty": "гыйбать",
+                  "pretty": "\u0433\u044b\u0439\u0431\u0430\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\breturn\\b",
-                  "pretty": "отвечаю",
+                  "pretty": "\u043e\u0442\u0432\u0435\u0447\u0430\u044e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\byield\\b",
-                  "pretty": "поебалу",
+                  "pretty": "\u043f\u043e\u0435\u0431\u0430\u043b\u0443",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\byield\\*\\b",
-                  "pretty": "поебалуна",
+                  "pretty": "\u043f\u043e\u0435\u0431\u0430\u043b\u0443\u043d\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bswitch\\b",
-                  "pretty": "естьчо",
+                  "pretty": "\u0435\u0441\u0442\u044c\u0447\u043e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bthis\\b",
-                  "pretty": "тырыпыры",
+                  "pretty": "\u0442\u044b\u0440\u044b\u043f\u044b\u0440\u044b",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bthrow\\b",
-                  "pretty": "пнх",
+                  "pretty": "\u043f\u043d\u0445",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\btry\\b",
-                  "pretty": "хапнуть",
+                  "pretty": "\u0445\u0430\u043f\u043d\u0443\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\btypeof\\b",
-                  "pretty": "чезажижан",
+                  "pretty": "\u0447\u0435\u0437\u0430\u0436\u0438\u0436\u0430\u043d",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bvar\\b",
-                  "pretty": "гыы",
+                  "pretty": "\u0433\u044b\u044b",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\blet\\b",
-                  "pretty": "участковый",
+                  "pretty": "\u0443\u0447\u0430\u0441\u0442\u043a\u043e\u0432\u044b\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bvoid\\b",
-                  "pretty": "куку",
+                  "pretty": "\u043a\u0443\u043a\u0443",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bwhile\\b",
-                  "pretty": "потрещим",
+                  "pretty": "\u043f\u043e\u0442\u0440\u0435\u0449\u0438\u043c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bwith\\b",
-                  "pretty": "хзйопт",
+                  "pretty": "\u0445\u0437\u0439\u043e\u043f\u0442",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\babstract\\b",
-                  "pretty": "говнойбать",
+                  "pretty": "\u0433\u043e\u0432\u043d\u043e\u0439\u0431\u0430\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bboolean\\b",
-                  "pretty": "пацан",
+                  "pretty": "\u043f\u0430\u0446\u0430\u043d",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bbyte\\b",
-                  "pretty": "семка",
+                  "pretty": "\u0441\u0435\u043c\u043a\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bchar\\b",
-                  "pretty": "эээ",
+                  "pretty": "\u044d\u044d\u044d",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bclass\\b",
-                  "pretty": "клёво",
+                  "pretty": "\u043a\u043b\u0451\u0432\u043e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bconst\\b",
-                  "pretty": "ясенХуй",
+                  "pretty": "\u044f\u0441\u0435\u043d\u0425\u0443\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bdouble\\b",
-                  "pretty": "двойные",
+                  "pretty": "\u0434\u0432\u043e\u0439\u043d\u044b\u0435",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\benum\\b",
-                  "pretty": "еээ",
+                  "pretty": "\u0435\u044d\u044d",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bextends\\b",
-                  "pretty": "батя",
+                  "pretty": "\u0431\u0430\u0442\u044f",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bfinal\\b",
-                  "pretty": "бачок",
+                  "pretty": "\u0431\u0430\u0447\u043e\u043a",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bfloat\\b",
-                  "pretty": "плавник",
+                  "pretty": "\u043f\u043b\u0430\u0432\u043d\u0438\u043a",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bgoto\\b",
-                  "pretty": "пиздуй",
+                  "pretty": "\u043f\u0438\u0437\u0434\u0443\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bimplements\\b",
-                  "pretty": "силикон",
+                  "pretty": "\u0441\u0438\u043b\u0438\u043a\u043e\u043d",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bimport\\b",
-                  "pretty": "спиздить",
+                  "pretty": "\u0441\u043f\u0438\u0437\u0434\u0438\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bint\\b",
-                  "pretty": "хуйня",
+                  "pretty": "\u0445\u0443\u0439\u043d\u044f",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\binterface\\b",
-                  "pretty": "хуёво",
+                  "pretty": "\u0445\u0443\u0451\u0432\u043e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\blong\\b",
-                  "pretty": "колонна",
+                  "pretty": "\u043a\u043e\u043b\u043e\u043d\u043d\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bnative\\b",
-                  "pretty": "чорт",
+                  "pretty": "\u0447\u043e\u0440\u0442",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bpackage\\b",
-                  "pretty": "клеёнка",
+                  "pretty": "\u043a\u043b\u0435\u0451\u043d\u043a\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bprivate\\b",
-                  "pretty": "мой",
+                  "pretty": "\u043c\u043e\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bprotected\\b",
-                  "pretty": "подкрыша",
+                  "pretty": "\u043f\u043e\u0434\u043a\u0440\u044b\u0448\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bpublic\\b",
-                  "pretty": "ебанное",
+                  "pretty": "\u0435\u0431\u0430\u043d\u043d\u043e\u0435",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bshort\\b",
-                  "pretty": "пипин",
+                  "pretty": "\u043f\u0438\u043f\u0438\u043d",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bstatic\\b",
-                  "pretty": "попонятия",
+                  "pretty": "\u043f\u043e\u043f\u043e\u043d\u044f\u0442\u0438\u044f",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bsuper\\b",
-                  "pretty": "яга",
+                  "pretty": "\u044f\u0433\u0430",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bsynchronized\\b",
-                  "pretty": "вписон",
+                  "pretty": "\u0432\u043f\u0438\u0441\u043e\u043d",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bthrows\\b",
-                  "pretty": "плюнуть",
+                  "pretty": "\u043f\u043b\u044e\u043d\u0443\u0442\u044c",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\btransient\\b",
-                  "pretty": "ахз",
+                  "pretty": "\u0430\u0445\u0437",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bvolatile\\b",
-                  "pretty": "вписос",
+                  "pretty": "\u0432\u043f\u0438\u0441\u043e\u0441",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bnull\\b",
-                  "pretty": "нуллио",
+                  "pretty": "\u043d\u0443\u043b\u043b\u0438\u043e",
                   "scope": [
                     "constant.language.null.ts",
                     "constant.language.null.tsx"
@@ -1377,21 +1378,21 @@
                 },
                 {
                   "ugly": "\\bNaN\\b",
-                  "pretty": "нихуя",
+                  "pretty": "\u043d\u0438\u0445\u0443\u044f",
                   "style": {
                     "color": "#569CD6"
                   }
                 },
                 {
                   "ugly": "\\bundefined\\b",
-                  "pretty": "неибу",
+                  "pretty": "\u043d\u0435\u0438\u0431\u0443",
                   "style": {
                     "color": "#569CD6"
                   }
                 },
                 {
                   "ugly": "\\btrue\\b",
-                  "pretty": "трулио",
+                  "pretty": "\u0442\u0440\u0443\u043b\u0438\u043e",
                   "scope": [
                     "constant.language.boolean.true.ts",
                     "constant.language.boolean.true.tsx"
@@ -1402,7 +1403,7 @@
                 },
                 {
                   "ugly": "\\bfalse\\b",
-                  "pretty": "нетрулио",
+                  "pretty": "\u043d\u0435\u0442\u0440\u0443\u043b\u0438\u043e",
                   "scope": [
                     "constant.language.boolean.false.ts",
                     "constant.language.boolean.false.tsx"
@@ -1413,70 +1414,70 @@
                 },
                 {
                   "ugly": "\\beval\\b",
-                  "pretty": "ебал",
+                  "pretty": "\u0435\u0431\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bstring\\b",
-                  "pretty": "строка",
+                  "pretty": "\u0441\u0442\u0440\u043e\u043a\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bnumber\\b",
-                  "pretty": "цифры",
+                  "pretty": "\u0446\u0438\u0444\u0440\u044b",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bboolean\\b",
-                  "pretty": "пацан",
+                  "pretty": "\u043f\u0430\u0446\u0430\u043d",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bArray\\b",
-                  "pretty": "Помойка",
+                  "pretty": "\u041f\u043e\u043c\u043e\u0439\u043a\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bObject\\b",
-                  "pretty": "Петух",
+                  "pretty": "\u041f\u0435\u0442\u0443\u0445",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bany\\b",
-                  "pretty": "чотам",
+                  "pretty": "\u0447\u043e\u0442\u0430\u043c",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bnever\\b",
-                  "pretty": "никогда",
+                  "pretty": "\u043d\u0438\u043a\u043e\u0433\u0434\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bunknown\\b",
-                  "pretty": "незнаю",
+                  "pretty": "\u043d\u0435\u0437\u043d\u0430\u044e",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\{",
-                  "pretty": "жЫ",
+                  "pretty": "\u0436\u042b",
                   "scope": [
                     "meta.block.ts",
                     "meta.block.tsx"
@@ -1487,7 +1488,7 @@
                 },
                 {
                   "ugly": "\\}",
-                  "pretty": "есть",
+                  "pretty": "\u0435\u0441\u0442\u044c",
                   "scope": [
                     "meta.block.ts",
                     "meta.block.tsx"
@@ -1498,7 +1499,7 @@
                 },
                 {
                   "ugly": "==",
-                  "pretty": "эквалио",
+                  "pretty": "\u044d\u043a\u0432\u0430\u043b\u0438\u043e",
                   "scope": [
                     "keyword.operator.comparison.ts",
                     "keyword.operator.comparison.tsx"
@@ -1509,7 +1510,7 @@
                 },
                 {
                   "ugly": "===",
-                  "pretty": "блябуду",
+                  "pretty": "\u0431\u043b\u044f\u0431\u0443\u0434\u0443",
                   "scope": [
                     "keyword.operator.comparison.ts",
                     "keyword.operator.comparison.tsx"
@@ -1520,7 +1521,7 @@
                 },
                 {
                   "ugly": ">=",
-                  "pretty": "поцик",
+                  "pretty": "\u043f\u043e\u0446\u0438\u043a",
                   "scope": [
                     "keyword.operator.relational.ts",
                     "keyword.operator.relational.tsx"
@@ -1531,7 +1532,7 @@
                 },
                 {
                   "ugly": "<=",
-                  "pretty": "поц",
+                  "pretty": "\u043f\u043e\u0446",
                   "scope": [
                     "keyword.operator.relational.ts",
                     "keyword.operator.relational.tsx"
@@ -1542,21 +1543,21 @@
                 },
                 {
                   "ugly": "&&",
-                  "pretty": "ичо",
+                  "pretty": "\u0438\u0447\u043e",
                   "style": {
                     "color": "#cf6770"
                   }
                 },
                 {
                   "ugly": "||",
-                  "pretty": "иличо",
+                  "pretty": "\u0438\u043b\u0438\u0447\u043e",
                   "style": {
                     "color": "#cf6770"
                   }
                 },
                 {
                   "ugly": ">",
-                  "pretty": "пизже",
+                  "pretty": "\u043f\u0438\u0437\u0436\u0435",
                   "scope": [
                     "keyword.operator.relational.ts",
                     "keyword.operator.relational.tsx"
@@ -1567,7 +1568,7 @@
                 },
                 {
                   "ugly": "<",
-                  "pretty": "хуёвей",
+                  "pretty": "\u0445\u0443\u0451\u0432\u0435\u0439",
                   "scope": [
                     "keyword.operator.relational.ts",
                     "keyword.operator.relational.tsx"
@@ -1578,7 +1579,7 @@
                 },
                 {
                   "ugly": "=",
-                  "pretty": "сука",
+                  "pretty": "\u0441\u0443\u043a\u0430",
                   "scope": [
                     "keyword.operator.assignment.ts",
                     "keyword.operator.assignment.tsx"
@@ -1589,7 +1590,7 @@
                 },
                 {
                   "ugly": ";",
-                  "pretty": " нах",
+                  "pretty": " \u043d\u0430\u0445",
                   "scope": [
                     "punctuation.terminator.statement.ts",
                     "punctuation.terminator.statement.tsx"
@@ -1600,7 +1601,7 @@
                 },
                 {
                   "ugly": "!",
-                  "pretty": "чобля",
+                  "pretty": "\u0447\u043e\u0431\u043b\u044f",
                   "scope": [
                     "keyword.operator.logical.ts",
                     "keyword.operator.logical.tsx"
@@ -1611,7 +1612,7 @@
                 },
                 {
                   "ugly": "\\+\\+",
-                  "pretty": "плюсуюНа",
+                  "pretty": "\u043f\u043b\u044e\u0441\u0443\u044e\u041d\u0430",
                   "scope": [
                     "keyword.operator.arithmetic.ts",
                     "keyword.operator.arithmetic.tsx"
@@ -1622,7 +1623,7 @@
                 },
                 {
                   "ugly": "--",
-                  "pretty": "слилсяНа",
+                  "pretty": "\u0441\u043b\u0438\u043b\u0441\u044f\u041d\u0430",
                   "scope": [
                     "keyword.operator.arithmetic.ts",
                     "keyword.operator.arithmetic.tsx"
@@ -1633,3192 +1634,3192 @@
                 },
                 {
                   "ugly": "\\bdocument\\b",
-                  "pretty": "ксива",
+                  "pretty": "\u043a\u0441\u0438\u0432\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcaptureEvents\\b",
-                  "pretty": "зафотатьШняги",
+                  "pretty": "\u0437\u0430\u0444\u043e\u0442\u0430\u0442\u044c\u0428\u043d\u044f\u0433\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateAttribute\\b",
-                  "pretty": "намутитьЯжку",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u042f\u0436\u043a\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateDocumentFragment\\b",
-                  "pretty": "намутитьКусокМалявы",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041a\u0443\u0441\u043e\u043a\u041c\u0430\u043b\u044f\u0432\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateEvent\\b",
-                  "pretty": "намутитьШнягу",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u0428\u043d\u044f\u0433\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateNodeIterator\\b",
-                  "pretty": "намутитьГовнодыратор",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u0413\u043e\u0432\u043d\u043e\u0434\u044b\u0440\u0430\u0442\u043e\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateRange\\b",
-                  "pretty": "намутитьОпапа",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041e\u043f\u0430\u043f\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateTextNode\\b",
-                  "pretty": "намутитьМалявуГовнодскую",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041c\u0430\u043b\u044f\u0432\u0443\u0413\u043e\u0432\u043d\u043e\u0434\u0441\u043a\u0443\u044e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateTouch\\b",
-                  "pretty": "намутитьЛеща",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041b\u0435\u0449\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateElement\\b",
-                  "pretty": "намутитьЛошка",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041b\u043e\u0448\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateTreeWalker\\b",
-                  "pretty": "намутитьБуратино",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u0411\u0443\u0440\u0430\u0442\u0438\u043d\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\belementFromPoint\\b",
-                  "pretty": "терпилаИзПараши",
+                  "pretty": "\u0442\u0435\u0440\u043f\u0438\u043b\u0430\u0418\u0437\u041f\u0430\u0440\u0430\u0448\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\belementsFromPoint\\b",
-                  "pretty": "терпилыИзПараши",
+                  "pretty": "\u0442\u0435\u0440\u043f\u0438\u043b\u044b\u0418\u0437\u041f\u0430\u0440\u0430\u0448\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\benableStyleSheetsForSet\\b",
-                  "pretty": "намутитьСтруйкуДляХабара",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u0421\u0442\u0440\u0443\u0439\u043a\u0443\u0414\u043b\u044f\u0425\u0430\u0431\u0430\u0440\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetAnimations\\b",
-                  "pretty": "вычислитьДвижуху",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u0414\u0432\u0438\u0436\u0443\u0445\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetElementsByClassName\\b",
-                  "pretty": "вычислитьТерпилПоКлассу",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u0422\u0435\u0440\u043f\u0438\u043b\u041f\u043e\u041a\u043b\u0430\u0441\u0441\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetElementsByTagName\\b",
-                  "pretty": "вычислитьТерпилПоТегу",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u0422\u0435\u0440\u043f\u0438\u043b\u041f\u043e\u0422\u0435\u0433\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bimportNode\\b",
-                  "pretty": "влабазУзел",
+                  "pretty": "\u0432\u043b\u0430\u0431\u0430\u0437\u0423\u0437\u0435\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bregisterElement\\b",
-                  "pretty": "зашитьДело",
+                  "pretty": "\u0437\u0430\u0448\u0438\u0442\u044c\u0414\u0435\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breleaseCapture\\b",
-                  "pretty": "зафотатьХуякХуяк",
+                  "pretty": "\u0437\u0430\u0444\u043e\u0442\u0430\u0442\u044c\u0425\u0443\u044f\u043a\u0425\u0443\u044f\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetElementById\\b",
-                  "pretty": "вычислитьЛохаПоНомеру",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u041b\u043e\u0445\u0430\u041f\u043e\u041d\u043e\u043c\u0435\u0440\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bquerySelector\\b",
-                  "pretty": "хулиВыёбываешься",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0412\u044b\u0451\u0431\u044b\u0432\u0430\u0435\u0448\u044c\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bquerySelectorAll\\b",
-                  "pretty": "хулиТутВсеВыёбываются",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0422\u0443\u0442\u0412\u0441\u0435\u0412\u044b\u0451\u0431\u044b\u0432\u0430\u044e\u0442\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreateExpression\\b",
-                  "pretty": "намутитьБазар",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u0411\u0430\u0437\u0430\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bevaluate\\b",
-                  "pretty": "заценить",
+                  "pretty": "\u0437\u0430\u0446\u0435\u043d\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bclear\\b",
-                  "pretty": "урыть",
+                  "pretty": "\u0443\u0440\u044b\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bclose\\b",
-                  "pretty": "завали",
+                  "pretty": "\u0437\u0430\u0432\u0430\u043b\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bexecCommand\\b",
-                  "pretty": "идиРаботайБля",
+                  "pretty": "\u0438\u0434\u0438\u0420\u0430\u0431\u043e\u0442\u0430\u0439\u0411\u043b\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetElementsByName\\b",
-                  "pretty": "вычислитьТерпилПоИмени",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u0422\u0435\u0440\u043f\u0438\u043b\u041f\u043e\u0418\u043c\u0435\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetSelection\\b",
-                  "pretty": "сестьНаДваСтула",
+                  "pretty": "\u0441\u0435\u0441\u0442\u044c\u041d\u0430\u0414\u0432\u0430\u0421\u0442\u0443\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bhasFocus\\b",
-                  "pretty": "имеетЧёткость",
+                  "pretty": "\u0438\u043c\u0435\u0435\u0442\u0427\u0451\u0442\u043a\u043e\u0441\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bopen\\b",
-                  "pretty": "отрыть",
+                  "pretty": "\u043e\u0442\u0440\u044b\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bqueryCommandEnabled\\b",
-                  "pretty": "хулиЧикаДоступная",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0427\u0438\u043a\u0430\u0414\u043e\u0441\u0442\u0443\u043f\u043d\u0430\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bqueryCommandState\\b",
-                  "pretty": "хулиЧикаОтдыхает",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0427\u0438\u043a\u0430\u041e\u0442\u0434\u044b\u0445\u0430\u0435\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bqueryCommandSupported\\b",
-                  "pretty": "хулиЧикаБезАйфона",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0427\u0438\u043a\u0430\u0411\u0435\u0437\u0410\u0439\u0444\u043e\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bqueryCommandIndeterm\\b",
-                  "pretty": "хулиЧикаОйВсё",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0427\u0438\u043a\u0430\u041e\u0439\u0412\u0441\u0451",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bqueryCommandValue\\b",
-                  "pretty": "хулиЧикаВалио",
+                  "pretty": "\u0445\u0443\u043b\u0438\u0427\u0438\u043a\u0430\u0412\u0430\u043b\u0438\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwrite\\b",
-                  "pretty": "малява",
+                  "pretty": "\u043c\u0430\u043b\u044f\u0432\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwriteln\\b",
-                  "pretty": "малявагоп",
+                  "pretty": "\u043c\u0430\u043b\u044f\u0432\u0430\u0433\u043e\u043f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcharacterSet\\b",
-                  "pretty": "слышТыЧоЁба",
+                  "pretty": "\u0441\u043b\u044b\u0448\u0422\u044b\u0427\u043e\u0401\u0431\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcharset\\b",
-                  "pretty": "слышЁба",
+                  "pretty": "\u0441\u043b\u044b\u0448\u0401\u0431\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcontentType\\b",
-                  "pretty": "ухтыжёптыжТипчик",
+                  "pretty": "\u0443\u0445\u0442\u044b\u0436\u0451\u043f\u0442\u044b\u0436\u0422\u0438\u043f\u0447\u0438\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdoctype\\b",
-                  "pretty": "типКсивы",
+                  "pretty": "\u0442\u0438\u043f\u041a\u0441\u0438\u0432\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdocumentElement\\b",
-                  "pretty": "ксиваТерпилы",
+                  "pretty": "\u043a\u0441\u0438\u0432\u0430\u0422\u0435\u0440\u043f\u0438\u043b\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdocumentURI\\b",
-                  "pretty": "ксиваНаХате",
+                  "pretty": "\u043a\u0441\u0438\u0432\u0430\u041d\u0430\u0425\u0430\u0442\u0435",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdomConfig\\b",
-                  "pretty": "чёткоДерзко",
+                  "pretty": "\u0447\u0451\u0442\u043a\u043e\u0414\u0435\u0440\u0437\u043a\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bhidden\\b",
-                  "pretty": "кроить",
+                  "pretty": "\u043a\u0440\u043e\u0438\u0442\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\binputEncoding\\b",
-                  "pretty": "эйтыэтоПиздиш",
+                  "pretty": "\u044d\u0439\u0442\u044b\u044d\u0442\u043e\u041f\u0438\u0437\u0434\u0438\u0448",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bpointerLockElement\\b",
-                  "pretty": "тырколкуНаАнусТерпилы",
+                  "pretty": "\u0442\u044b\u0440\u043a\u043e\u043b\u043a\u0443\u041d\u0430\u0410\u043d\u0443\u0441\u0422\u0435\u0440\u043f\u0438\u043b\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollingElement\\b",
-                  "pretty": "намазиТерпила",
+                  "pretty": "\u043d\u0430\u043c\u0430\u0437\u0438\u0422\u0435\u0440\u043f\u0438\u043b\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\btimeline\\b",
-                  "pretty": "всяЖиза",
+                  "pretty": "\u0432\u0441\u044f\u0416\u0438\u0437\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bvisibilityState\\b",
-                  "pretty": "мутныйСюжет",
+                  "pretty": "\u043c\u0443\u0442\u043d\u044b\u0439\u0421\u044e\u0436\u0435\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bchildren\\b",
-                  "pretty": "пездюки",
+                  "pretty": "\u043f\u0435\u0437\u0434\u044e\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bfirstElementChild\\b",
-                  "pretty": "первыйПездюкШняги",
+                  "pretty": "\u043f\u0435\u0440\u0432\u044b\u0439\u041f\u0435\u0437\u0434\u044e\u043a\u0428\u043d\u044f\u0433\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blastElementChild\\b",
-                  "pretty": "последнийПездюкШняги",
+                  "pretty": "\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439\u041f\u0435\u0437\u0434\u044e\u043a\u0428\u043d\u044f\u0433\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bchildElementCount\\b",
-                  "pretty": "моиШняжныеПездюки",
+                  "pretty": "\u043c\u043e\u0438\u0428\u043d\u044f\u0436\u043d\u044b\u0435\u041f\u0435\u0437\u0434\u044e\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bactiveElement\\b",
-                  "pretty": "активнаяШняга",
+                  "pretty": "\u0430\u043a\u0442\u0438\u0432\u043d\u0430\u044f\u0428\u043d\u044f\u0433\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\banchors\\b",
-                  "pretty": "якоряЁпт",
+                  "pretty": "\u044f\u043a\u043e\u0440\u044f\u0401\u043f\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bbody\\b",
-                  "pretty": "висяк",
+                  "pretty": "\u0432\u0438\u0441\u044f\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcookie\\b",
-                  "pretty": "семки",
+                  "pretty": "\u0441\u0435\u043c\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdefaultView\\b",
-                  "pretty": "моргалаВыколю",
+                  "pretty": "\u043c\u043e\u0440\u0433\u0430\u043b\u0430\u0412\u044b\u043a\u043e\u043b\u044e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdesignMode\\b",
-                  "pretty": "хуйРисуйМод",
+                  "pretty": "\u0445\u0443\u0439\u0420\u0438\u0441\u0443\u0439\u041c\u043e\u0434",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdir\\b",
-                  "pretty": "буратино",
+                  "pretty": "\u0431\u0443\u0440\u0430\u0442\u0438\u043d\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdomain\\b",
-                  "pretty": "домойБлядь",
+                  "pretty": "\u0434\u043e\u043c\u043e\u0439\u0411\u043b\u044f\u0434\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bembeds\\b",
-                  "pretty": "мразоты",
+                  "pretty": "\u043c\u0440\u0430\u0437\u043e\u0442\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bforms\\b",
-                  "pretty": "еблища",
+                  "pretty": "\u0435\u0431\u043b\u0438\u0449\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bhead\\b",
-                  "pretty": "залупка",
+                  "pretty": "\u0437\u0430\u043b\u0443\u043f\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bimages\\b",
-                  "pretty": "мазни",
+                  "pretty": "\u043c\u0430\u0437\u043d\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blastModified\\b",
-                  "pretty": "когдаПетухомСтал",
+                  "pretty": "\u043a\u043e\u0433\u0434\u0430\u041f\u0435\u0442\u0443\u0445\u043e\u043c\u0421\u0442\u0430\u043b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blinks\\b",
-                  "pretty": "зоны",
+                  "pretty": "\u0437\u043e\u043d\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blocation\\b",
-                  "pretty": "райончик",
+                  "pretty": "\u0440\u0430\u0439\u043e\u043d\u0447\u0438\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bplugins\\b",
-                  "pretty": "выебоны",
+                  "pretty": "\u0432\u044b\u0435\u0431\u043e\u043d\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\breadyState\\b",
-                  "pretty": "газуемБля",
+                  "pretty": "\u0433\u0430\u0437\u0443\u0435\u043c\u0411\u043b\u044f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\breferrer\\b",
-                  "pretty": "корешСтарый",
+                  "pretty": "\u043a\u043e\u0440\u0435\u0448\u0421\u0442\u0430\u0440\u044b\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscripts\\b",
-                  "pretty": "гыебаты",
+                  "pretty": "\u0433\u044b\u0435\u0431\u0430\u0442\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\btitle\\b",
-                  "pretty": "вася",
+                  "pretty": "\u0432\u0430\u0441\u044f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bURL\\b",
-                  "pretty": "хата",
+                  "pretty": "\u0445\u0430\u0442\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bvalue\\b",
-                  "pretty": "валио",
+                  "pretty": "\u0432\u0430\u043b\u0438\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bonafterscriptexecute\\b",
-                  "pretty": "послеВыполненияЙопты",
+                  "pretty": "\u043f\u043e\u0441\u043b\u0435\u0412\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f\u0419\u043e\u043f\u0442\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonbeforescriptexecute\\b",
-                  "pretty": "доВыполненияЙопты",
+                  "pretty": "\u0434\u043e\u0412\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f\u0419\u043e\u043f\u0442\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boncopy\\b",
-                  "pretty": "какВсунул",
+                  "pretty": "\u043a\u0430\u043a\u0412\u0441\u0443\u043d\u0443\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boncut\\b",
-                  "pretty": "какВысунул",
+                  "pretty": "\u043a\u0430\u043a\u0412\u044b\u0441\u0443\u043d\u0443\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpaste\\b",
-                  "pretty": "какВставил",
+                  "pretty": "\u043a\u0430\u043a\u0412\u0441\u0442\u0430\u0432\u0438\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonselectionchange\\b",
-                  "pretty": "покаДваСтулаМахнуть",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0414\u0432\u0430\u0421\u0442\u0443\u043b\u0430\u041c\u0430\u0445\u043d\u0443\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonfullscreenchange\\b",
-                  "pretty": "покаЕбальникПоказал",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0415\u0431\u0430\u043b\u044c\u043d\u0438\u043a\u041f\u043e\u043a\u0430\u0437\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonwheel\\b",
-                  "pretty": "какНаХуюВертел",
+                  "pretty": "\u043a\u0430\u043a\u041d\u0430\u0425\u0443\u044e\u0412\u0435\u0440\u0442\u0435\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonabort\\b",
-                  "pretty": "когдаУронилМыло",
+                  "pretty": "\u043a\u043e\u0433\u0434\u0430\u0423\u0440\u043e\u043d\u0438\u043b\u041c\u044b\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonblur\\b",
-                  "pretty": "опаНичотка",
+                  "pretty": "\u043e\u043f\u0430\u041d\u0438\u0447\u043e\u0442\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonerror\\b",
-                  "pretty": "наПапандос",
+                  "pretty": "\u043d\u0430\u041f\u0430\u043f\u0430\u043d\u0434\u043e\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonfocus\\b",
-                  "pretty": "опаЧотка",
+                  "pretty": "\u043e\u043f\u0430\u0427\u043e\u0442\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boncancel\\b",
-                  "pretty": "покаТруханул",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u0440\u0443\u0445\u0430\u043d\u0443\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonchange\\b",
-                  "pretty": "опаЧозанахуй",
+                  "pretty": "\u043e\u043f\u0430\u0427\u043e\u0437\u0430\u043d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonclick\\b",
-                  "pretty": "какПырну",
+                  "pretty": "\u043a\u0430\u043a\u041f\u044b\u0440\u043d\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonclose\\b",
-                  "pretty": "ебалоОфф",
+                  "pretty": "\u0435\u0431\u0430\u043b\u043e\u041e\u0444\u0444",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boncontextmenu\\b",
-                  "pretty": "какПоЛбуЁбну",
+                  "pretty": "\u043a\u0430\u043a\u041f\u043e\u041b\u0431\u0443\u0401\u0431\u043d\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondblclick\\b",
-                  "pretty": "какПырнуДваждыНахуй",
+                  "pretty": "\u043a\u0430\u043a\u041f\u044b\u0440\u043d\u0443\u0414\u0432\u0430\u0436\u0434\u044b\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondrag\\b",
-                  "pretty": "опаОчкоДёрнул",
+                  "pretty": "\u043e\u043f\u0430\u041e\u0447\u043a\u043e\u0414\u0451\u0440\u043d\u0443\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragend\\b",
-                  "pretty": "покаХарэОчкоДёргать",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0425\u0430\u0440\u044d\u041e\u0447\u043a\u043e\u0414\u0451\u0440\u0433\u0430\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragenter\\b",
-                  "pretty": "покаДёргалкаНарисовалась",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0414\u0451\u0440\u0433\u0430\u043b\u043a\u0430\u041d\u0430\u0440\u0438\u0441\u043e\u0432\u0430\u043b\u0430\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragexit\\b",
-                  "pretty": "анусСебеДёрниПёс",
+                  "pretty": "\u0430\u043d\u0443\u0441\u0421\u0435\u0431\u0435\u0414\u0451\u0440\u043d\u0438\u041f\u0451\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragleave\\b",
-                  "pretty": "покаДергунСлинял",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0414\u0435\u0440\u0433\u0443\u043d\u0421\u043b\u0438\u043d\u044f\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragover\\b",
-                  "pretty": "покаДёрнулПодошла",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0414\u0451\u0440\u043d\u0443\u043b\u041f\u043e\u0434\u043e\u0448\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondragstart\\b",
-                  "pretty": "покаДёрнулКмон",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0414\u0451\u0440\u043d\u0443\u043b\u041a\u043c\u043e\u043d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondrop\\b",
-                  "pretty": "опаМабилкаЁбнулась",
+                  "pretty": "\u043e\u043f\u0430\u041c\u0430\u0431\u0438\u043b\u043a\u0430\u0401\u0431\u043d\u0443\u043b\u0430\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boninput\\b",
-                  "pretty": "покаЭйтыэтоПишибля",
+                  "pretty": "\u043f\u043e\u043a\u0430\u042d\u0439\u0442\u044b\u044d\u0442\u043e\u041f\u0438\u0448\u0438\u0431\u043b\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boninvalid\\b",
-                  "pretty": "гыйбатьИнвалидНахуй",
+                  "pretty": "\u0433\u044b\u0439\u0431\u0430\u0442\u044c\u0418\u043d\u0432\u0430\u043b\u0438\u0434\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonkeydown\\b",
-                  "pretty": "гыйбатьЛещДаун",
+                  "pretty": "\u0433\u044b\u0439\u0431\u0430\u0442\u044c\u041b\u0435\u0449\u0414\u0430\u0443\u043d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonkeypress\\b",
-                  "pretty": "гыйбатьВмялЛеща",
+                  "pretty": "\u0433\u044b\u0439\u0431\u0430\u0442\u044c\u0412\u043c\u044f\u043b\u041b\u0435\u0449\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonkeyup\\b",
-                  "pretty": "гыйбатьЛещАут",
+                  "pretty": "\u0433\u044b\u0439\u0431\u0430\u0442\u044c\u041b\u0435\u0449\u0410\u0443\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonloadstart\\b",
-                  "pretty": "покаНесуСемки",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041d\u0435\u0441\u0443\u0421\u0435\u043c\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmousedown\\b",
-                  "pretty": "всунулНаРайоне",
+                  "pretty": "\u0432\u0441\u0443\u043d\u0443\u043b\u041d\u0430\u0420\u0430\u0439\u043e\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmouseenter\\b",
-                  "pretty": "вошёлНаРайон",
+                  "pretty": "\u0432\u043e\u0448\u0451\u043b\u041d\u0430\u0420\u0430\u0439\u043e\u043d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmouseleave\\b",
-                  "pretty": "съебалсяИзРайона",
+                  "pretty": "\u0441\u044a\u0435\u0431\u0430\u043b\u0441\u044f\u0418\u0437\u0420\u0430\u0439\u043e\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmousemove\\b",
-                  "pretty": "хожуПоРайону",
+                  "pretty": "\u0445\u043e\u0436\u0443\u041f\u043e\u0420\u0430\u0439\u043e\u043d\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmouseout\\b",
-                  "pretty": "покаТырколкаСъебала",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u044b\u0440\u043a\u043e\u043b\u043a\u0430\u0421\u044a\u0435\u0431\u0430\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmouseover\\b",
-                  "pretty": "покаТырколкаПодошла",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u044b\u0440\u043a\u043e\u043b\u043a\u0430\u041f\u043e\u0434\u043e\u0448\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmouseup\\b",
-                  "pretty": "вынулНаРайоне",
+                  "pretty": "\u0432\u044b\u043d\u0443\u043b\u041d\u0430\u0420\u0430\u0439\u043e\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonmousewheel\\b",
-                  "pretty": "вертелНаРайоне",
+                  "pretty": "\u0432\u0435\u0440\u0442\u0435\u043b\u041d\u0430\u0420\u0430\u0439\u043e\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpause\\b",
-                  "pretty": "покаСтопэ",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0442\u043e\u043f\u044d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonplay\\b",
-                  "pretty": "покаЖиви",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0416\u0438\u0432\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonplaying\\b",
-                  "pretty": "покаЖивой",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0416\u0438\u0432\u043e\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerdown\\b",
-                  "pretty": "покаТыркнулДауна",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u044b\u0440\u043a\u043d\u0443\u043b\u0414\u0430\u0443\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointermove\\b",
-                  "pretty": "покаХожуТырколйПоРайону",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0425\u043e\u0436\u0443\u0422\u044b\u0440\u043a\u043e\u043b\u0439\u041f\u043e\u0420\u0430\u0439\u043e\u043d\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerup\\b",
-                  "pretty": "покаТыркнулАута",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u044b\u0440\u043a\u043d\u0443\u043b\u0410\u0443\u0442\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointercancel\\b",
-                  "pretty": "покаСтрелаТруханула",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0442\u0440\u0435\u043b\u0430\u0422\u0440\u0443\u0445\u0430\u043d\u0443\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerover\\b",
-                  "pretty": "покаСтрелаПодошла",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0442\u0440\u0435\u043b\u0430\u041f\u043e\u0434\u043e\u0448\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerout\\b",
-                  "pretty": "покаСтрелаСъебала",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0442\u0440\u0435\u043b\u0430\u0421\u044a\u0435\u0431\u0430\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerenter\\b",
-                  "pretty": "покаСрелкаНарисовалась",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0440\u0435\u043b\u043a\u0430\u041d\u0430\u0440\u0438\u0441\u043e\u0432\u0430\u043b\u0430\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpointerleave\\b",
-                  "pretty": "покаСтрелаСлиняла",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0442\u0440\u0435\u043b\u0430\u0421\u043b\u0438\u043d\u044f\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonprogress\\b",
-                  "pretty": "покаМатаетсяСрок",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041c\u0430\u0442\u0430\u0435\u0442\u0441\u044f\u0421\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonreset\\b",
-                  "pretty": "покаПравим",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041f\u0440\u0430\u0432\u0438\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonscroll\\b",
-                  "pretty": "покаКолесим",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041a\u043e\u043b\u0435\u0441\u0438\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonseeked\\b",
-                  "pretty": "когдаОбоссал",
+                  "pretty": "\u043a\u043e\u0433\u0434\u0430\u041e\u0431\u043e\u0441\u0441\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonseeking\\b",
-                  "pretty": "когдаОбоссался",
+                  "pretty": "\u043a\u043e\u0433\u0434\u0430\u041e\u0431\u043e\u0441\u0441\u0430\u043b\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonselect\\b",
-                  "pretty": "опаДваСтула",
+                  "pretty": "\u043e\u043f\u0430\u0414\u0432\u0430\u0421\u0442\u0443\u043b\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonshow\\b",
-                  "pretty": "опаТуса",
+                  "pretty": "\u043e\u043f\u0430\u0422\u0443\u0441\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonsort\\b",
-                  "pretty": "опаСидор",
+                  "pretty": "\u043e\u043f\u0430\u0421\u0438\u0434\u043e\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonstalled\\b",
-                  "pretty": "опаНефартануло",
+                  "pretty": "\u043e\u043f\u0430\u041d\u0435\u0444\u0430\u0440\u0442\u0430\u043d\u0443\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonsubmit\\b",
-                  "pretty": "опаХуйВГовне",
+                  "pretty": "\u043e\u043f\u0430\u0425\u0443\u0439\u0412\u0413\u043e\u0432\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonsuspend\\b",
-                  "pretty": "опаПодфартило",
+                  "pretty": "\u043e\u043f\u0430\u041f\u043e\u0434\u0444\u0430\u0440\u0442\u0438\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bontimeupdate\\b",
-                  "pretty": "опаНуЭтоКогдаЭто",
+                  "pretty": "\u043e\u043f\u0430\u041d\u0443\u042d\u0442\u043e\u041a\u043e\u0433\u0434\u0430\u042d\u0442\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonvolumechange\\b",
-                  "pretty": "покаТишеБудь",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0422\u0438\u0448\u0435\u0411\u0443\u0434\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bontouchcancel\\b",
-                  "pretty": "покаЛещТруханул",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041b\u0435\u0449\u0422\u0440\u0443\u0445\u0430\u043d\u0443\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bontouchend\\b",
-                  "pretty": "покаЛещКончил",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041b\u0435\u0449\u041a\u043e\u043d\u0447\u0438\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bontouchmove\\b",
-                  "pretty": "опаДвигайОтСюдаЛещ",
+                  "pretty": "\u043e\u043f\u0430\u0414\u0432\u0438\u0433\u0430\u0439\u041e\u0442\u0421\u044e\u0434\u0430\u041b\u0435\u0449",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bontouchstart\\b",
-                  "pretty": "опаЩаЛещаПоЩамДам",
+                  "pretty": "\u043e\u043f\u0430\u0429\u0430\u041b\u0435\u0449\u0430\u041f\u043e\u0429\u0430\u043c\u0414\u0430\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonwaiting\\b",
-                  "pretty": "покаМотаюСрок",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041c\u043e\u0442\u0430\u044e\u0421\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwindow\\b",
-                  "pretty": "ебало",
+                  "pretty": "\u0435\u0431\u0430\u043b\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bclosed\\b",
-                  "pretty": "завалено",
+                  "pretty": "\u0437\u0430\u0432\u0430\u043b\u0435\u043d\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bconsole\\b",
-                  "pretty": "красноглазое",
+                  "pretty": "\u043a\u0440\u0430\u0441\u043d\u043e\u0433\u043b\u0430\u0437\u043e\u0435",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcontrollers\\b",
-                  "pretty": "мусора",
+                  "pretty": "\u043c\u0443\u0441\u043e\u0440\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bcrypto\\b",
-                  "pretty": "пиздишбля",
+                  "pretty": "\u043f\u0438\u0437\u0434\u0438\u0448\u0431\u043b\u044f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdevicePixelRatio\\b",
-                  "pretty": "типАйфона",
+                  "pretty": "\u0442\u0438\u043f\u0410\u0439\u0444\u043e\u043d\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bdialogArguments\\b",
-                  "pretty": "тыэтаТавоэта",
+                  "pretty": "\u0442\u044b\u044d\u0442\u0430\u0422\u0430\u0432\u043e\u044d\u0442\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bframeElement\\b",
-                  "pretty": "кадрОпущенный",
+                  "pretty": "\u043a\u0430\u0434\u0440\u041e\u043f\u0443\u0449\u0435\u043d\u043d\u044b\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bframes\\b",
-                  "pretty": "кадры",
+                  "pretty": "\u043a\u0430\u0434\u0440\u044b",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bfullScreen\\b",
-                  "pretty": "воВсёЕбало",
+                  "pretty": "\u0432\u043e\u0412\u0441\u0451\u0415\u0431\u0430\u043b\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bhistory\\b",
-                  "pretty": "фон",
+                  "pretty": "\u0444\u043e\u043d",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blength\\b",
-                  "pretty": "писькомер",
+                  "pretty": "\u043f\u0438\u0441\u044c\u043a\u043e\u043c\u0435\u0440",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blocation\\b",
-                  "pretty": "белыйЛебедь",
+                  "pretty": "\u0431\u0435\u043b\u044b\u0439\u041b\u0435\u0431\u0435\u0434\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bname\\b",
-                  "pretty": "погоняло",
+                  "pretty": "\u043f\u043e\u0433\u043e\u043d\u044f\u043b\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bnavigator\\b",
-                  "pretty": "главпетух",
+                  "pretty": "\u0433\u043b\u0430\u0432\u043f\u0435\u0442\u0443\u0445",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bopener\\b",
-                  "pretty": "открывашка",
+                  "pretty": "\u043e\u0442\u043a\u0440\u044b\u0432\u0430\u0448\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bpageXOffset\\b",
-                  "pretty": "статьяПоЭксу",
+                  "pretty": "\u0441\u0442\u0430\u0442\u044c\u044f\u041f\u043e\u042d\u043a\u0441\u0443",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bpageYOffset\\b",
-                  "pretty": "статьяПоУгам",
+                  "pretty": "\u0441\u0442\u0430\u0442\u044c\u044f\u041f\u043e\u0423\u0433\u0430\u043c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bsessionStorage\\b",
-                  "pretty": "хабрИзОтсидки",
+                  "pretty": "\u0445\u0430\u0431\u0440\u0418\u0437\u041e\u0442\u0441\u0438\u0434\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bparent\\b",
-                  "pretty": "родаки",
+                  "pretty": "\u0440\u043e\u0434\u0430\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\breturnValue\\b",
-                  "pretty": "ответитьЗаВалио",
+                  "pretty": "\u043e\u0442\u0432\u0435\u0442\u0438\u0442\u044c\u0417\u0430\u0412\u0430\u043b\u0438\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bperformance\\b",
-                  "pretty": "сестьНахуй",
+                  "pretty": "\u0441\u0435\u0441\u0442\u044c\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscreen\\b",
-                  "pretty": "всёЕбало",
+                  "pretty": "\u0432\u0441\u0451\u0415\u0431\u0430\u043b\u043e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscreenX\\b",
-                  "pretty": "всёЕбалоПоЭксу",
+                  "pretty": "\u0432\u0441\u0451\u0415\u0431\u0430\u043b\u043e\u041f\u043e\u042d\u043a\u0441\u0443",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscreenY\\b",
-                  "pretty": "всёЕбалоПоУгам",
+                  "pretty": "\u0432\u0441\u0451\u0415\u0431\u0430\u043b\u043e\u041f\u043e\u0423\u0433\u0430\u043c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollbars\\b",
-                  "pretty": "колеситьПоПивларькам",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041f\u043e\u041f\u0438\u0432\u043b\u0430\u0440\u044c\u043a\u0430\u043c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollMaxX\\b",
-                  "pretty": "колеситьПоГлавЭксу",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041f\u043e\u0413\u043b\u0430\u0432\u042d\u043a\u0441\u0443",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollMaxY\\b",
-                  "pretty": "колеситьПоГлавУгам",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041f\u043e\u0413\u043b\u0430\u0432\u0423\u0433\u0430\u043c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollX\\b",
-                  "pretty": "колеситьПоЭксу",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041f\u043e\u042d\u043a\u0441\u0443",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bscrollY\\b",
-                  "pretty": "колеситьПоУгам",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041f\u043e\u0423\u0433\u0430\u043c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bself\\b",
-                  "pretty": "пельмень",
+                  "pretty": "\u043f\u0435\u043b\u044c\u043c\u0435\u043d\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bsidebar\\b",
-                  "pretty": "стенкаЙбать",
+                  "pretty": "\u0441\u0442\u0435\u043d\u043a\u0430\u0419\u0431\u0430\u0442\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\btop\\b",
-                  "pretty": "КрышаЙбать",
+                  "pretty": "\u041a\u0440\u044b\u0448\u0430\u0419\u0431\u0430\u0442\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\baddEventListener\\b",
-                  "pretty": "добавитьВертухай",
+                  "pretty": "\u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c\u0412\u0435\u0440\u0442\u0443\u0445\u0430\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\balert\\b",
-                  "pretty": "шухер",
+                  "pretty": "\u0448\u0443\u0445\u0435\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bblur\\b",
-                  "pretty": "размытьЕбало",
+                  "pretty": "\u0440\u0430\u0437\u043c\u044b\u0442\u044c\u0415\u0431\u0430\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcancelIdleCallback\\b",
-                  "pretty": "харэПиздеть",
+                  "pretty": "\u0445\u0430\u0440\u044d\u041f\u0438\u0437\u0434\u0435\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bclearInterval\\b",
-                  "pretty": "отсидетьСизо",
+                  "pretty": "\u043e\u0442\u0441\u0438\u0434\u0435\u0442\u044c\u0421\u0438\u0437\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bclearTimeout\\b",
-                  "pretty": "отсидетьСрок",
+                  "pretty": "\u043e\u0442\u0441\u0438\u0434\u0435\u0442\u044c\u0421\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bconfirm\\b",
-                  "pretty": "канает",
+                  "pretty": "\u043a\u0430\u043d\u0430\u0435\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bdispatchEvent\\b",
-                  "pretty": "послатьНахуйШнягу",
+                  "pretty": "\u043f\u043e\u0441\u043b\u0430\u0442\u044c\u041d\u0430\u0445\u0443\u0439\u0428\u043d\u044f\u0433\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bdump\\b",
-                  "pretty": "мусорка",
+                  "pretty": "\u043c\u0443\u0441\u043e\u0440\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfind\\b",
-                  "pretty": "сигиЕсть",
+                  "pretty": "\u0441\u0438\u0433\u0438\u0415\u0441\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfocus\\b",
-                  "pretty": "хуёкус",
+                  "pretty": "\u0445\u0443\u0451\u043a\u0443\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetAttention\\b",
-                  "pretty": "посвистеть",
+                  "pretty": "\u043f\u043e\u0441\u0432\u0438\u0441\u0442\u0435\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmatchMedia\\b",
-                  "pretty": "феняНаШару",
+                  "pretty": "\u0444\u0435\u043d\u044f\u041d\u0430\u0428\u0430\u0440\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmaximize\\b",
-                  "pretty": "распидорась",
+                  "pretty": "\u0440\u0430\u0441\u043f\u0438\u0434\u043e\u0440\u0430\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bminimize\\b",
-                  "pretty": "спидорась",
+                  "pretty": "\u0441\u043f\u0438\u0434\u043e\u0440\u0430\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmoveBy\\b",
-                  "pretty": "щаТяПодвину",
+                  "pretty": "\u0449\u0430\u0422\u044f\u041f\u043e\u0434\u0432\u0438\u043d\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmoveTo\\b",
-                  "pretty": "нахуйЭтоТуда",
+                  "pretty": "\u043d\u0430\u0445\u0443\u0439\u042d\u0442\u043e\u0422\u0443\u0434\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bopenDialog\\b",
-                  "pretty": "побазарить",
+                  "pretty": "\u043f\u043e\u0431\u0430\u0437\u0430\u0440\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpostMessage\\b",
-                  "pretty": "намутитьКсиву",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041a\u0441\u0438\u0432\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprint\\b",
-                  "pretty": "наПечать",
+                  "pretty": "\u043d\u0430\u041f\u0435\u0447\u0430\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprompt\\b",
-                  "pretty": "поясниЗаБазар",
+                  "pretty": "\u043f\u043e\u044f\u0441\u043d\u0438\u0417\u0430\u0411\u0430\u0437\u0430\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bremoveEventListener\\b",
-                  "pretty": "урытьВертухая",
+                  "pretty": "\u0443\u0440\u044b\u0442\u044c\u0412\u0435\u0440\u0442\u0443\u0445\u0430\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bresizeBy\\b",
-                  "pretty": "распидораситьПоХуйне",
+                  "pretty": "\u0440\u0430\u0441\u043f\u0438\u0434\u043e\u0440\u0430\u0441\u0438\u0442\u044c\u041f\u043e\u0425\u0443\u0439\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bresizeTo\\b",
-                  "pretty": "распидораситьОтносительно",
+                  "pretty": "\u0440\u0430\u0441\u043f\u0438\u0434\u043e\u0440\u0430\u0441\u0438\u0442\u044c\u041e\u0442\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u044c\u043d\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bscroll\\b",
-                  "pretty": "колесить",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bscrollBy\\b",
-                  "pretty": "колеситьНа",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bscrollByLines\\b",
-                  "pretty": "колеситьНаЛинии",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041d\u0430\u041b\u0438\u043d\u0438\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bscrollByPages\\b",
-                  "pretty": "колеситьНаМалявах",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041d\u0430\u041c\u0430\u043b\u044f\u0432\u0430\u0445",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bscrollTo\\b",
-                  "pretty": "колеситьНахуйНа",
+                  "pretty": "\u043a\u043e\u043b\u0435\u0441\u0438\u0442\u044c\u041d\u0430\u0445\u0443\u0439\u041d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsetInterval\\b",
-                  "pretty": "посетитьСизо",
+                  "pretty": "\u043f\u043e\u0441\u0435\u0442\u0438\u0442\u044c\u0421\u0438\u0437\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsetResizable\\b",
-                  "pretty": "датьПопидорасить",
+                  "pretty": "\u0434\u0430\u0442\u044c\u041f\u043e\u043f\u0438\u0434\u043e\u0440\u0430\u0441\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsetTimeout\\b",
-                  "pretty": "получитьСрок",
+                  "pretty": "\u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c\u0421\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsizeToContent\\b",
-                  "pretty": "ухтыжёптыжбляПодгони",
+                  "pretty": "\u0443\u0445\u0442\u044b\u0436\u0451\u043f\u0442\u044b\u0436\u0431\u043b\u044f\u041f\u043e\u0434\u0433\u043e\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bstop\\b",
-                  "pretty": "стопээ",
+                  "pretty": "\u0441\u0442\u043e\u043f\u044d\u044d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bPromise\\b",
-                  "pretty": "СловоПацана",
+                  "pretty": "\u0421\u043b\u043e\u0432\u043e\u041f\u0430\u0446\u0430\u043d\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bupdateCommands\\b",
-                  "pretty": "новыйАйфонДляЧики",
+                  "pretty": "\u043d\u043e\u0432\u044b\u0439\u0410\u0439\u0444\u043e\u043d\u0414\u043b\u044f\u0427\u0438\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonbeforeunload\\b",
-                  "pretty": "покаСемкиКрутятся",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0421\u0435\u043c\u043a\u0438\u041a\u0440\u0443\u0442\u044f\u0442\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bondevicelight\\b",
-                  "pretty": "покаХуйДлинный",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0425\u0443\u0439\u0414\u043b\u0438\u043d\u043d\u044b\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonhashchange\\b",
-                  "pretty": "покаШнягаИзменяет",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0428\u043d\u044f\u0433\u0430\u0418\u0437\u043c\u0435\u043d\u044f\u0435\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\boninstall\\b",
-                  "pretty": "покаХуйСтоитКакКолонна",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0425\u0443\u0439\u0421\u0442\u043e\u0438\u0442\u041a\u0430\u043a\u041a\u043e\u043b\u043e\u043d\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonload\\b",
-                  "pretty": "опаСемкиНесу",
+                  "pretty": "\u043e\u043f\u0430\u0421\u0435\u043c\u043a\u0438\u041d\u0435\u0441\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonoffline\\b",
-                  "pretty": "покаОффнусь",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041e\u0444\u0444\u043d\u0443\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bononline\\b",
-                  "pretty": "опаТутачки",
+                  "pretty": "\u043e\u043f\u0430\u0422\u0443\u0442\u0430\u0447\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpagehide\\b",
-                  "pretty": "покаКсиваНаМалине",
+                  "pretty": "\u043f\u043e\u043a\u0430\u041a\u0441\u0438\u0432\u0430\u041d\u0430\u041c\u0430\u043b\u0438\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpageshow\\b",
-                  "pretty": "опаКсивуПоказал",
+                  "pretty": "\u043e\u043f\u0430\u041a\u0441\u0438\u0432\u0443\u041f\u043e\u043a\u0430\u0437\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpaint\\b",
-                  "pretty": "опаНарисовался",
+                  "pretty": "\u043e\u043f\u0430\u041d\u0430\u0440\u0438\u0441\u043e\u0432\u0430\u043b\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonpopstate\\b",
-                  "pretty": "покаИсторияМаляется",
+                  "pretty": "\u043f\u043e\u043a\u0430\u0418\u0441\u0442\u043e\u0440\u0438\u044f\u041c\u0430\u043b\u044f\u0435\u0442\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonstorage\\b",
-                  "pretty": "опаХабар",
+                  "pretty": "\u043e\u043f\u0430\u0425\u0430\u0431\u0430\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bonunload\\b",
-                  "pretty": "опаСемкиКрутятся",
+                  "pretty": "\u043e\u043f\u0430\u0421\u0435\u043c\u043a\u0438\u041a\u0440\u0443\u0442\u044f\u0442\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bbaseURI\\b",
-                  "pretty": "наХатеТип",
+                  "pretty": "\u043d\u0430\u0425\u0430\u0442\u0435\u0422\u0438\u043f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bbaseURIObject\\b",
-                  "pretty": "мразотыНаХатеКрч",
+                  "pretty": "\u043c\u0440\u0430\u0437\u043e\u0442\u044b\u041d\u0430\u0425\u0430\u0442\u0435\u041a\u0440\u0447",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bchildNodes\\b",
-                  "pretty": "пездюкГовнод",
+                  "pretty": "\u043f\u0435\u0437\u0434\u044e\u043a\u0413\u043e\u0432\u043d\u043e\u0434",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bfirstChild\\b",
-                  "pretty": "первыйПездюк",
+                  "pretty": "\u043f\u0435\u0440\u0432\u044b\u0439\u041f\u0435\u0437\u0434\u044e\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blastChild\\b",
-                  "pretty": "последнийПездюк",
+                  "pretty": "\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439\u041f\u0435\u0437\u0434\u044e\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bnextSibling\\b",
-                  "pretty": "следующийПездюк",
+                  "pretty": "\u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439\u041f\u0435\u0437\u0434\u044e\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bnodeName\\b",
-                  "pretty": "погонялоПездюка",
+                  "pretty": "\u043f\u043e\u0433\u043e\u043d\u044f\u043b\u043e\u041f\u0435\u0437\u0434\u044e\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bnodeType\\b",
-                  "pretty": "типичныйПездюк",
+                  "pretty": "\u0442\u0438\u043f\u0438\u0447\u043d\u044b\u0439\u041f\u0435\u0437\u0434\u044e\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bnodeValue\\b",
-                  "pretty": "валиоПездюка",
+                  "pretty": "\u0432\u0430\u043b\u0438\u043e\u041f\u0435\u0437\u0434\u044e\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bownerDocument\\b",
-                  "pretty": "главныйАвторитет",
+                  "pretty": "\u0433\u043b\u0430\u0432\u043d\u044b\u0439\u0410\u0432\u0442\u043e\u0440\u0438\u0442\u0435\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bparentNode\\b",
-                  "pretty": "братишка",
+                  "pretty": "\u0431\u0440\u0430\u0442\u0438\u0448\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bparentElement\\b",
-                  "pretty": "братишкаЭлемент",
+                  "pretty": "\u0431\u0440\u0430\u0442\u0438\u0448\u043a\u0430\u042d\u043b\u0435\u043c\u0435\u043d\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bpreviousSibling\\b",
-                  "pretty": "старыйПездюк",
+                  "pretty": "\u0441\u0442\u0430\u0440\u044b\u0439\u041f\u0435\u0437\u0434\u044e\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\btextContent\\b",
-                  "pretty": "ухтыжёптыжМалява",
+                  "pretty": "\u0443\u0445\u0442\u044b\u0436\u0451\u043f\u0442\u044b\u0436\u041c\u0430\u043b\u044f\u0432\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bappendChild\\b",
-                  "pretty": "заделатьПездюка",
+                  "pretty": "\u0437\u0430\u0434\u0435\u043b\u0430\u0442\u044c\u041f\u0435\u0437\u0434\u044e\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcloneNode\\b",
-                  "pretty": "клонГовнод",
+                  "pretty": "\u043a\u043b\u043e\u043d\u0413\u043e\u0432\u043d\u043e\u0434",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcompareDocumentPosition\\b",
-                  "pretty": "сравниСтатусМалявы",
+                  "pretty": "\u0441\u0440\u0430\u0432\u043d\u0438\u0421\u0442\u0430\u0442\u0443\u0441\u041c\u0430\u043b\u044f\u0432\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcontains\\b",
-                  "pretty": "яТвойОтецЕбуОвец",
+                  "pretty": "\u044f\u0422\u0432\u043e\u0439\u041e\u0442\u0435\u0446\u0415\u0431\u0443\u041e\u0432\u0435\u0446",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetRootNode\\b",
-                  "pretty": "дайБатеГовнод",
+                  "pretty": "\u0434\u0430\u0439\u0411\u0430\u0442\u0435\u0413\u043e\u0432\u043d\u043e\u0434",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bhasChildNodes\\b",
-                  "pretty": "батяИмеетПездюков",
+                  "pretty": "\u0431\u0430\u0442\u044f\u0418\u043c\u0435\u0435\u0442\u041f\u0435\u0437\u0434\u044e\u043a\u043e\u0432",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\binsertBefore\\b",
-                  "pretty": "вставитьПездюкаДо",
+                  "pretty": "\u0432\u0441\u0442\u0430\u0432\u0438\u0442\u044c\u041f\u0435\u0437\u0434\u044e\u043a\u0430\u0414\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisDefaultNamespace\\b",
-                  "pretty": "деткаТыПростоКосмос",
+                  "pretty": "\u0434\u0435\u0442\u043a\u0430\u0422\u044b\u041f\u0440\u043e\u0441\u0442\u043e\u041a\u043e\u0441\u043c\u043e\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisEqualNode\\b",
-                  "pretty": "эквалиоГовнод",
+                  "pretty": "\u044d\u043a\u0432\u0430\u043b\u0438\u043e\u0413\u043e\u0432\u043d\u043e\u0434",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bnormalize\\b",
-                  "pretty": "нормандэ",
+                  "pretty": "\u043d\u043e\u0440\u043c\u0430\u043d\u0434\u044d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bremoveChild\\b",
-                  "pretty": "уебатьПездюка",
+                  "pretty": "\u0443\u0435\u0431\u0430\u0442\u044c\u041f\u0435\u0437\u0434\u044e\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breplaceChild\\b",
-                  "pretty": "сделатьАборт",
+                  "pretty": "\u0441\u0434\u0435\u043b\u0430\u0442\u044c\u0410\u0431\u043e\u0440\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprototype\\b",
-                  "pretty": "проточелик",
+                  "pretty": "\u043f\u0440\u043e\u0442\u043e\u0447\u0435\u043b\u0438\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bfromCharCode\\b",
-                  "pretty": "хуйняИзЁба",
+                  "pretty": "\u0445\u0443\u0439\u043d\u044f\u0418\u0437\u0401\u0431\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfromCodePoint\\b",
-                  "pretty": "хуйняИзЭтоТуданахНутыпоэл",
+                  "pretty": "\u0445\u0443\u0439\u043d\u044f\u0418\u0437\u042d\u0442\u043e\u0422\u0443\u0434\u0430\u043d\u0430\u0445\u041d\u0443\u0442\u044b\u043f\u043e\u044d\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\braw\\b",
-                  "pretty": "полоса",
+                  "pretty": "\u043f\u043e\u043b\u043e\u0441\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcharAt\\b",
-                  "pretty": "обаЁба",
+                  "pretty": "\u043e\u0431\u0430\u0401\u0431\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcharCodeAt\\b",
-                  "pretty": "обаЁбаХуйня",
+                  "pretty": "\u043e\u0431\u0430\u0401\u0431\u0430\u0425\u0443\u0439\u043d\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcodePointAt\\b",
-                  "pretty": "хуйняНутыпоэлОткуда",
+                  "pretty": "\u0445\u0443\u0439\u043d\u044f\u041d\u0443\u0442\u044b\u043f\u043e\u044d\u043b\u041e\u0442\u043a\u0443\u0434\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bconcat\\b",
-                  "pretty": "заебеньВсе",
+                  "pretty": "\u0437\u0430\u0435\u0431\u0435\u043d\u044c\u0412\u0441\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bincludes\\b",
-                  "pretty": "лучшеНетВлагалищаЧемОчкоТоварища",
+                  "pretty": "\u043b\u0443\u0447\u0448\u0435\u041d\u0435\u0442\u0412\u043b\u0430\u0433\u0430\u043b\u0438\u0449\u0430\u0427\u0435\u043c\u041e\u0447\u043a\u043e\u0422\u043e\u0432\u0430\u0440\u0438\u0449\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bendsWith\\b",
-                  "pretty": "отЗалупки",
+                  "pretty": "\u043e\u0442\u0417\u0430\u043b\u0443\u043f\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bindexOf\\b",
-                  "pretty": "поТюряге",
+                  "pretty": "\u043f\u043e\u0422\u044e\u0440\u044f\u0433\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blastIndexOf\\b",
-                  "pretty": "последняяОтсидка",
+                  "pretty": "\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u044f\u044f\u041e\u0442\u0441\u0438\u0434\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blocaleCompare\\b",
-                  "pretty": "сравнитьГовор",
+                  "pretty": "\u0441\u0440\u0430\u0432\u043d\u0438\u0442\u044c\u0413\u043e\u0432\u043e\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmatch\\b",
-                  "pretty": "футбик",
+                  "pretty": "\u0444\u0443\u0442\u0431\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpadEnd\\b",
-                  "pretty": "залупныйПадик",
+                  "pretty": "\u0437\u0430\u043b\u0443\u043f\u043d\u044b\u0439\u041f\u0430\u0434\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpadStart\\b",
-                  "pretty": "начальныйПадик",
+                  "pretty": "\u043d\u0430\u0447\u0430\u043b\u044c\u043d\u044b\u0439\u041f\u0430\u0434\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\brepeat\\b",
-                  "pretty": "непоэлПовтори",
+                  "pretty": "\u043d\u0435\u043f\u043e\u044d\u043b\u041f\u043e\u0432\u0442\u043e\u0440\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breplace\\b",
-                  "pretty": "пивасПодмени",
+                  "pretty": "\u043f\u0438\u0432\u0430\u0441\u041f\u043e\u0434\u043c\u0435\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsearch\\b",
-                  "pretty": "семкиЕсть",
+                  "pretty": "\u0441\u0435\u043c\u043a\u0438\u0415\u0441\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bslice\\b",
-                  "pretty": "поделитьСемки",
+                  "pretty": "\u043f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0421\u0435\u043c\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsplit\\b",
-                  "pretty": "поделитьЯгу",
+                  "pretty": "\u043f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u042f\u0433\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bstartsWith\\b",
-                  "pretty": "начатьЗалупку",
+                  "pretty": "\u043d\u0430\u0447\u0430\u0442\u044c\u0417\u0430\u043b\u0443\u043f\u043a\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsubstr\\b",
-                  "pretty": "спиздитьМеждуБукв",
+                  "pretty": "\u0441\u043f\u0438\u0437\u0434\u0438\u0442\u044c\u041c\u0435\u0436\u0434\u0443\u0411\u0443\u043a\u0432",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsubstring\\b",
-                  "pretty": "спиздитьМеждуСтрок",
+                  "pretty": "\u0441\u043f\u0438\u0437\u0434\u0438\u0442\u044c\u041c\u0435\u0436\u0434\u0443\u0421\u0442\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoLocaleLowerCase\\b",
-                  "pretty": "поРайонуНеКапсом",
+                  "pretty": "\u043f\u043e\u0420\u0430\u0439\u043e\u043d\u0443\u041d\u0435\u041a\u0430\u043f\u0441\u043e\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoLocaleUpperCase\\b",
-                  "pretty": "поРайонуКапсом",
+                  "pretty": "\u043f\u043e\u0420\u0430\u0439\u043e\u043d\u0443\u041a\u0430\u043f\u0441\u043e\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoLowerCase\\b",
-                  "pretty": "неКапсом",
+                  "pretty": "\u043d\u0435\u041a\u0430\u043f\u0441\u043e\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoString\\b",
-                  "pretty": "поПацански",
+                  "pretty": "\u043f\u043e\u041f\u0430\u0446\u0430\u043d\u0441\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoUpperCase\\b",
-                  "pretty": "капсомБля",
+                  "pretty": "\u043a\u0430\u043f\u0441\u043e\u043c\u0411\u043b\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btrim\\b",
-                  "pretty": "вырезатьОчко",
+                  "pretty": "\u0432\u044b\u0440\u0435\u0437\u0430\u0442\u044c\u041e\u0447\u043a\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btrimLeft\\b",
-                  "pretty": "вырезатьОчкоСлева",
+                  "pretty": "\u0432\u044b\u0440\u0435\u0437\u0430\u0442\u044c\u041e\u0447\u043a\u043e\u0421\u043b\u0435\u0432\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btrimRight\\b",
-                  "pretty": "вырезатьОчкоСправа",
+                  "pretty": "\u0432\u044b\u0440\u0435\u0437\u0430\u0442\u044c\u041e\u0447\u043a\u043e\u0421\u043f\u0440\u0430\u0432\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bvalueOf\\b",
-                  "pretty": "валиоОф",
+                  "pretty": "\u0432\u0430\u043b\u0438\u043e\u041e\u0444",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\banchor\\b",
-                  "pretty": "якорьЁпт",
+                  "pretty": "\u044f\u043a\u043e\u0440\u044c\u0401\u043f\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bbig\\b",
-                  "pretty": "большойЁпт",
+                  "pretty": "\u0431\u043e\u043b\u044c\u0448\u043e\u0439\u0401\u043f\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bbold\\b",
-                  "pretty": "жирныйЁпт",
+                  "pretty": "\u0436\u0438\u0440\u043d\u044b\u0439\u0401\u043f\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfixed\\b",
-                  "pretty": "ПМС",
+                  "pretty": "\u041f\u041c\u0421",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bitalics\\b",
-                  "pretty": "понаехавший",
+                  "pretty": "\u043f\u043e\u043d\u0430\u0435\u0445\u0430\u0432\u0448\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blink\\b",
-                  "pretty": "зона",
+                  "pretty": "\u0437\u043e\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsmall\\b",
-                  "pretty": "малорик",
+                  "pretty": "\u043c\u0430\u043b\u043e\u0440\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bstrike\\b",
-                  "pretty": "въебиОчко",
+                  "pretty": "\u0432\u044a\u0435\u0431\u0438\u041e\u0447\u043a\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bEPSILON\\b",
-                  "pretty": "ХУЕПСИЛОН",
+                  "pretty": "\u0425\u0423\u0415\u041f\u0421\u0418\u041b\u041e\u041d",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bMAX_SAFE_INTEGER\\b",
-                  "pretty": "ЛУЧШИЙ_ГАНДОН",
+                  "pretty": "\u041b\u0423\u0427\u0428\u0418\u0419_\u0413\u0410\u041d\u0414\u041e\u041d",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bMAX_VALUE\\b",
-                  "pretty": "ОХУЕННОЕ_ВАЛИО",
+                  "pretty": "\u041e\u0425\u0423\u0415\u041d\u041d\u041e\u0415_\u0412\u0410\u041b\u0418\u041e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bMIN_SAFE_INTEGER\\b",
-                  "pretty": "ХУЁВЫЙ_ГАНДОН",
+                  "pretty": "\u0425\u0423\u0401\u0412\u042b\u0419_\u0413\u0410\u041d\u0414\u041e\u041d",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bMIN_VALUE\\b",
-                  "pretty": "ХУЁВОЕ_ВАЛИО",
+                  "pretty": "\u0425\u0423\u0401\u0412\u041e\u0415_\u0412\u0410\u041b\u0418\u041e",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bNEGATIVE_INFINITY\\b",
-                  "pretty": "НИХУЯ_ДОХУЯ",
+                  "pretty": "\u041d\u0418\u0425\u0423\u042f_\u0414\u041e\u0425\u0423\u042f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bPOSITIVE_INFINITY\\b",
-                  "pretty": "ОХУЕТЬ_ДОХУЯ",
+                  "pretty": "\u041e\u0425\u0423\u0415\u0422\u042c_\u0414\u041e\u0425\u0423\u042f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bisFinite\\b",
-                  "pretty": "оноКонченое",
+                  "pretty": "\u043e\u043d\u043e\u041a\u043e\u043d\u0447\u0435\u043d\u043e\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisInteger\\b",
-                  "pretty": "этоХуйня",
+                  "pretty": "\u044d\u0442\u043e\u0425\u0443\u0439\u043d\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisNaN\\b",
-                  "pretty": "этоНихуя",
+                  "pretty": "\u044d\u0442\u043e\u041d\u0438\u0445\u0443\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisSafeInteger\\b",
-                  "pretty": "этоОхуеннаяХуйня",
+                  "pretty": "\u044d\u0442\u043e\u041e\u0445\u0443\u0435\u043d\u043d\u0430\u044f\u0425\u0443\u0439\u043d\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bparseFloat\\b",
-                  "pretty": "шнырятьПоПлавникам",
+                  "pretty": "\u0448\u043d\u044b\u0440\u044f\u0442\u044c\u041f\u043e\u041f\u043b\u0430\u0432\u043d\u0438\u043a\u0430\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bparseInt\\b",
-                  "pretty": "шнырятьПоКарманам",
+                  "pretty": "\u0448\u043d\u044b\u0440\u044f\u0442\u044c\u041f\u043e\u041a\u0430\u0440\u043c\u0430\u043d\u0430\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoExponential\\b",
-                  "pretty": "наХуекспоненту",
+                  "pretty": "\u043d\u0430\u0425\u0443\u0435\u043a\u0441\u043f\u043e\u043d\u0435\u043d\u0442\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoFixed\\b",
-                  "pretty": "наПМС",
+                  "pretty": "\u043d\u0430\u041f\u041c\u0421",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoLocaleString\\b",
-                  "pretty": "кПацанамНаРайоне",
+                  "pretty": "\u043a\u041f\u0430\u0446\u0430\u043d\u0430\u043c\u041d\u0430\u0420\u0430\u0439\u043e\u043d\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btoPrecision\\b",
-                  "pretty": "кЧёткости",
+                  "pretty": "\u043a\u0427\u0451\u0442\u043a\u043e\u0441\u0442\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bassert\\b",
-                  "pretty": "найтиСтукача",
+                  "pretty": "\u043d\u0430\u0439\u0442\u0438\u0421\u0442\u0443\u043a\u0430\u0447\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcount\\b",
-                  "pretty": "которыйСрок",
+                  "pretty": "\u043a\u043e\u0442\u043e\u0440\u044b\u0439\u0421\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bdirxml\\b",
-                  "pretty": "йбатьБуратиноНахуй",
+                  "pretty": "\u0439\u0431\u0430\u0442\u044c\u0411\u0443\u0440\u0430\u0442\u0438\u043d\u043e\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\berror\\b",
-                  "pretty": "папандос",
+                  "pretty": "\u043f\u0430\u043f\u0430\u043d\u0434\u043e\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgroup\\b",
-                  "pretty": "банда",
+                  "pretty": "\u0431\u0430\u043d\u0434\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgroupCollapsed\\b",
-                  "pretty": "свернутьБанду",
+                  "pretty": "\u0441\u0432\u0435\u0440\u043d\u0443\u0442\u044c\u0411\u0430\u043d\u0434\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgroupEnd\\b",
-                  "pretty": "съебатьсяИзБанды",
+                  "pretty": "\u0441\u044a\u0435\u0431\u0430\u0442\u044c\u0441\u044f\u0418\u0437\u0411\u0430\u043d\u0434\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\binfo\\b",
-                  "pretty": "инфо",
+                  "pretty": "\u0438\u043d\u0444\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blog\\b",
-                  "pretty": "чмо",
+                  "pretty": "\u0447\u043c\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprofile\\b",
-                  "pretty": "личка",
+                  "pretty": "\u043b\u0438\u0447\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprofileEnd\\b",
-                  "pretty": "вЛичкуПрописали",
+                  "pretty": "\u0432\u041b\u0438\u0447\u043a\u0443\u041f\u0440\u043e\u043f\u0438\u0441\u0430\u043b\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btable\\b",
-                  "pretty": "таблом",
+                  "pretty": "\u0442\u0430\u0431\u043b\u043e\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btime\\b",
-                  "pretty": "срок",
+                  "pretty": "\u0441\u0440\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btimeEnd\\b",
-                  "pretty": "конецСрока",
+                  "pretty": "\u043a\u043e\u043d\u0435\u0446\u0421\u0440\u043e\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btimeStamp\\b",
-                  "pretty": "началоСрока",
+                  "pretty": "\u043d\u0430\u0447\u0430\u043b\u043e\u0421\u0440\u043e\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btrace\\b",
-                  "pretty": "складЧмошников",
+                  "pretty": "\u0441\u043a\u043b\u0430\u0434\u0427\u043c\u043e\u0448\u043d\u0438\u043a\u043e\u0432",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwarn\\b",
-                  "pretty": "тыЭтоНуЭто",
+                  "pretty": "\u0442\u044b\u042d\u0442\u043e\u041d\u0443\u042d\u0442\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bXMLHttpRequest\\b",
-                  "pretty": "запросПоЩам",
+                  "pretty": "\u0437\u0430\u043f\u0440\u043e\u0441\u041f\u043e\u0429\u0430\u043c",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bonreadystatechange\\b",
-                  "pretty": "опаГотовЙоптЧозанахуй",
+                  "pretty": "\u043e\u043f\u0430\u0413\u043e\u0442\u043e\u0432\u0419\u043e\u043f\u0442\u0427\u043e\u0437\u0430\u043d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\breadyState\\b",
-                  "pretty": "готовностьЙопт",
+                  "pretty": "\u0433\u043e\u0442\u043e\u0432\u043d\u043e\u0441\u0442\u044c\u0419\u043e\u043f\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\btimeout\\b",
-                  "pretty": "длительностьСрока",
+                  "pretty": "\u0434\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c\u0421\u0440\u043e\u043a\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bupload\\b",
-                  "pretty": "заебенить",
+                  "pretty": "\u0437\u0430\u0435\u0431\u0435\u043d\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwithCredentials\\b",
-                  "pretty": "зашкварить",
+                  "pretty": "\u0437\u0430\u0448\u043a\u0432\u0430\u0440\u0438\u0442\u044c",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\babort\\b",
-                  "pretty": "уронилМыло",
+                  "pretty": "\u0443\u0440\u043e\u043d\u0438\u043b\u041c\u044b\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetResponseHeader\\b",
-                  "pretty": "дайКепарикПолосатого",
+                  "pretty": "\u0434\u0430\u0439\u041a\u0435\u043f\u0430\u0440\u0438\u043a\u041f\u043e\u043b\u043e\u0441\u0430\u0442\u043e\u0433\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsend\\b",
-                  "pretty": "всёПиздуй",
+                  "pretty": "\u0432\u0441\u0451\u041f\u0438\u0437\u0434\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bXMLHttpRequestEventTarget\\b",
-                  "pretty": "запросСоШнягойПоЩам",
+                  "pretty": "\u0437\u0430\u043f\u0440\u043e\u0441\u0421\u043e\u0428\u043d\u044f\u0433\u043e\u0439\u041f\u043e\u0429\u0430\u043c",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bEventTarget\\b",
-                  "pretty": "очкоНаПрицеле",
+                  "pretty": "\u043e\u0447\u043a\u043e\u041d\u0430\u041f\u0440\u0438\u0446\u0435\u043b\u0435",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\bloadstart\\b",
-                  "pretty": "началТаскатьСемки",
+                  "pretty": "\u043d\u0430\u0447\u0430\u043b\u0422\u0430\u0441\u043a\u0430\u0442\u044c\u0421\u0435\u043c\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bprogress\\b",
-                  "pretty": "сколькоСемокДонёс",
+                  "pretty": "\u0441\u043a\u043e\u043b\u044c\u043a\u043e\u0421\u0435\u043c\u043e\u043a\u0414\u043e\u043d\u0451\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bload\\b",
-                  "pretty": "нестиСемки",
+                  "pretty": "\u043d\u0435\u0441\u0442\u0438\u0421\u0435\u043c\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bloadend\\b",
-                  "pretty": "семкиДонёс",
+                  "pretty": "\u0441\u0435\u043c\u043a\u0438\u0414\u043e\u043d\u0451\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breadystatechange\\b",
-                  "pretty": "готовЙоптЧозанахуй",
+                  "pretty": "\u0433\u043e\u0442\u043e\u0432\u0419\u043e\u043f\u0442\u0427\u043e\u0437\u0430\u043d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfrom\\b",
-                  "pretty": "спиздитьИз",
+                  "pretty": "\u0441\u043f\u0438\u0437\u0434\u0438\u0442\u044c\u0418\u0437",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisArray\\b",
-                  "pretty": "этоПомойка",
+                  "pretty": "\u044d\u0442\u043e\u041f\u043e\u043c\u043e\u0439\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bof\\b",
-                  "pretty": "сашаГрей",
+                  "pretty": "\u0441\u0430\u0448\u0430\u0413\u0440\u0435\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcopyWithin\\b",
-                  "pretty": "вынестиГовно",
+                  "pretty": "\u0432\u044b\u043d\u0435\u0441\u0442\u0438\u0413\u043e\u0432\u043d\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bentries\\b",
-                  "pretty": "вычислитьЛохов",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0442\u044c\u041b\u043e\u0445\u043e\u0432",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bevery\\b",
-                  "pretty": "пошерстим",
+                  "pretty": "\u043f\u043e\u0448\u0435\u0440\u0441\u0442\u0438\u043c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfindIndex\\b",
-                  "pretty": "найдиБомжа",
+                  "pretty": "\u043d\u0430\u0439\u0434\u0438\u0411\u043e\u043c\u0436\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bforEach\\b",
-                  "pretty": "пероПодРебро",
+                  "pretty": "\u043f\u0435\u0440\u043e\u041f\u043e\u0434\u0420\u0435\u0431\u0440\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bjoin\\b",
-                  "pretty": "вписаться",
+                  "pretty": "\u0432\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bkeys\\b",
-                  "pretty": "отмычки",
+                  "pretty": "\u043e\u0442\u043c\u044b\u0447\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmap\\b",
-                  "pretty": "засратьВсё",
+                  "pretty": "\u0437\u0430\u0441\u0440\u0430\u0442\u044c\u0412\u0441\u0451",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpop\\b",
-                  "pretty": "попка",
+                  "pretty": "\u043f\u043e\u043f\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpush\\b",
-                  "pretty": "пупок",
+                  "pretty": "\u043f\u0443\u043f\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breduce\\b",
-                  "pretty": "редиска",
+                  "pretty": "\u0440\u0435\u0434\u0438\u0441\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breduceRight\\b",
-                  "pretty": "редискаПравая",
+                  "pretty": "\u0440\u0435\u0434\u0438\u0441\u043a\u0430\u041f\u0440\u0430\u0432\u0430\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breverse\\b",
-                  "pretty": "шухильмеМухильме",
+                  "pretty": "\u0448\u0443\u0445\u0438\u043b\u044c\u043c\u0435\u041c\u0443\u0445\u0438\u043b\u044c\u043c\u0435",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bshift\\b",
-                  "pretty": "первыйБачок",
+                  "pretty": "\u043f\u0435\u0440\u0432\u044b\u0439\u0411\u0430\u0447\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsplice\\b",
-                  "pretty": "въебатьГовна",
+                  "pretty": "\u0432\u044a\u0435\u0431\u0430\u0442\u044c\u0413\u043e\u0432\u043d\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsort\\b",
-                  "pretty": "сидор",
+                  "pretty": "\u0441\u0438\u0434\u043e\u0440",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsome\\b",
-                  "pretty": "нарываешься",
+                  "pretty": "\u043d\u0430\u0440\u044b\u0432\u0430\u0435\u0448\u044c\u0441\u044f",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bunshift\\b",
-                  "pretty": "верниБачок",
+                  "pretty": "\u0432\u0435\u0440\u043d\u0438\u0411\u0430\u0447\u043e\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bvalues\\b",
-                  "pretty": "валиоси",
+                  "pretty": "\u0432\u0430\u043b\u0438\u043e\u0441\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bMath\\b",
-                  "pretty": "Гопец",
+                  "pretty": "\u0413\u043e\u043f\u0435\u0446",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bE\\b",
-                  "pretty": "ГОПСПАНЕНТА",
+                  "pretty": "\u0413\u041e\u041f\u0421\u041f\u0410\u041d\u0415\u041d\u0422\u0410",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bLN10\\b",
-                  "pretty": "ГОПОРИФМ10",
+                  "pretty": "\u0413\u041e\u041f\u041e\u0420\u0418\u0424\u041c10",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bLN2\\b",
-                  "pretty": "ГОПОРИФМ2",
+                  "pretty": "\u0413\u041e\u041f\u041e\u0420\u0418\u0424\u041c2",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bLOG10E\\b",
-                  "pretty": "СЛОЖНЫЙ_ГОПОРИФМ10",
+                  "pretty": "\u0421\u041b\u041e\u0416\u041d\u042b\u0419_\u0413\u041e\u041f\u041e\u0420\u0418\u0424\u041c10",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bLOG2E\\b",
-                  "pretty": "СЛОЖНЫЙ_ГОПОРИФМ2",
+                  "pretty": "\u0421\u041b\u041e\u0416\u041d\u042b\u0419_\u0413\u041e\u041f\u041e\u0420\u0418\u0424\u041c2",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bPI\\b",
-                  "pretty": "ПИЗДЕЦ",
+                  "pretty": "\u041f\u0418\u0417\u0414\u0415\u0426",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bSQRT1_2\\b",
-                  "pretty": "сквиртНаПолшишечки",
+                  "pretty": "\u0441\u043a\u0432\u0438\u0440\u0442\u041d\u0430\u041f\u043e\u043b\u0448\u0438\u0448\u0435\u0447\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bSQRT2\\b",
-                  "pretty": "двойнойСквирт",
+                  "pretty": "\u0434\u0432\u043e\u0439\u043d\u043e\u0439\u0421\u043a\u0432\u0438\u0440\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\babs\\b",
-                  "pretty": "абсолютли",
+                  "pretty": "\u0430\u0431\u0441\u043e\u043b\u044e\u0442\u043b\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bacos\\b",
-                  "pretty": "агопосинус",
+                  "pretty": "\u0430\u0433\u043e\u043f\u043e\u0441\u0438\u043d\u0443\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bacosh\\b",
-                  "pretty": "агопосинусКупчинский",
+                  "pretty": "\u0430\u0433\u043e\u043f\u043e\u0441\u0438\u043d\u0443\u0441\u041a\u0443\u043f\u0447\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\basin\\b",
-                  "pretty": "агопинус",
+                  "pretty": "\u0430\u0433\u043e\u043f\u0438\u043d\u0443\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\basinh\\b",
-                  "pretty": "агопинусКупчинский",
+                  "pretty": "\u0430\u0433\u043e\u043f\u0438\u043d\u0443\u0441\u041a\u0443\u043f\u0447\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\batan\\b",
-                  "pretty": "агопангенс",
+                  "pretty": "\u0430\u0433\u043e\u043f\u0430\u043d\u0433\u0435\u043d\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\batan2\\b",
-                  "pretty": "агопангенсПо2",
+                  "pretty": "\u0430\u0433\u043e\u043f\u0430\u043d\u0433\u0435\u043d\u0441\u041f\u043e2",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\batanh\\b",
-                  "pretty": "агопангенсКупчинский",
+                  "pretty": "\u0430\u0433\u043e\u043f\u0430\u043d\u0433\u0435\u043d\u0441\u041a\u0443\u043f\u0447\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcbrt\\b",
-                  "pretty": "кубоСквирт",
+                  "pretty": "\u043a\u0443\u0431\u043e\u0421\u043a\u0432\u0438\u0440\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bceil\\b",
-                  "pretty": "чирикГони",
+                  "pretty": "\u0447\u0438\u0440\u0438\u043a\u0413\u043e\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bclz32\\b",
-                  "pretty": "поводырь32петухов",
+                  "pretty": "\u043f\u043e\u0432\u043e\u0434\u044b\u0440\u044c32\u043f\u0435\u0442\u0443\u0445\u043e\u0432",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcos\\b",
-                  "pretty": "гопосинос",
+                  "pretty": "\u0433\u043e\u043f\u043e\u0441\u0438\u043d\u043e\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcosh\\b",
-                  "pretty": "гопосиносКолпинский",
+                  "pretty": "\u0433\u043e\u043f\u043e\u0441\u0438\u043d\u043e\u0441\u041a\u043e\u043b\u043f\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bexp\\b",
-                  "pretty": "гопспанента",
+                  "pretty": "\u0433\u043e\u043f\u0441\u043f\u0430\u043d\u0435\u043d\u0442\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bexpm1\\b",
-                  "pretty": "топГопспонента",
+                  "pretty": "\u0442\u043e\u043f\u0413\u043e\u043f\u0441\u043f\u043e\u043d\u0435\u043d\u0442\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfloor\\b",
-                  "pretty": "бабкиГони",
+                  "pretty": "\u0431\u0430\u0431\u043a\u0438\u0413\u043e\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfround\\b",
-                  "pretty": "мелочьТожеГони",
+                  "pretty": "\u043c\u0435\u043b\u043e\u0447\u044c\u0422\u043e\u0436\u0435\u0413\u043e\u043d\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bhypot\\b",
-                  "pretty": "вКореньЗыришь",
+                  "pretty": "\u0432\u041a\u043e\u0440\u0435\u043d\u044c\u0417\u044b\u0440\u0438\u0448\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bimul\\b",
-                  "pretty": "петухПетухаВидитИздалека",
+                  "pretty": "\u043f\u0435\u0442\u0443\u0445\u041f\u0435\u0442\u0443\u0445\u0430\u0412\u0438\u0434\u0438\u0442\u0418\u0437\u0434\u0430\u043b\u0435\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blog10\\b",
-                  "pretty": "гопорифмПо10",
+                  "pretty": "\u0433\u043e\u043f\u043e\u0440\u0438\u0444\u043c\u041f\u043e10",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blog1p\\b",
-                  "pretty": "чистыйГопорифмПо1",
+                  "pretty": "\u0447\u0438\u0441\u0442\u044b\u0439\u0413\u043e\u043f\u043e\u0440\u0438\u0444\u043c\u041f\u043e1",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\blog2\\b",
-                  "pretty": "гопорифмПо2",
+                  "pretty": "\u0433\u043e\u043f\u043e\u0440\u0438\u0444\u043c\u041f\u043e2",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmax\\b",
-                  "pretty": "хуйло",
+                  "pretty": "\u0445\u0443\u0439\u043b\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmin\\b",
-                  "pretty": "хуйчик",
+                  "pretty": "\u0445\u0443\u0439\u0447\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpow\\b",
-                  "pretty": "гопень",
+                  "pretty": "\u0433\u043e\u043f\u0435\u043d\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\brandom\\b",
-                  "pretty": "шара",
+                  "pretty": "\u0448\u0430\u0440\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bround\\b",
-                  "pretty": "подрезать",
+                  "pretty": "\u043f\u043e\u0434\u0440\u0435\u0437\u0430\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsign\\b",
-                  "pretty": "сиськи",
+                  "pretty": "\u0441\u0438\u0441\u044c\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsin\\b",
-                  "pretty": "гопинус",
+                  "pretty": "\u0433\u043e\u043f\u0438\u043d\u0443\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsinh\\b",
-                  "pretty": "гопинусКолпинский",
+                  "pretty": "\u0433\u043e\u043f\u0438\u043d\u0443\u0441\u041a\u043e\u043b\u043f\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsqrt\\b",
-                  "pretty": "сквирт",
+                  "pretty": "\u0441\u043a\u0432\u0438\u0440\u0442",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btan\\b",
-                  "pretty": "гопангенс",
+                  "pretty": "\u0433\u043e\u043f\u0430\u043d\u0433\u0435\u043d\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btanh\\b",
-                  "pretty": "гопангенсКолпинский",
+                  "pretty": "\u0433\u043e\u043f\u0430\u043d\u0433\u0435\u043d\u0441\u041a\u043e\u043b\u043f\u0438\u043d\u0441\u043a\u0438\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btrunc\\b",
-                  "pretty": "верниЧирик",
+                  "pretty": "\u0432\u0435\u0440\u043d\u0438\u0427\u0438\u0440\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bRegExp\\b",
-                  "pretty": "фильтруйБазар",
+                  "pretty": "\u0444\u0438\u043b\u044c\u0442\u0440\u0443\u0439\u0411\u0430\u0437\u0430\u0440",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\binput\\b",
-                  "pretty": "тыЭтоПишибля",
+                  "pretty": "\u0442\u044b\u042d\u0442\u043e\u041f\u0438\u0448\u0438\u0431\u043b\u044f",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bflags\\b",
-                  "pretty": "флагМнеВанус",
+                  "pretty": "\u0444\u043b\u0430\u0433\u041c\u043d\u0435\u0412\u0430\u043d\u0443\u0441",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bglobal\\b",
-                  "pretty": "глобалкаЙопта",
+                  "pretty": "\u0433\u043b\u043e\u0431\u0430\u043b\u043a\u0430\u0419\u043e\u043f\u0442\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bignoreCase\\b",
-                  "pretty": "игнорщикЕбаный",
+                  "pretty": "\u0438\u0433\u043d\u043e\u0440\u0449\u0438\u043a\u0415\u0431\u0430\u043d\u044b\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bmultiline\\b",
-                  "pretty": "стулБезПик",
+                  "pretty": "\u0441\u0442\u0443\u043b\u0411\u0435\u0437\u041f\u0438\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bsource\\b",
-                  "pretty": "обоснуй",
+                  "pretty": "\u043e\u0431\u043e\u0441\u043d\u0443\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bsticky\\b",
-                  "pretty": "петухОпущенный",
+                  "pretty": "\u043f\u0435\u0442\u0443\u0445\u041e\u043f\u0443\u0449\u0435\u043d\u043d\u044b\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bunicode\\b",
-                  "pretty": "хуйняНахуй",
+                  "pretty": "\u0445\u0443\u0439\u043d\u044f\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\blastIndex\\b",
-                  "pretty": "доКонцаОтсидки",
+                  "pretty": "\u0434\u043e\u041a\u043e\u043d\u0446\u0430\u041e\u0442\u0441\u0438\u0434\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bexec\\b",
-                  "pretty": "работайМразь",
+                  "pretty": "\u0440\u0430\u0431\u043e\u0442\u0430\u0439\u041c\u0440\u0430\u0437\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\btest\\b",
-                  "pretty": "ответыБудутЭээ",
+                  "pretty": "\u043e\u0442\u0432\u0435\u0442\u044b\u0411\u0443\u0434\u0443\u0442\u042d\u044d\u044d",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\basync\\b",
-                  "pretty": "ассо",
+                  "pretty": "\u0430\u0441\u0441\u043e",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bawait\\b",
-                  "pretty": "сидетьНахуй",
+                  "pretty": "\u0441\u0438\u0434\u0435\u0442\u044c\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bAsyncFunction\\b",
-                  "pretty": "АссоЙопта",
+                  "pretty": "\u0410\u0441\u0441\u043e\u0419\u043e\u043f\u0442\u0430",
                   "style": {
                     "color": "#55b3bf"
                   }
                 },
                 {
                   "ugly": "\\ball\\b",
-                  "pretty": "пацанСделал",
+                  "pretty": "\u043f\u0430\u0446\u0430\u043d\u0421\u0434\u0435\u043b\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bthen\\b",
-                  "pretty": "атоэто",
+                  "pretty": "\u0430\u0442\u043e\u044d\u0442\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\brace\\b",
-                  "pretty": "пацанСказал",
+                  "pretty": "\u043f\u0430\u0446\u0430\u043d\u0421\u043a\u0430\u0437\u0430\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\breject\\b",
-                  "pretty": "пацанЗабыл",
+                  "pretty": "\u043f\u0430\u0446\u0430\u043d\u0417\u0430\u0431\u044b\u043b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bresolve\\b",
-                  "pretty": "щащаНамутитьКактоНадо",
+                  "pretty": "\u0449\u0430\u0449\u0430\u041d\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041a\u0430\u043a\u0442\u043e\u041d\u0430\u0434\u043e",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bconstructor\\b",
-                  "pretty": "стрельнутьБычки",
+                  "pretty": "\u0441\u0442\u0440\u0435\u043b\u044c\u043d\u0443\u0442\u044c\u0411\u044b\u0447\u043a\u0438",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bassign\\b",
-                  "pretty": "тащиВсёНаХату",
+                  "pretty": "\u0442\u0430\u0449\u0438\u0412\u0441\u0451\u041d\u0430\u0425\u0430\u0442\u0443",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bcreate\\b",
-                  "pretty": "намутить",
+                  "pretty": "\u043d\u0430\u043c\u0443\u0442\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bdefineProperties\\b",
-                  "pretty": "ващеЧоткиеЧелики",
+                  "pretty": "\u0432\u0430\u0449\u0435\u0427\u043e\u0442\u043a\u0438\u0435\u0427\u0435\u043b\u0438\u043a\u0438",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bdefineProperty\\b",
-                  "pretty": "вотЭтоЗаебись",
+                  "pretty": "\u0432\u043e\u0442\u042d\u0442\u043e\u0417\u0430\u0435\u0431\u0438\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bfreeze\\b",
-                  "pretty": "датьЛеща",
+                  "pretty": "\u0434\u0430\u0442\u044c\u041b\u0435\u0449\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetOwnPropertyDescriptor\\b",
-                  "pretty": "вычислиЕблоКрысы",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0415\u0431\u043b\u043e\u041a\u0440\u044b\u0441\u044b",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetOwnPropertyDescriptors\\b",
-                  "pretty": "вычислиСходкуКрыс",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u0421\u0445\u043e\u0434\u043a\u0443\u041a\u0440\u044b\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetOwnPropertyNames\\b",
-                  "pretty": "вычислиПогонялаКрыс",
+                  "pretty": "\u0432\u044b\u0447\u0438\u0441\u043b\u0438\u041f\u043e\u0433\u043e\u043d\u044f\u043b\u0430\u041a\u0440\u044b\u0441",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetOwnPropertySymbols\\b",
-                  "pretty": "выучиАлфавитМразь",
+                  "pretty": "\u0432\u044b\u0443\u0447\u0438\u0410\u043b\u0444\u0430\u0432\u0438\u0442\u041c\u0440\u0430\u0437\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bgetPrototypeOf\\b",
-                  "pretty": "чоЗаПроточелик",
+                  "pretty": "\u0447\u043e\u0417\u0430\u041f\u0440\u043e\u0442\u043e\u0447\u0435\u043b\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisExtensible\\b",
-                  "pretty": "жратьБудешь",
+                  "pretty": "\u0436\u0440\u0430\u0442\u044c\u0411\u0443\u0434\u0435\u0448\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisFrozen\\b",
-                  "pretty": "далЛеща",
+                  "pretty": "\u0434\u0430\u043b\u041b\u0435\u0449\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisSealed\\b",
-                  "pretty": "теЧоЕбалоРаз NEEDLEбить",
+                  "pretty": "\u0442\u0435\u0427\u043e\u0415\u0431\u0430\u043b\u043e\u0420\u0430\u0437 NEEDLE\u0431\u0438\u0442\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bhasOwnProperty\\b",
-                  "pretty": "соСвоейТемой",
+                  "pretty": "\u0441\u043e\u0421\u0432\u043e\u0435\u0439\u0422\u0435\u043c\u043e\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bisPrototypeOf\\b",
-                  "pretty": "чейПроточелик",
+                  "pretty": "\u0447\u0435\u0439\u041f\u0440\u043e\u0442\u043e\u0447\u0435\u043b\u0438\u043a",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bpropertyIsEnumerable\\b",
-                  "pretty": "лютаяТема",
+                  "pretty": "\u043b\u044e\u0442\u0430\u044f\u0422\u0435\u043c\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bunwatch\\b",
-                  "pretty": "съебись",
+                  "pretty": "\u0441\u044a\u0435\u0431\u0438\u0441\u044c",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bwatch\\b",
-                  "pretty": "смотрюСюда",
+                  "pretty": "\u0441\u043c\u043e\u0442\u0440\u044e\u0421\u044e\u0434\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bseal\\b",
-                  "pretty": "сдохниНахуй",
+                  "pretty": "\u0441\u0434\u043e\u0445\u043d\u0438\u041d\u0430\u0445\u0443\u0439",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bsetPrototypeOf\\b",
-                  "pretty": "замутитьПроточелика",
+                  "pretty": "\u0437\u0430\u043c\u0443\u0442\u0438\u0442\u044c\u041f\u0440\u043e\u0442\u043e\u0447\u0435\u043b\u0438\u043a\u0430",
                   "style": {
                     "color": "#92ba77"
                   }
                 },
                 {
                   "ugly": "\\bmodule\\b",
-                  "pretty": "братва",
+                  "pretty": "\u0431\u0440\u0430\u0442\u0432\u0430",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bexports\\b",
-                  "pretty": "предъявляет",
+                  "pretty": "\u043f\u0440\u0435\u0434\u044a\u044f\u0432\u043b\u044f\u0435\u0442",
                   "style": {
                     "color": "#5ea7e3"
                   }
                 },
                 {
                   "ugly": "\\bexport\\b",
-                  "pretty": "предъявa",
+                  "pretty": "\u043f\u0440\u0435\u0434\u044a\u044f\u0432a",
                   "style": {
                     "color": "#56b6c2"
                   }
                 },
                 {
                   "ugly": "\\bglobal\\b",
-                  "pretty": "общак",
+                  "pretty": "\u043e\u0431\u0449\u0430\u043a",
                   "style": {
                     "color": "#5ea7e3"
                   }
@@ -4841,6 +4842,8 @@
     "test-debug": "tsc -p ./ && mocha -u tdd --debug-brk=5858 ./out/test"
   },
   "dependencies": {
+    "@md-prettify/types": "workspace:*",
+    "@md-prettify/utils": "workspace:*",
     "@types/copy-paste": "1.1.30",
     "copy-paste": "1.3.0",
     "mobx": "^7.0.6",
@@ -4860,11 +4863,11 @@
     "vscode-extension-devtool-mcp": "file:../../../Jabberwock/packages/vscode-extension-devtool-mcp"
   },
   "bugs": {
-    "url": "https://github.com/drboria/md-prettify/issues"
+    "url": "https://github.com/DrBoria/md-prettify/issues"
   },
-  "homepage": "https://github.com/drboria/md-prettify/README.md",
+  "homepage": "https://github.com/DrBoria/md-prettify#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drboria/md-prettify.git"
+    "url": "git+https://github.com/DrBoria/md-prettify.git"
   }
 }

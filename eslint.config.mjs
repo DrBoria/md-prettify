@@ -14,6 +14,14 @@ const utilsUniqueness = require("@md-code/utils-uniqueness");
 const entitiesUniqueness = require("@md-code/entities-uniqueness");
 const componentUniqueness = require("@md-code/component-uniqueness");
 
+// The architecture rule SCANS the repository itself (it builds the tree and the
+// file list by walking the FS), so it needs its own skip list — ESLint's
+// `ignores` does not feed a rule option; it only stops files from being linted.
+// One list, one rule definition: two copies would let the same rule see two
+// different trees depending on which file happened to trigger it.
+const ARCH_IGNORED_DIRS = ["node_modules", "out", ".vsix-stage", "reports", ".idea", ".claude", ".turbo"];
+const architectureRule = ["error", { config: "architecture.yaml", ignoreDirs: ARCH_IGNORED_DIRS }];
+
 // `basePath` pins every `files` pattern to this repo root, so the config
 // behaves identically no matter which directory the ESLint server was
 // started from (the vscode-eslint server resolves its cwd to the nearest
@@ -54,6 +62,15 @@ export default [
 			: { ...c, basePath: here },
 	),
 	{
+		// The architecture describes the whole product, so the rule runs on every
+		// source folder it can name — a package outside the pattern is a blind
+		// spot: code moved there silently stops being checked.
+		basePath: here,
+		files: ["packages/**/*.ts"],
+		plugins: { "md-code": followArchitecture },
+		rules: { "md-code/follow-architecture": architectureRule },
+	},
+	{
 		basePath: here,
 		files: ["apps/backend/**/*.ts"],
 		plugins: {
@@ -63,20 +80,14 @@ export default [
 			"md-code-components": componentUniqueness,
 		},
 		rules: {
-			"md-code/follow-architecture": [
-				"error",
-				{
-					config: "architecture.yaml",
-					// Scan scope lives here, not in architecture.yaml: the yaml
-					// describes the code, the rule options describe how to scan.
-					ignoreDirs: [".vsix-stage", "reports", ".idea", ".claude", ".turbo", "out"],
-				},
-			],
+			// Scan scope lives here, not in architecture.yaml: the yaml describes
+			// the code, the rule options describe how to scan.
+			"md-code/follow-architecture": architectureRule,
 			"md-code-utils/utils-uniqueness": [
 				"error",
 				{
 					root: here,
-					utilsFolder: ["apps/backend"],
+					utilsFolder: ["apps", "packages"],
 					// Single-layer folder: without compareAll a file in layer 0
 					// sees no canons (canSeeCanon requires an earlier layer),
 					// so the rule would never fire. compareAll compares each
@@ -91,7 +102,7 @@ export default [
 				"error",
 				{
 					root: here,
-					componentsFolder: ["apps/backend"],
+					componentsFolder: ["apps", "packages"],
 					// Same single-layer rationale as utils-uniqueness above.
 					compareAll: true,
 					catalogPath: "reports/component-catalog.json",
@@ -108,7 +119,7 @@ export default [
 				"error",
 				{
 					root: here,
-					roots: ["apps/backend"],
+					roots: ["apps", "packages"],
 					exportPath: "reports/entities-catalog.json",
 					// Test fakes (FakeHost, OPTIONS, ...) are intentionally
 					// duplicated per test file — the architecture keeps

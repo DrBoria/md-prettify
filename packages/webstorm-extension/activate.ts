@@ -12,7 +12,7 @@ import { createHost } from './host-adapter';
 import { registerCommands } from './commands';
 import { registerListeners } from './listeners';
 import { activate as backendActivate, deactivate as backendDeactivate, createRootStore } from '../../apps/backend/index';
-import type { mdPrettify } from '../../apps/backend/config/api';
+import type { mdPrettify } from '@md-prettify/types';
 import type { RootStore } from '../../apps/backend/store';
 
 // The root store lives for the extension's lifetime; deactivate needs it.

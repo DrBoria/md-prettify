@@ -1,7 +1,6 @@
-import type { Range, Host, DecorationRenderOptions } from '../host';
-import { DecorationRangeBehavior } from '../host';
-import type { Substitution } from '../config/configuration';
-import { assignStyleProperties } from '../config/configuration';
+import { DecorationRangeBehavior, type Range, type Host, type DecorationRenderOptions } from '../host';
+import type {Substitution} from '../store.d/type';
+import { assignStyleProperties } from '@md-prettify/utils';
 import type { DecorationKeyParams } from '../document/type';
 import type { DocumentStore } from '../document/type';
 import { getDecorationCacheKey, addOrUpdatePrettyRange } from './cache';
