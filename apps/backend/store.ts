@@ -1,94 +1,50 @@
 /**
- * The root store: a mobx-state-tree model holding the extension's runtime
- * state, created once at the extension's entry point (packages/<ide>/activate.ts)
- * and passed explicitly to the backend wiring — there are no module singletons.
+ * The root store: a mobx-state-tree model holding the extension's runtime state.
+ * It is declared once, in place, and read through the `getRoot` accessor.
  *
- * Holds the host, the TextMate registry, the grammar cache, every open
- * document's controller, the resolve feature store, and the enable/disable
- * state.
- *
- * The grammar and controller maps use inline `t.custom` passthrough types:
- * mst stores the value as-is, so the in-place mutations vscode-textmate makes
- * on grammars (and the controllers' own live state) keep working. Non-serializable
- * IDE API objects (host, registry, channels, config state) live in `volatile`.
- *
- * The config feature state (settings, predefined configs, the logger channel,
- * programmatic substitutions) also lives here, so feature code reads it through
- * getRootStore/requireRootStore instead of per-feature store modules.
+ * Every feature declares its own model in its own `store.ts`; the root store
+ * only composes them. The channels it logs to are live objects, so they live in
+ * `volatile`; the IDE itself belongs to the settings feature.
  */
-import { types as t, type Instance, unprotect } from "mobx-state-tree";
-import type { Host, IGrammar, ITextMateRegistry, OutputChannel } from "./host";
-import type { LanguageEntry, PredefinedConfig, Settings } from "./store.d/type";
-import type { PrettyDocumentController } from "./document/store";
-import { CommandsStoreModel } from "./commands/store";
-import { passthrough } from "@md-prettify/utils";
-import { GrammarStoreModel } from "./grammar/store";
-import { ReparseStoreModel } from "./reparse/store";
-import { ResolveStoreModel } from "./resolve/store";
+import { types as t, unprotect } from 'mobx-state-tree';
+import type { OutputChannel } from '@md-prettify/types';
+import { ConfigStoreModel } from './config/store';
+import { SettingsStoreModel } from './settings/store';
+import { GrammarStoreModel } from './grammar/store';
+import { DocumentStoreModel } from './document/store';
+import { DecorationsStoreModel } from './decorations/store';
 
-export const RootStoreModel = t.model("RootStore", {
-	/** Cache for loaded grammars, keyed by scope name. */
-	loadedGrammars: t.map(passthrough<IGrammar>("IGrammar")),
-	/** Every open document's controller, keyed by document uri. */
-	documents: t.map(passthrough<PrettyDocumentController>("PrettyDocumentController")),
-	/** The commands feature store (the enabled flag and its handlers). */
-	commands: CommandsStoreModel,
-	/** The grammar feature store (the loaded Oniguruma WASM promise). */
-	grammar: GrammarStoreModel,
-	/** The reparse feature store (the in-flight reparse cancellation token). */
-	reparse: ReparseStoreModel,
-	/** The resolve feature store (last resolved range + its cache key). */
-	resolve: ResolveStoreModel,
-	/** The commands feature's logger channel (wired by `configureLogger`). */
-	loggerChannel: t.maybeNull(passthrough<OutputChannel>("OutputChannel")),
-})
-// Host/registry/handlers and the config feature state are IDE API objects or
-// live collections: not serializable, not observable.
-.volatile(() => ({
-	host: undefined as Host | undefined,
-	textMateRegistry: undefined as ITextMateRegistry | undefined,
-	// Config feature state (formerly the settings/predefined stores):
-	predefinedConfigs: new Map<string, PredefinedConfig>(),
-	settings: undefined as Settings,
-	outputChannel: undefined as OutputChannel,
-	predefined: new Map<string, LanguageEntry>(),
-	additionalSubstitutions: new Set<LanguageEntry>(),
-}));
+/** rootStore: the single root store instance the whole backend shares. */
+export const rootStore = t
+	.model('RootStore', {
+		/** Every open document's store, keyed by document uri. */
+		documents: t.map(DocumentStoreModel),
+		/** What is drawn on each open document, keyed by the same uri. */
+		decorations: t.map(DecorationsStoreModel),
+		/** The settings feature store (enabled flag, handlers, parsed settings). */
+		settings: SettingsStoreModel,
+		/** The config feature store (language entries and predefined configurations). */
+		config: t.optional(ConfigStoreModel, {}),
+		/** The grammar feature store (WASM promise, registry, grammar cache). */
+		grammar: t.optional(GrammarStoreModel, {}),
+	})
+	.volatile(() => ({
+		/** The channel the backend logs to. */
+		outputChannel: undefined as OutputChannel | undefined,
+		/** The commands feature's logger channel. */
+		loggerChannel: null as OutputChannel | null,
+	}))
+	.create({ documents: {}, settings: { enabled: true } });
+unprotect(rootStore);
 
-export type RootStore = Instance<typeof RootStoreModel>;
+/** The root store's shape. */
+export type RootStore = typeof rootStore;
 
-/** The created root store, if any; set by createRootStore (last call wins). */
-const rootStoreRef = { current: undefined as RootStore | undefined };
+/** getRoot: returns the single root store instance the whole backend shares.
+ * @returns {RootStore} the root store
+ */
+export function getRoot(): RootStore {
+	if (!rootStore) throw new Error('root store is not initialised');
 
-/** The root store, or undefined before createRootStore has run. */
-export const getRootStore = (): RootStore | undefined => rootStoreRef.current;
-
-/** The root store, or an error if it has not been created yet. */
-export const requireRootStore = (): RootStore => {
-	const store = rootStoreRef.current;
-	if (!store) throw new Error("Root store not created; call createRootStore() first");
-	return store;
-};
-
-/** The root store, or an error if it has not been created yet. */
-export const getRoot = requireRootStore;
-
-/** Whether pretty symbols are currently enabled. */
-export const isEnabled = (): boolean => rootStoreRef.current?.commands.enabled ?? false;
-
-/** Creates the root store; called by the extension's entry point. */
-export const createRootStore = (): RootStore => {
-	const store = RootStoreModel.create({
-		commands: CommandsStoreModel.create({ enabled: true, enabledHandlers: new Set() }),
-		grammar: GrammarStoreModel.create(),
-		reparse: ReparseStoreModel.create(),
-		resolve: ResolveStoreModel.create({ lastResolvedRange: null, lastResolvedCacheKey: "" }),
-		loggerChannel: null,
-	});
-
-	unprotect(store);
-
-	rootStoreRef.current = store;
-
-	return store;
-};
+	return rootStore;
+}

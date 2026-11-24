@@ -1,0 +1,14 @@
+node_modules
+out
+dist
+.turbo
+.vsix-stage
+reports
+examples
+
+# Ownership: the architecture description is the rule's input, not source
+architecture.yaml
+
+# Not source, and owned by other tools
+pnpm-lock.yaml
+*.vsix

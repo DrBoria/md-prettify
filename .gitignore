@@ -8,3 +8,11 @@ dist
 .claude/
 .vsix-stage/
 reports/
+
+# stray tsc output next to sources (build output belongs in out/)
+packages/**/*.js
+packages/**/*.js.map
+apps/**/*.js
+apps/**/*.js.map
+!packages/eslint/**/*.js
+

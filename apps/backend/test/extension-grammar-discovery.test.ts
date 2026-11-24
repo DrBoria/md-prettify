@@ -1,69 +1,73 @@
 /**
- * Regression tests for TextMate grammar auto-discovery (packages/vscode-extension).
+ * The grammar feature's discovery over the contributions an IDE declares.
  *
  * Built-in typescript-basics contributes its grammar WITHOUT a grammarPath on
  * the languages entry — the grammar entry carries language + scopeName instead.
- * Auto-discovery must resolve "typescript" (and the "source.ts" convention) to
- * that grammar, or the extension is a no-op for TypeScript out of the box.
- *
- * Runs in the extension's mocha process AFTER extension-host-adapter.test.ts,
- * which patches the fake vscode module onto globalThis; when the adapter is not
- * yet compiled the suite self-skips, mirroring the other extension-*.test.ts.
+ * Discovery must resolve "source.ts" (and the "source.<id>" convention) to that
+ * grammar, or the extension is a no-op for TypeScript out of the box.
  */
-
 import * as assert from 'assert';
+import type { IdeExtension } from '@md-prettify/types';
+import { getRoot } from '../store';
 
-const sharedFake = (globalThis as Record<string, unknown>).mdPrettifyFake as
-  | { extensions: { all: unknown[] } }
-  | undefined;
+// The exact contribution shape of VS Code's built-in typescript-basics:
+// languages[0] has no grammarPath; grammars[0] has language + scopeName.
+const typescriptBasics: IdeExtension = {
+	extensionUri: { fsPath: '/fake/typescript-basics' },
+	packageJSON: {
+		contributes: {
+			languages: [{ id: 'typescript' }],
+			grammars: [{ language: 'typescript', scopeName: 'source.ts', path: 'syntaxes/TypeScript.tmLanguage.json' }],
+		},
+	},
+};
 
-const hasAdapter = (() => {
-  try {
-    require('../../../packages/vscode-extension/host-adapter.js');
-    return true;
-  } catch {
-    return false;
-  }
-})();
-const s = hasAdapter ? suite : suite.skip.bind(suite);
+suite('grammar discovery', () => {
+	/** grammar discovery answers off the extensions the store holds, so each test installs its own and indexes them. */
+	const installed = (extensions: IdeExtension[]) => {
+		const grammar = getRoot().grammar;
+		grammar.extensions = extensions;
+		grammar.indexScopePaths();
+		grammar.indexLanguagePaths();
+		grammar.indexDeclaredLanguagePaths();
+		grammar.indexInjections();
 
-s('grammar auto-discovery (typescript-basics shape)', () => {
-  if (!hasAdapter || !sharedFake) return;
-  const { createHost } = (() => require('../../../packages/vscode-extension/host-adapter.js'))();
+		return grammar;
+	};
 
-  // The exact contribution shape of VS Code's built-in typescript-basics:
-  // languages[0] has no grammarPath; grammars[0] has language + scopeName.
-  const typescriptBasics = {
-    packageJSON: {
-      contributes: {
-        languages: [{ id: 'typescript', extensions: ['.ts', '.tsx', '.mts', '.cts'] }],
-        grammars: [{ language: 'typescript', scopeName: 'source.ts', path: 'syntaxes/TypeScript.tmLanguage.json' }],
-      },
-    },
-    extensionUri: { fsPath: '/fake/typescript-basics' },
-  };
-  // Pushed once for the whole suite: the fake vscode module is process-scoped
-  // and discarded after the run, so no per-test teardown is needed (and mocha's
-  // teardown would strip it after the first test).
-  sharedFake.extensions.all.push(typescriptBasics);
+	test('a grammar contributed for a language resolves the source.<id> scope', () => {
+		const expected = '/fake/typescript-basics/syntaxes/TypeScript.tmLanguage.json';
+		const grammar = installed([typescriptBasics]);
+		grammar.locateGrammar('source.ts');
+		assert.strictEqual(grammar.located.get('source.ts'), expected);
+	});
 
-  test('getLanguageScopeName resolves typescript via the grammars contribution', () => {
-    const host = createHost();
-    assert.strictEqual(host.getLanguageScopeName('typescript'), 'source.ts');
-  });
+	test('the grammar path declared on a language contribution wins', () => {
+		const withPath: IdeExtension = {
+			extensionUri: { fsPath: '/fake/with-path' },
+			packageJSON: { contributes: { languages: [{ id: 'rust', grammarPath: 'syntaxes/rust.json' }] } },
+		};
+		const grammar = installed([withPath]);
+		grammar.locateGrammar('source.rust');
+		assert.strictEqual(grammar.located.get('source.rust'), '/fake/with-path/syntaxes/rust.json');
+	});
 
-  test('getGrammarFilePath resolves the real scope and the source.<id> convention', () => {
-    const host = createHost();
-    // The fake Uri.joinPath always joins with '/', so the expected path uses
-    // forward slashes regardless of platform.
-    const expected = '/fake/typescript-basics/syntaxes/TypeScript.tmLanguage.json';
-    // For TypeScript the real scope IS the source.<id> convention (source.ts),
-    // so both lookups resolve to the same grammar path.
-    assert.strictEqual(host.getGrammarFilePath('source.ts'), expected);
-  });
+	test('an unknown scope resolves to nothing', () => {
+		const grammar = installed([typescriptBasics]);
+		grammar.locateGrammar('source.does-not-exist');
+		assert.strictEqual(grammar.located.get('source.does-not-exist'), null);
+	});
 
-  test('getGrammarFilePath returns null for unknown scopes', () => {
-    const host = createHost();
-    assert.strictEqual(host.getGrammarFilePath('source.does-not-exist'), null);
-  });
+	test('injection grammars are collected for the extensions that declare them', () => {
+		const injecting: IdeExtension = {
+			extensionUri: { fsPath: '/fake/injections' },
+			packageJSON: {
+				contributes: {
+					grammars: [{ scopeName: 'source.ts.inject', path: 'syntaxes/inject.json', injectionSelector: 'L:source.ts' }],
+				},
+			},
+		};
+		assert.deepStrictEqual(installed([injecting]).injectionsFor('source.ts'), ['source.ts.inject']);
+		assert.deepStrictEqual(installed([typescriptBasics]).injectionsFor('source.ts'), []);
+	});
 });

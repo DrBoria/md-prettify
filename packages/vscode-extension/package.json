@@ -1,39 +1,116 @@
 {
-  "name": "@md-prettify/vscode-extension",
-  "version": "0.0.7-beta",
-  "license": "Apache-2.0",
-  "author": "DrBoria <dr.boria@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DrBoria/md-prettify.git"
-  },
-  "bugs": {
-    "url": "https://github.com/DrBoria/md-prettify/issues"
-  },
-  "homepage": "https://github.com/DrBoria/md-prettify#readme",
-  "description": "VS Code adapter for md-prettify \u2014 thin IDE layer over the IDE-agnostic backend.",
-  "main": "./out/packages/vscode-extension/activate.js",
-  "types": "./out/packages/vscode-extension/activate.d.ts",
-  "files": [
-    "out"
-  ],
-  "scripts": {
-    "build": "tsc -p ./",
-    "compile": "tsc -p ./",
-    "check:types": "tsc --noEmit",
-    "test": "tsc -p ./ && for f in out/apps/backend/test/extension-host-adapter.test.js out/apps/backend/test/extension-grammar-discovery.test.js out/apps/backend/test/extension-activation.test.js out/apps/backend/test/extension-api-message-flow.test.js; do ../../node_modules/.bin/mocha -u tdd --timeout 30000 \"$f\" || exit 1; done"
-  },
-  "dependencies": {
-    "@md-prettify/types": "workspace:*",
-    "@md-prettify/utils": "workspace:*",
-    "mobx": "^7.0.6",
-    "mobx-state-tree": "^8.0.0",
-    "vscode-extension-devtool-mcp": "file:../../../Jabberwock/packages/vscode-extension-devtool-mcp"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.90.0",
-    "mocha": "^3.1.1",
-    "typescript": "^5.5.0",
-    "@md-prettify/tsconfig": "workspace:*"
-  }
+	"name": "@md-prettify/vscode-extension",
+	"version": "0.0.7-beta",
+	"license": "Apache-2.0",
+	"author": "DrBoria <dr.boria@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DrBoria/md-prettify.git"
+	},
+	"bugs": {
+		"url": "https://github.com/DrBoria/md-prettify/issues"
+	},
+	"homepage": "https://github.com/DrBoria/md-prettify#readme",
+	"description": "VS Code adapter for md-prettify — thin IDE layer over the IDE-agnostic backend.",
+	"main": "./activate.js",
+	"files": [
+		"*.ts",
+		"package.json",
+		"!debug-server.*"
+	],
+	"publishConfig": {
+		"main": "./out/packages/vscode-extension/index.js"
+	},
+	"scripts": {
+		"build": "tsc -p ./",
+		"compile": "tsc -p ./",
+		"check:types": "tsc --noEmit",
+		"test": "bash ../../apps/backend/scripts/build.sh vscode > /dev/null && for f in out/apps/backend/test/extension-host-adapter.test.js out/apps/backend/test/extension-grammar-discovery.test.js out/apps/backend/test/extension-activation.test.js out/apps/backend/test/extension-api-message-flow.test.js; do ../../node_modules/.bin/mocha -u tdd --timeout 30000 \"$f\" || exit 1; done"
+	},
+	"dependencies": {
+		"@md-prettify/types": "workspace:*",
+		"@md-prettify/utils": "workspace:*",
+		"mobx": "^7.0.6",
+		"mobx-state-tree": "^8.0.0",
+		"vscode-oniguruma": "^2.0.1",
+		"vscode-textmate": "^9.2.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.90.0",
+		"mocha": "^3.1.1",
+		"typescript": "^5.5.0",
+		"@md-prettify/tsconfig": "workspace:*",
+		"vscode-extension-devtool-mcp": "file:../../../vscode-extension-devtool-mcp"
+	},
+	"engines": {
+		"vscode": "^1.90.0"
+	},
+	"activationEvents": [
+		"onStartupFinished",
+		"onLanguage:markdown"
+	],
+	"categories": [
+		"Other",
+		"Formatters"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "md-prettify.togglePrettySymbols",
+				"title": "MD Prettify: Toggle Pretty Symbols"
+			},
+			{
+				"command": "md-prettify.enablePrettySymbols",
+				"title": "MD Prettify: Enable Pretty Symbols"
+			},
+			{
+				"command": "md-prettify.disablePrettySymbols",
+				"title": "MD Prettify: Disable Pretty Symbols"
+			},
+			{
+				"command": "md-prettify.copyWithSubstitutions",
+				"title": "MD Prettify: Copy With Substitutions"
+			}
+		],
+		"configuration": {
+			"title": "MD Prettify",
+			"properties": {
+				"md-prettify.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Draw the pretty symbols."
+				},
+				"md-prettify.revealOn": {
+					"type": "string",
+					"enum": [
+						"cursor",
+						"selection",
+						"active-line"
+					],
+					"default": "cursor",
+					"description": "How much ugly text a selection reveals."
+				},
+				"md-prettify.prettyCursor": {
+					"type": "string",
+					"default": "boxed",
+					"description": "How the cursor is drawn on pretty symbols."
+				},
+				"md-prettify.adjustCursorMovement": {
+					"type": "boolean",
+					"default": false,
+					"description": "Move the cursor over a whole symbol."
+				},
+				"md-prettify.predefinedConfig": {
+					"type": "string",
+					"default": "",
+					"description": "Name of the predefined configuration to apply."
+				},
+				"md-prettify.debug": {
+					"type": "boolean",
+					"default": false,
+					"description": "Log what the decorator does."
+				}
+			}
+		}
+	}
 }

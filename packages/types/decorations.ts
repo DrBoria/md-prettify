@@ -1,65 +1,51 @@
-/**
- * Decoration types for the host contract: range behavior, render options,
- * and the decoration type handle the adapter maps to a real IDE decoration.
- */
-import type { Disposable } from './index';
+/** Decoration shapes mirroring the IDE's own render options. */
+import type { Range } from './index';
+import type { Disposable } from './config';
 
-/**
- * Mirrors vscode.DecorationRangeBehavior: how the decoration range reacts
- * to cursor movement. A const object (usable as a value) plus the string
- * union type of the same name.
- */
-export const DecorationRangeBehavior = {
-  OpenOpen: 'OpenOpen',
-  ClosedClosed: 'ClosedClosed',
-  OpenClosed: 'OpenClosed',
-  ClosedOpen: 'ClosedOpen',
-} as const;
+/** Mirrors vscode.DecorationRangeBehavior: how a decoration range reacts to movement. */
+export type DecorationRangeBehaviorValue = 'OpenOpen' | 'ClosedClosed' | 'OpenClosed' | 'ClosedOpen';
 
-export type DecorationRangeBehaviorValue =
-  (typeof DecorationRangeBehavior)[keyof typeof DecorationRangeBehavior];
+/** One step of a dynamic rule's pretty form: a decoration for a literal part, or a line to log.
+ *  It is shared by the engine that resolves the parts and the action that records them. */
+export type PrettyPartResolution =
+	{ kind: 'log'; log: string } | { kind: 'decoration'; part: string; partOriginalText: string; uglyRange: Range };
 
-// The members the two render-options shapes share (mirrors vscode).
+/** The members the two render-options shapes share (mirrors vscode). */
 interface DecorationRenderOptionsBase {
-  readonly rangeBehavior?: DecorationRangeBehaviorValue;
-  readonly color?: string;
-  readonly letterSpacing?: string;
-  readonly fontStyle?: string;
-  readonly fontWeight?: string;
-  readonly backgroundColor?: string;
-  readonly outline?: string;
-  readonly border?: string;
-  readonly borderRadius?: string;
-  readonly textDecoration?: string;
-  readonly cursor?: string;
-  readonly iconPath?: string;
+	rangeBehavior?: DecorationRangeBehaviorValue;
+	color?: string;
+	letterSpacing?: string;
+	fontStyle?: string;
+	fontWeight?: string;
+	backgroundColor?: string;
+	outline?: string;
+	border?: string;
+	borderRadius?: string;
+	textDecoration?: string;
+	cursor?: string;
+	iconPath?: string;
 }
 
-// The inline `before`/`after` content block (mirrors vscode).
+/** The inline `before`/`after` content block (mirrors vscode). */
 interface DecorationContent {
-  contentText?: string;
-  contentIcon?: string;
-  textDecoration?: string;
+	contentText?: string;
+	contentIcon?: string;
+	textDecoration?: string;
 }
 
+/** Render options for a decoration type, mirroring the IDE's own options. */
 export interface DecorationRenderOptions extends DecorationRenderOptionsBase {
-  before?: DecorationContent;
-  after?: DecorationContent;
-  dark?: Partial<DecorationRenderOptions>;
-  light?: Partial<DecorationRenderOptions>;
+	before?: DecorationContent;
+	after?: DecorationContent;
+	dark?: Partial<DecorationRenderOptions>;
+	light?: Partial<DecorationRenderOptions>;
 }
 
-export interface DecorationInstanceRenderOptions extends DecorationRenderOptionsBase {
-  readonly before?: DecorationContent & { border?: string; margin?: string };
-  readonly after?: DecorationContent & { border?: string; margin?: string };
-}
-
-/**
- * A decoration type handle. The backend creates these via
- * `Host.createDecorationType` and passes them to `TextEditor.setDecorations`.
- * The adapter maps the `key` to a real IDE decoration type.
- */
+/** A decoration type handle the adapter maps to a real IDE decoration type. */
 export interface TextEditorDecorationType extends Disposable {
-  readonly key: string;
-  readonly options: DecorationRenderOptions;
+	readonly key: string;
+	readonly options: DecorationRenderOptions;
+	/** The IDE's own handle, so the adapter can paint without a lookup table. */
+	readonly native?: unknown;
 }
+

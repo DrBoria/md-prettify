@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
-const baseConfig = require("./base.js");
-const globals = require("globals");
+const baseConfig = require('./base.js');
+const globals = require('globals');
 
 module.exports = [
 	...baseConfig,
 	{
-		files: ["**/*.ts", "**/*.tsx"],
+		files: ['**/*.ts', '**/*.tsx'],
 		languageOptions: {
 			globals: {
 				...globals.node,

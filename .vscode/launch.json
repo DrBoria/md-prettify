@@ -1,65 +1,19 @@
-// A launch configuration that compiles the extension and then opens it inside a new window
 {
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Launch Extension",
+			"name": "MD Prettify (Extension Development Host)",
 			"type": "extensionHost",
 			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceFolder}/apps/backend" ],
-			"stopOnEntry": false,
-			"sourceMaps": true,
-			"outFiles": [
-				"${workspaceFolder}/apps/backend/out/**/*.js"
+			"args": [
+				"--extensionDevelopmentPath=/home/legion/Documents/fun/md-prettify/packages/vscode-extension",
+				"--remote-debugging-port=9223",
+				"/home/legion/Documents/fun/md-prettify/examples"
 			],
-			"preLaunchTask": "npm: watch"
-		},
-		{
-			"name": "Launch Tests",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceFolder}/apps/backend", "--extensionTestsPath=${workspaceFolder}/apps/backend/out/test" ],
-			"stopOnEntry": false,
-			"sourceMaps": true,
-			"outFiles": ["${workspaceFolder}/apps/backend/out/test/**/*.js"],
-			"preLaunchTask": "npm: watch"
-		},
-		{
-			"name": "Debug Extension with Breakpoints",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceFolder}/apps/backend"],
-			"sourceMaps": true,
-			"outFiles": ["${workspaceFolder}/apps/backend/out/**/*.js"],
-			"preLaunchTask": "npm: compile"
+			"outFiles": [
+				"/home/legion/Documents/fun/md-prettify/apps/backend/out/**/*.js",
+				"/home/legion/Documents/fun/md-prettify/packages/vscode-extension/out/**/*.js"
+			]
 		}
-		// {
-		// 	"name": "Debug Mocha Tests",
-		// 	"type": "node",
-		// 	"sourceMaps": true,
-		// 	"request": "attach",
-		// 	"port": 5858,
-		// 	"outFiles": [
-		// 		"${workspaceRoot}/out/**/*.js"
-		// 	],
-		// 	"preLaunchTask": "test-debug"
-		// }  
-		// {
-		// 	"name": "Launch Tests",
-		// 	"type": "extensionHost",
-		// 	"request": "launch",
-		// 	"port": 5858,
-		// 	"runtimeExecutable": "${execPath}",
-		// 	"args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/out/test" ],
-		// 	"stopOnEntry": false,
-		// 	"sourceMaps": true,
-		// 	"outFiles": [
-		// 		"${workspaceRoot}/out/test/**/*.js"
-		// 	],
-		// 	"preLaunchTask": "npm"
-		// }
 	]
 }

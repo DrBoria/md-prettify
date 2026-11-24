@@ -1,104 +1,103 @@
-// The VS Code extension host ships its own MobX copy; isolate ours before any
+// The IDE extension ide ships its own MobX copy; isolate ours before any
 // other import (direct or transitive) loads mobx/mst.
 import { configure } from 'mobx';
 configure({ isolateGlobalState: true });
 
-import type { Disposable, Host } from './host';
-import type { OnEnabledChangeHandler } from '@md-prettify/types';
-import type { LanguageEntry } from './store.d/type';
-import type { mdPrettify } from './store.d/type';
-import { getAdditionalSubstitutions } from './store.d/language-entry';
-import { getOutputChannel, initialize, reloadConfiguration } from './store.d/controller';
-import { togglePrettySymbols } from './commands/toggle-pretty-symbols';
-import { addEnabledHandler, removeEnabledHandler } from './commands/actions/set-enabled';
-import { copyWithSubstitutions, onActiveEditorChanged, onSelectionChanged } from './commands/editor-events';
-import {
-  closeDocumentAction,
-  openDocumentAction,
-  setHostAction,
-  unloadAllDocumentsAction,
-} from './document/actions/manage-documents';
-import { createRootStore, isEnabled, requireRootStore } from './store';
-import type { RootStore } from './store';
+import type { Disposable, mdPrettify } from '@md-prettify/types';
+import type { Ide } from '@md-prettify/types';
+import { initialize as initializeConfig, registerSubstitutions, reloadConfiguration } from './config/controller';
+import { disposeCommands, setEnabled, subscribeEnabled } from './settings/controller';
+import { disposeGrammar, initializeGrammar } from './grammar/controller';
+import { closeDocument, openDocument, unloadAllDocuments } from './document/controller';
+import { copyWithSubstitutions, focusActiveEditor, togglePrettySymbols } from './decorations/controller';
+import { getRoot } from './store';
 
-/** Initialize the backend; called by the IDE adapter (packages/vscode-extension). */
-export function activate(host: Host): mdPrettify {
-  const root = requireRootStore();
-  setHostAction(root, host);
-  initialize(host);
+/** activate: initializes the backend for the given ide and returns the public api.
+ * @param {Ide} ide the IDE the extension is attached to
+ * @returns {mdPrettify} the public API the IDE exposes to other extensions
+ */
+export function activate(ide: Ide): mdPrettify {
+	initializeConfig(ide);
+	initializeGrammar();
+	reloadConfiguration();
+	setEnabled(true);
+	for (const doc of ide.textDocuments) void openDocument(doc);
 
-  return {
-    onDidEnabledChange(handler: OnEnabledChangeHandler): Disposable {
-      addEnabledHandler(root, handler);
-      return { dispose: () => removeEnabledHandler(root, handler) };
-    },
-    isEnabled,
-    registerSubstitutions(substitutions: LanguageEntry): Disposable {
-      getAdditionalSubstitutions().add(substitutions);
-      // TODO: this could be smart about not unloading & reloading everything
-      reloadConfiguration();
-      return {
-        dispose() {
-          getAdditionalSubstitutions().delete(substitutions);
-        },
-      };
-    },
-  };
+	return {
+		onDidEnabledChange: subscribeEnabled,
+		isEnabled: () => getRoot().settings.isEnabled,
+		registerSubstitutions,
+	};
 }
 
-/** Command registration; called by the IDE adapter. */
-export function registerCommands(host: Host): Disposable[] {
-  return [
-    host.registerCommand('md-prettify.copyWithSubstitutions', function () { void copyWithSubstitutions(host); }),
-    host.registerCommand('md-prettify.disablePrettySymbols', function () {
-      const root = requireRootStore();
-      const commands = root.commands;
-      if (commands.enabled !== false) {
-        commands.enabled = false;
-        for (const handler of commands.enabledHandlers) handler(false);
-      }
-      unloadAllDocumentsAction(root);
-    }),
-    host.registerCommand('md-prettify.enablePrettySymbols', function () {
-      const root = requireRootStore();
-      const commands = root.commands;
-      if (commands.enabled !== true) {
-        commands.enabled = true;
-        for (const handler of commands.enabledHandlers) handler(true);
-      }
-      reloadConfiguration();
-    }),
-    host.registerCommand('md-prettify.togglePrettySymbols', function () { togglePrettySymbols(); }),
-  ];
+/**
+ * disablePrettySymbols: unloads every document so nothing stays decorated once
+ * the user turned the feature off.
+ */
+function disablePrettySymbols(): void {
+	setEnabled(false);
+	unloadAllDocuments();
 }
 
-/** Event listener registration; called by the IDE adapter. */
-export function registerListeners(host: Host): Disposable[] {
-  return [
-    host.onDidOpenTextDocument(function (doc) {
-      void openDocumentAction(requireRootStore(), doc).catch(function (err) { console.error('openDocument:', err); });
-    }),
-    host.onDidCloseTextDocument(function (doc) { closeDocumentAction(requireRootStore(), doc); }),
-    host.onDidChangeConfiguration(function () { reloadConfiguration(); }),
-    host.onDidChangeActiveTextEditor(onActiveEditorChanged),
-    host.onDidChangeTextEditorSelection(onSelectionChanged),
-  ];
+/**
+ * enablePrettySymbols: reloads the settings and the grammar, then opens every
+ * document again so the decorations come back where they were.
+ * @param {Ide} ide the IDE the extension is attached to
+ */
+function enablePrettySymbols(ide: Ide): void {
+	setEnabled(true);
+	reloadConfiguration();
+	initializeGrammar();
+	for (const doc of ide.textDocuments) void openDocument(doc);
 }
 
-/** Clean up; the extension is being unloaded. */
+/** registerCommands: registers the extension's commands on the ide.
+ * @param {Ide} ide the IDE the extension is attached to
+ * @returns {Disposable[]} the disposables the decorator releases on unload
+ */
+export function registerCommands(ide: Ide): Disposable[] {
+	if (!ide) return [];
+
+	return [
+		ide.registerCommand('md-prettify.copyWithSubstitutions', () => void copyWithSubstitutions(ide)),
+		ide.registerCommand('md-prettify.disablePrettySymbols', disablePrettySymbols),
+		ide.registerCommand('md-prettify.enablePrettySymbols', () => enablePrettySymbols(ide)),
+		ide.registerCommand('md-prettify.togglePrettySymbols', togglePrettySymbols),
+	];
+}
+
+/** registerListeners: registers the extension's event listeners on the ide.
+ * @param {Ide} ide the IDE the extension is attached to
+ * @returns {Disposable[]} the disposables the decorator releases on unload
+ */
+export function registerListeners(ide: Ide): Disposable[] {
+	if (!ide) return [];
+
+	return [
+		ide.onDidOpenTextDocument(function (doc) {
+			void openDocument(doc);
+		}),
+		ide.onDidCloseTextDocument(function (doc) {
+			closeDocument(doc);
+		}),
+		ide.onDidChangeConfiguration(function () {
+			unloadAllDocuments();
+			initializeGrammar();
+			reloadConfiguration();
+			for (const doc of ide.textDocuments) void openDocument(doc);
+		}),
+		ide.onDidChangeActiveTextEditor(function (editor) {
+			focusActiveEditor(editor);
+		}),
+		ide.onDidChangeTextEditorSelection(function (event) {
+			focusActiveEditor(event.editor);
+		}),
+	];
+}
+
+/** deactivate: releases every backend resource. */
 export function deactivate(): void {
-  const root = requireRootStore();
-  const commands = root.commands;
-  if (commands.enabled !== false) {
-    commands.enabled = false;
-    for (const handler of commands.enabledHandlers) handler(false);
-  }
-  unloadAllDocumentsAction(root);
-  getOutputChannel()?.dispose();
+	disposeCommands();
+	unloadAllDocuments();
+	disposeGrammar();
 }
-
-/** Public re-exports for the IDE adapter. */
-export { createRootStore };
-export type { RootStore };
-export { togglePrettySymbols } from './commands/toggle-pretty-symbols';
-export { getOutputChannel } from './store.d/controller';

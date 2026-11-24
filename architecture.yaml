@@ -1,6 +1,50 @@
+# Package names the code imports but no path can follow: without them every
+# `@md-prettify/…` import resolves to nothing, so the tool sees no edge at all.
+aliases:
+  "@md-prettify/utils": packages/utils/index.ts
+  "@md-prettify/types": packages/types/index.ts
+
 # ── codeRoles ────────────────────────────────────────────────────────────────
 
 codeRoles:
+  - slug: extensionCode
+    name: extension code
+    infer:
+      - kind: { own: { is: { in: [FunctionDeclaration, ArrowFunction, MethodDeclaration] } } }
+      # WHAT it is: either code that talks to the IDE host API, or the APP'S
+      # ENTRY POINT — the functions the adapter calls (`activate`,
+      # `registerCommands`, `registerListeners`, `deactivate`). The entry point
+      # imports no IDE package: it is the contract, and the adapter is one of its
+      # callers. Same entity, same role, two ways to be it.
+      - or:
+          - file:
+              imports:
+                any:
+                  source: { in: [vscode, webstorm] }
+          - location: { path: { equals: "apps/backend/index.ts" } }
+    actions:
+      # Declaring this code is not policed (that is the node's business); who may
+      # publish it is stated below, role by role.
+      declare:
+        where: [{ role: extensionCode }]
+      export:
+        where: [{ role: extensionCode }]
+
+      # The adapter is the outermost layer: it depends on the backend entry
+      # (`apps/backend/index.ts`), and nothing in the product depends on it —
+      # the IDE calls `activate`, we never call the IDE. Extension files may
+      # import each other.
+      import:
+        where: [{ role: extensionCode }, { role: testCode }]
+      call:
+        where: [{ role: extensionCode }, { role: testCode }]
+      # The adapter is what CHANGES the host's own objects — selections,
+      # decorations, the editor it was given. That is the whole job.
+      assign:
+        where: [{ role: extensionCode }]
+    report:
+      description: "An adapter calls the IDE host API, and adapter code lives in the adapter package for that host."
+
 
   # The root store is not a feature store: it exists once, created at the
   # extension's entry point, and it holds the per-document controllers. Two
@@ -57,6 +101,15 @@ codeRoles:
           - { role: action }
           - { role: orchestrator }
           - { role: viewModel }
+      # Writing INTO the state that is mounted in the root store is an action's
+      # job: a feature's store is reached the documented way
+      # (`getRoot().config.loadDocumentConfig(…)`), and the write lands in the
+      # root store's tree because that is where the mounted store lives. A test
+      # arranges the state it verifies. A controller and a view never write.
+      mutate:
+        where:
+          - { role: action }
+          - { role: testCode }
 
   - slug: storeModel
     name: store model
@@ -124,9 +177,11 @@ codeRoles:
       # State is written by the feature's own actions and by nobody else: the
       # store is handed to them as their `state` argument, so an action may
       # change it — a controller only reads, and the root store never writes.
+      # A test arranges the state it verifies; that is what a test is.
       mutate:
         where:
           - { role: action, same: true }
+          - { role: testCode }
 
   - slug: testCode
     name: test
@@ -161,39 +216,90 @@ codeRoles:
         where: [{ role: adapterTypes }]
       export:
         where: [{ role: adapterTypes }]
+      # WHO MAY NAME THESE SHAPES. Without this the role had no way to be reached:
+      # the shims (`vscode`, `webstorm`, the devtool bridge) are ambient modules
+      # the adapters import, and a type import is checked against the TARGET's
+      # `typeImport` — a rule nobody wrote allowed nobody, so nothing was drawn
+      # and nothing was checked. An adapter type exists to be named by an adapter;
+      # the backend names `Host` (a `sharedTypes` shape) instead.
+      typeImport:
+        where: [{ role: extensionCode }, { role: testCode }]
 
 
+  # A ROLE THAT MUST NOT EXIST. A factory builds behaviour and hands it back as
+  # a value: an object of closures with the state hidden inside. It is the one
+  # shape this codebase has no place for — state belongs to a store, behaviour
+  # to plain functions in the feature that owns them — so the role exists ONLY
+  # so the report can name it and say "delete it", instead of calling it a
+  # `pureFunction` and advising a move to `packages/utils` (which is where a
+  # `create…Controller` was being sent).
+  #
+  # It has no home on purpose: no node declares it, so code that is a factory is
+  # never "allowed here", wherever it lives.
+  - slug: factory
+    name: factory
+    infer:
+      # TWO WAYS TO BE ONE — and they are the same thing: behaviour handed back
+      # as a value.
+      - or:
+          # 1. BUILD the object here: `return { dispose() {…}, refresh: () => … }`.
+          - and:
+              - kind: { own: { is: { in: [ArrowFunction, FunctionDeclaration, FunctionExpression] } } }
+              # …returns an object literal…
+              - returns:
+                  any:
+                    and:
+                      - exprKind: { equals: ObjectLiteralExpression }
+                      # …of more than one member…
+                      - members: { length: { gt: 1 } }
+                      # …and at least one of them is behaviour: a method, or a
+                      # property holding a function. `return { a: 1, b: 2 }` is
+                      # data, not this.
+                      - members:
+                          any:
+                            or:
+                              - is: { equals: MethodDeclaration }
+                              - type: { contains: "=>" }
+          # 2. COMPOSE one: `const controller = createControllerAction(state);
+          #    return controller;` — the value is built elsewhere, and the
+          #    function that hands it over is as much a factory as the one that
+          #    made it.
+          - and:
+              - kind: { own: { is: { in: [ArrowFunction, FunctionDeclaration, FunctionExpression] } } }
+              - name: { startsWith: create }
+              - calls: { any: { action: { startsWith: create } } }
   - slug: action
     name: action
-    # WHAT it is: a function that WRITES INTO A STORE. Not "a function with a
-    # parameter named state": every write is one `assignments` fact, and the fact
-    # resolves the type of the value written into (through imports, aliases and
-    # however many functions passed it along), so the check is about what the
-    # value IS. WHERE the action may live is the node's business
-    # (`{kebab-case}/actions`), so a misplaced one is reported instead of being
-    # invisible.
+    # WHAT it is: a function that is GIVEN a store and WRITES INTO IT. The FIRST
+    # parameter is the state — that is the contract every action has, the one
+    # `registerActions(self, {…})` binds and the one the feature calls with.
+    #
+    # TOUCHING THE ROOT STORE IS NOT WHAT MAKES CODE AN ACTION. A controller reads
+    # `getRoot()` and asks a store to change (`root.documents.set(…)`,
+    # `root.config.loadDocumentConfig(…)`); the store's OWN action does the
+    # writing, so the controller is orchestrating. Before this, every function
+    # that merely used the root store was called an action and told to move into
+    # `actions/` — including the feature's controllers.
     infer:
       - kind: { own: { is: { in: [FunctionDeclaration, ArrowFunction, MethodDeclaration] } } }
       # The file that OWNS the root store builds it — that is not an action
       # misplaced outside `actions/`, it is the container doing its job.
       - not:
           file: { location: { role: rootStore } }
-      - assignments:
-          any:
-            or:
-              # The value written into IS A STORE: the checker says which file
-              # declares its type, whatever the shape of the write and whatever the
-              # value is called — `state`, `store`, `s`, or a parameter nobody named.
-              # The architecture has TWO store roles (a feature store and the root
-              # store that mounts them — the file says why they are two), so a write
-              # into either one is a write into a store.
-              - type: { location: { role: storeModel } }
-              - type: { location: { role: rootStore } }
-              # A write spelled `getRoot().settings = …` / `getParent().x = …`: the
-              # target is a member of the value an ACCESSOR returned, so no declared
-              # type says "store" — the ROLE of the file the accessor comes from does.
-              - module: { location: { role: storeModel } }
-              - module: { location: { role: rootStore } }
+      # GIVEN the state: the first parameter's type is declared in a store —
+      # a feature store or the root store, whichever the action works on.
+      - parameters:
+          at:
+            index: 0
+            typeFile:
+              or:
+                - { location: { role: storeModel } }
+                - { location: { role: rootStore } }
+      # …and it CHANGES something: an assignment, a delete, a seal, or a method
+      # that writes. `relation` names WHERE a write lands; a call into a container
+      # the store holds (`self.prettySpans.get(k)?.ranges.add(…)`) writes state
+      # without naming a repo file, so the presence of a write is enough.
+      - assignments: { length: { gt: 0 } }
 
     actions:
       # Declaring this code is not policed (that is the node's business); who may
@@ -204,26 +310,27 @@ codeRoles:
         where: [{ role: action }]
 
       import:
-        # ONLY the controller of the SAME feature imports its actions, and a test.
-        # Not "any orchestrator": that is how a command, or the root entry point,
-        # started reaching into a feature's `actions/` directly — a feature is
-        # entered through its controller, and the controller is what sequences
-        # the actions. `same: true` is the whole point of the rule.
+        # An action is reached through the STORE that owns it, never imported by
+        # the code that calls it:
+        #   `getRoot().<feature>.<action>(…)` — that is the recommended call.
+        # So the only importers are the ones that WIRE the action up:
+        #   • the store that ATTACHES it (`registerActions(self, {…})`);
+        #   • another action of the SAME feature (composition);
+        #   • a test.
+        # An orchestrator is NOT here: a controller sequences work through the
+        # feature's store, so an import of the action next to that call would be
+        # a second way to reach the same code.
         where:
-          - { role: orchestrator, same: true, via: import }
-          # …and another action of the SAME feature: that is composition, not a
-          # layering break (`openDocumentAction` asks the store action for the
-          # store it writes into). Without it every composed action was told to
-          # delete its own import.
+          - { role: storeModel, same: true }
           - { role: action, same: true }
           - { role: testCode }
       call:
         # An action reaches another action through the tree (self.root, getRoot);
-        # a controller reaches it through its own feature's store. A test reaches
-        # whatever it verifies — that is what a test is.
+        # a controller reaches it through the feature's store
+        # (`getRoot().<feature>.<action>()`); a test reaches whatever it verifies.
         where:
           - { role: action }
-          - { role: orchestrator, same: true, via: import }
+          - { role: orchestrator }
           - { role: testCode }
         scopeAccess:
           - { scope: object, segments: [self, root] }
@@ -239,7 +346,7 @@ codeRoles:
     # a clause, never a sentence with its own subject — the frame names the code
     # and the place, every role just says why.
     report:
-      message: "An action writes into the store, and an action lives one per file in its feature's `actions/` folder."
+      description: "An action writes into the store, and an action lives one per file in its feature's `actions/` folder."
 
   - slug: orchestrator
     name: orchestrator
@@ -248,10 +355,14 @@ codeRoles:
     # reported instead of silently becoming the default.
     infer:
       - kind: { own: { is: { in: [FunctionDeclaration, ArrowFunction, MethodDeclaration] } } }
-      # Writes into nothing that is not its own: `relation` is null only for a
-      # piece's private local, so a write that reaches somebody else's state makes
-      # it an action, not an entry point.
-      - assignments: { none: { relation: { isSet: true } } }
+      # Writes nothing DIRECTLY (`state.x = …`, `delete state.x`). Asking a store
+      # to change (`root.documents.set(…)`) is delegation — that write belongs to
+      # the store's own action, and a controller is exactly the code that puts
+      # such asks in order.
+      - assignments:
+          none:
+            via: { in: [assign, delete, freeze, seal] }
+            relation: { isSet: true }
       # a controller SEQUENCES work. It may hand back nothing, or hand back what it
       # just made — `registerCommands(): Disposable[]` returns the array of the
       # commands it registered, and that is still a controller, not a helper: a
@@ -270,7 +381,13 @@ codeRoles:
           - and:
               - calls: { any: { action: { startsWith: "onDid" } } }
               - returns: { any: { exprKind: { equals: ArrayLiteralExpression } } }
-      - calls: { length: { gt: 2 } }
+      # SEQUENCES work: two or more calls, or one call INTO behaviour that is
+      # itself an action/controller (`focusActiveEditor` → `repaintDocument`). A
+      # controller is the place a feature's steps are put in order, and a thin
+      # host-listener wrapper is one of those steps.
+      - or:
+          - calls: { length: { gte: 2 } }
+          - calls: { any: { targetRole: { in: [action, orchestrator] } } }
     actions:
       # Declaring this code is not policed (that is the node's business); who may
       # publish it is stated below, role by role.
@@ -298,7 +415,7 @@ codeRoles:
         scopeAccess:
           - { scope: method, segments: [registerCommand] }
     report:
-      message: "A controller runs other code but returns nothing and writes nothing, and a controller is its feature's main controller."
+      description: "A controller runs other code but returns nothing and writes nothing, and a controller is its feature's main controller."
 
   # The READ side of the state. A view takes the store, reads what it needs and
   # hands the value back — it changes nothing, so it is not an action, and it
@@ -330,12 +447,20 @@ codeRoles:
           - { role: action }
           - { role: orchestrator }
           - { role: viewModel }
+          # A store FILE is the model, the shapes beside it and the views over
+          # it, so its module scope carries `pureFunction`/`sharedTypes` too —
+          # and the root store composes the feature stores, which is the whole
+          # reason it exists.
+          - { role: storeModel }
+          - { role: rootStore }
+          - { role: pureFunction }
           - { role: testCode }
       call:
         where:
           - { role: action }
           - { role: orchestrator }
           - { role: viewModel }
+          - { role: storeModel }
           - { role: testCode }
       read:
         where:
@@ -358,7 +483,7 @@ codeRoles:
           - { role: sharedTypes }
           - { role: testCode }
     report:
-      message: "A view reads a store and returns what it read, and a view is declared next to the state it reads."
+      description: "A view reads a store and returns what it read, and a view is declared next to the state it reads."
 
   # A CONSTANT of a module: a `const` declared at the top level. Not a helper and
   # not state — a name for a value the whole module reads.
@@ -428,44 +553,13 @@ codeRoles:
           - { role: extensionCode }
           - { role: testCode }
     report:
-      message: "A declared type belongs in a file the tree names for types."
+      description: "A declared type belongs in a file the tree names for types."
 
   # Glue of the two IDE packages: thin adapters over the host API, so their
   # functions are neither shared helpers nor a store — they are the extension
   # itself. Recognised by WHAT they depend on (the host API), never by where the
   # file sits: a host-touching helper in `packages/utils` is still glue and is
   # reported as misplaced.
-  - slug: extensionCode
-    name: extension code
-    infer:
-      - kind: { own: { is: { in: [FunctionDeclaration, ArrowFunction, MethodDeclaration] } } }
-      - file:
-          imports:
-            any:
-              source: { in: [vscode, webstorm] }
-    actions:
-      # Declaring this code is not policed (that is the node's business); who may
-      # publish it is stated below, role by role.
-      declare:
-        where: [{ role: extensionCode }]
-      export:
-        where: [{ role: extensionCode }]
-
-      # The adapter is the outermost layer: it depends on the backend entry
-      # (`apps/backend/index.ts`), and nothing in the product depends on it —
-      # the IDE calls `activate`, we never call the IDE. Extension files may
-      # import each other.
-      import:
-        where: [{ role: extensionCode }, { role: testCode }]
-      call:
-        where: [{ role: extensionCode }, { role: testCode }]
-      # The adapter is what CHANGES the host's own objects — selections,
-      # decorations, the editor it was given. That is the whole job.
-      assign:
-        where: [{ role: extensionCode }]
-    report:
-      message: "An adapter calls the IDE host API, and adapter code lives in the adapter package for that host."
-
   - slug: pureFunction
     name: pure function
     # WHAT it is: a function that writes into nothing it was handed. Also
@@ -519,6 +613,10 @@ codeRoles:
           - { role: action }
           - { role: orchestrator }
           - { role: pureFunction }
+          - { role: extensionCode }
+          - { role: viewModel }
+          - { role: storeModel }
+          - { role: rootStore }
           - { role: testCode }
       call:
         where:
@@ -527,6 +625,16 @@ codeRoles:
           - { role: pureFunction }
           - { role: extensionCode }
           - { role: testCode }
+        # Anyone may call a helper — WITH DATA. A store handed to a helper leaves
+        # the feature that owns it: no action of that feature can see it change
+        # any more, and `packages/utils` is the one place it can never belong.
+        except:
+          - edge:
+              with:
+                any:
+                  or:
+                    - type: { location: { role: storeModel } }
+                    - type: { location: { role: rootStore } }
       typeImport:
         where:
           - { role: action }
@@ -663,13 +771,18 @@ nodes:
       - tsconfig.json
 
   - slug: backend-host
-    name: host.ts
+    name: types.ts
     # The host contract is a declared shape, and this file IS that shape — so the
     # file is a type home, not a misplaced one. It also holds the thin adapters
     # over IDE values (`rangeFrom`, `positionIsEqual`, …): those are pure
     # functions, they write nothing, and the app calls them — without that role
     # declared here, every such call was "nothing in the architecture allows it".
-    role: [sharedTypes, adapterTypes, pureFunction]
+    #
+    # NOT `adapterTypes`: that role is code in a `.d.ts` shim (see its `infer`),
+    # so it could never be occupied here — declaring it made the picture show a
+    # home the role cannot live in. `Host` itself is a shape the whole app uses,
+    # which is what `sharedTypes` means.
+    role: [sharedTypes, pureFunction]
     parent: backend
 
   - slug: backend-root-store
@@ -681,9 +794,14 @@ nodes:
 
   # The same entity as a feature's controller, in the second place it may live:
   # the root one, next to the root store.
+  #
+  # It is ALSO extension code: this file is the app's ENTRY POINT — `activate`,
+  # `registerCommands`, `registerListeners`, `deactivate` are the contract the
+  # IDE adapter (`packages/vscode-extension`) calls. That is one entity, not a
+  # controller that happens to sit here, so the role is declared as well.
   - slug: backend-main-controller
     name: index.ts
-    role: [orchestrator, pureFunction]
+    role: [extensionCode, orchestrator, pureFunction]
     parent: backend
 
   - slug: backend-commands
@@ -724,13 +842,15 @@ nodes:
       - node: backend-feature-store
         required: true
         report:
-          message: "`{folder}` is not a feature: a `{kebab-case}` folder under `backend` is a feature, and a feature owns its state in `{folder}/store.ts` — that file is missing. Nothing in this folder has a declared home, so it is outside the architecture."
-          fix: "Create `{folder}/store.ts` (node `backend-feature-store`) with the feature's store model, then `{folder}/actions/` (node `backend-feature-actions`) and `{folder}/controller.ts` (node `backend-feature-controller`) — those three files are what make this folder the feature its name declares."
+          description: "`{folder}` is not a feature: a `{kebab-case}` folder under `backend` is a feature, and a feature owns its state in `{folder}/store.ts` — that file is missing. Nothing in this folder has a declared home, so it is outside the architecture."
+          fix:
+            message: "Create `{folder}/store.ts` (node `backend-feature-store`) with the feature's store model, then `{folder}/actions/` (node `backend-feature-actions`) and `{folder}/controller.ts` (node `backend-feature-controller`) — those three files are what make this folder the feature its name declares."
       - node: backend-feature-actions
         required: true
         report:
-          message: "`{folder}` is not a feature: a feature keeps its behavior in `{folder}/actions/` and reaches it through `{folder}/controller.ts`; the `actions/` folder is missing."
-          fix: "Create `{folder}/actions/` (node `backend-feature-actions`) and move every behavior file of `{folder}` into it, one action per file — a feature's logic lives in its actions, never next to its store."
+          description: "`{folder}` is not a feature: a feature keeps its behavior in `{folder}/actions/` and reaches it through `{folder}/controller.ts`; the `actions/` folder is missing."
+          fix:
+            message: "Create `{folder}/actions/` (node `backend-feature-actions`) and move every behavior file of `{folder}` into it, one action per file — a feature's logic lives in its actions, never next to its store."
       - node: backend-feature-controller
       - node: backend-feature-type
       - { name: "*.test.ts", role: testCode }
@@ -766,14 +886,52 @@ nodes:
     children: ["{kebab-case}.test.ts", synthetic-ts-grammar.ts]
 
 invariants:
+  # ── NO FACTORIES ────────────────────────────────────────────────────────────
+  # A factory is not "somewhere else", it is nothing that may exist: it binds
+  # state and behaviour into one value and hides both. The role `factory` names
+  # the shape (see codeRoles), and this rule says what to do with it — delete it,
+  # everywhere, whether or not its folder could host such code.
+  - id: no-factories
+    infer:
+      - role: { equals: factory }
+        report:
+          # `ask: remove` — the repair CARRIES its kind, so the picture draws a
+          # deletion instead of guessing from the sentence.
+          code: remove
+          description: "`{what}` is a factory: it builds behaviour and hands it back as a value, with the state it closes over invisible from the outside. Nothing in this architecture is allowed to exist in that shape."
+          fix:
+            message: "Delete it. Do not move it and do not rename it: unfold it into plain functions of the feature that owns the state — the operations become `{kebab-case}/controller.ts` (or the feature's `actions/`), and the state it closed over is the store the app already holds. A controller is a FILE, not an object a call returns, and a helper is a function, not a bundle of them."
+
   # ── ONE STORE ───────────────────────────────────────────────────────────────
   # A store is THE place state lives. Everything below is the same sentence from
   # another side, so it is one rule with one name: a second copy of the state, a
   # plain object mutated instead of the store, a global that outlives every
   # feature, or a value the store hands to mobx untouched — each of them makes the
   # store stop being the single source of truth.
+  # ── THE STORE FILE IS THE STORE, NOT A SHELF OF SHAPES ───────────────────
+  # ONE declaration may live in a store file: the store itself. An `interface`
+  # or a `type` declared next to it names something else — a controller, a
+  # handle, an options bag — and every one of them makes the store file the
+  # place other files import their shapes FROM, so the store leaks its
+  # neighbours' types and stops being just the state.
+  - id: store-file-holds-one-declaration
+    where: [{ role: storeModel }]
+    infer:
+      # A type declared here that is NOT this store's own type (`…Store`,
+      # `…StoreModel`). One finding per type, so the reader sees each name.
+      - kind: { own: { is: { in: [InterfaceDeclaration, TypeAliasDeclaration] } } }
+        name:
+          and:
+            - { not: { endsWith: "Store" } }
+            - { not: { endsWith: "StoreModel" } }
+        report:
+          code: move
+          description: "`{what}` is a type declared in the store file, and it is not this store's type: the store is the feature's STATE, and a shape declared here is read from the store instead of from the feature's type file — the store file becomes a shelf."
+          fix:
+            message: "Move `{what}` to `{destination}`. A store file declares ONE thing — the store of THIS file — and every shape around it (a controller, a handle, an options bag, a debounce state) belongs to the feature's type file, where the code that needs it already looks."
+            location: [{ node: backend-feature-type }, { role: sharedTypes }]
+
   - id: store-is-the-only-state
-    where: [{ node: backend }]
     ignore:
       - node: backend-test
     infer:
@@ -783,8 +941,17 @@ invariants:
           any: { param: { equals: true } }
         role: { not: "action" }
         report:
-          message: "`{what}` writes into `{assignments}`, a plain object handed in by the caller — so this state lives outside the store."
-          fix: "Declare those fields in the feature's `store.ts` model and turn `{what}` into an action: it takes `state` and mutates the store instead of a plain object."
+          # The destination the sentence names, as data: the store of the feature
+          # this file belongs to. `{dir}` is the file's folder, filled by the engine.
+          # The destination is the TREE's answer: the place a `storeModel` of
+          # this file lives. The rule names the role, never a folder.
+          # …and at the root store when this file IS the root store (`store.ts` of
+          # `backend`): the first role the tree can answer for wins.
+          code: move
+          description: "`{what}` writes into `{assignments}`, a plain object handed in by the caller — so this state lives outside the store."
+          fix:
+            message: "Declare those fields in `{destination}` and turn `{what}` into an action: it takes `state` and mutates the store instead of a plain object."
+            location: [{ role: storeModel }, { role: rootStore }]
       # 2. A SECOND copy of an existing store model: the app already holds one,
       #    and this call builds another with its own state.
       - candidates:
@@ -793,18 +960,27 @@ invariants:
             calls:
               any:
                 action: { equals: create }
-                module: { globMatches: "apps/backend/{kebab-case}/store.ts" }
+                module: { matches: "apps/backend/{kebab-case}/store.ts" }
         report:
-          message: "`{what}` calls `…Model.create(…)` on a store model, so a SECOND copy of that state is created here — the one the app already holds is bypassed."
-          fix: "Compose the model into the store that owns it (`store.ts`) and take the instance from there (`getStore(…)` / the root store), instead of creating another one."
+          # The destination is the TREE's answer: the place a `storeModel` of
+          # this file lives. The rule names the role, never a folder.
+          # …and at the root store when this file IS the root store (`store.ts` of
+          # `backend`): the first role the tree can answer for wins.
+          code: move
+          description: "`{what}` calls `…Model.create(…)` on a store model, so a SECOND copy of that state is created here — the one the app already holds is bypassed."
+          fix:
+            message: "Compose the model into `{destination}` and take the instance from there (`getStore(…)` / the root store), instead of creating another one."
+            location: [{ role: storeModel }, { role: rootStore }]
       # 3. A FACTORY for a store: the same model can be built twice, which is a
       #    second source of truth by construction.
       - candidates:
           any:
-            name: { globMatches: "create*Store" }
+            name: { matches: "create*Store" }
         report:
-          message: "`{what}` is a store factory. A store is declared exactly once, in place, as a `t.model` (the `storeModel` role); a factory can create it twice, and a second creation is a second source of truth."
-          fix: "Delete the factory: the store's `t.model` is declared in its feature's `store.ts`, and the root store composes it. Reaching a store from elsewhere goes through the tree (`getRoot`/`getParent`), never through a creator."
+          code: remove
+          description: "`{what}` is a store factory. A store is declared exactly once, in place, as a `t.model` (the `storeModel` role); a factory can create it twice, and a second creation is a second source of truth."
+          fix:
+            message: "Delete the factory: the store's `t.model` is declared in its feature's `store.ts`, and the root store composes it. Reaching a store from elsewhere goes through the tree (`getRoot`/`getParent`), never through a creator."
       # 4. Module-level state: a `let`/`var` at load, or a container created once
       #    and shared by everyone. Both outlive every feature and are reachable
       #    from anywhere — the definition of a global.
@@ -816,8 +992,15 @@ invariants:
             # A binding the language allows to be reassigned (`let`/`var`).
             mutable: { equals: true }
         report:
-          message: "This file has module-level `let`/`var` state. Mutable state created at load is a global: it is reachable from anywhere and outlives any feature."
-          fix: "Move it into the feature's mobx store (the feature's `store.ts` model) and have the module read it from there."
+          # The destination is the TREE's answer: the place a `storeModel` of
+          # this file lives. The rule names the role, never a folder.
+          # …and at the root store when this file IS the root store (`store.ts` of
+          # `backend`): the first role the tree can answer for wins.
+          code: move
+          description: "This file has module-level `let`/`var` state. Mutable state created at load is a global: it is reachable from anywhere and outlives any feature."
+          fix:
+            message: "Move it into `{destination}` and have the module read it from there."
+            location: [{ role: storeModel }, { role: rootStore }]
       - candidates:
           any:
             # A module-level CONTAINER (`Map<…>`, `X[]`, a factory call). The
@@ -829,13 +1012,20 @@ invariants:
                 is: { in: [CallExpression, NewExpression] }
             type:
               or:
-                - { globMatches: "*<*" }
-                - { globMatches: "*[]" }
+                - { matches: "*<*" }
+                - { matches: "*[]" }
             role:
               not: { equals: storeModel }
         report:
-          message: "This file creates a container at module level. A value created once at load and shared by everyone is a global: it is reachable from anywhere and outlives any feature."
-          fix: "Move it into the feature's mobx store (the feature's `store.ts` model) and have the module read it from there."
+          # The destination is the TREE's answer: the place a `storeModel` of
+          # this file lives. The rule names the role, never a folder.
+          # …and at the root store when this file IS the root store (`store.ts` of
+          # `backend`): the first role the tree can answer for wins.
+          code: move
+          description: "This file creates a container at module level. A value created once at load and shared by everyone is a global: it is reachable from anywhere and outlives any feature."
+          fix:
+            message: "Move it into `{destination}` and have the module read it from there."
+            location: [{ role: storeModel }, { role: rootStore }]
       # 5. The store holds a LIVE OBJECT: `t.custom(…)` that is passed through
       #    untouched keeps its own mutable state, and mobx never sees it change.
       - kind:
@@ -844,19 +1034,12 @@ invariants:
             origin: { equals: t.custom }
         where: [{ node: backend-root-store }, { node: backend-feature-store }]
         report:
-          message: "`{what}` is a live object handed to the store untouched (`t.custom`) — it keeps its own mutable state, and nothing in the store can see it."
-          fix: "Store the model that OWNS that state (`t.model`) and read the live object from it, or keep the object out of the model in `volatile`."
-
-  - id: no-oversized-files
-    where: [{ node: backend }]
-    infer:
-      - lines: { gt: 200 }
-        report:
-          message: "File is {lines} lines (max 200). Split it into smaller, focused modules."
-          fix: "Extract cohesive groups of functions/types into separate files following the feature-folder layout."
+          code: move
+          description: "`{what}` is a live object handed to the store untouched (`t.custom`) — it keeps its own mutable state, and nothing in the store can see it."
+          fix:
+            message: "Store the model that OWNS that state (`t.model`) and read the live object from it, or keep the object out of the model in `volatile`."
 
   - id: no-classes
-    where: [{ node: backend }]
     ignore:
       - node: backend-test
     infer:
@@ -877,96 +1060,11 @@ invariants:
                   - members: { length: { gt: 0 } }
                   - members: { every: { type: { contains: "=>" } } }
         report:
-          message: "`{what}` is a class: state and behaviour bound into one thing. The backend is functional + mobx — state lives in a store, behaviour in plain functions."
-          fix: "Replace it with a mobx store (the feature's `store.ts` `t.model`) for the state and plain functions for the behaviour."
+          code: remove
+          description: "`{what}` is a class: state and behaviour bound into one thing. The backend is functional + mobx — state lives in a store, behaviour in plain functions."
+          fix:
+            message: "Replace it with a mobx store (the feature's `store.ts` `t.model`) for the state and plain functions for the behaviour."
 
-  - id: no-large-folders
-    where: [{ node: backend }]
-    ignore:
-      - node: backend-test
-    dedupeBy: [{ node: backend-feature }]
-    infer:
-      - location:
-          files: { length: { gt: 7 } }
-        report:
-          message: "Folder `{dir}` holds {files} files — the limit is 7. A folder this large is not scannable."
-          fix: "Split it into feature subfolders (one concern per folder, each under the limit)."
-
-  - id: no-empty-functions
-    where: [{ node: backend }]
-    ignore:
-      - node: backend-test
-    infer:
-      # Does nothing: no call, no write, no value — and it has a body at all.
-      # The kind is named because a `const f = () => { … }` is TWO candidates (the
-      # variable and the function), and only the function has a body.
-      - calls: { length: { equals: 0 } }
-        assignments: { length: { equals: 0 } }
-        returns: { length: { equals: 0 } }
-        kind:
-          own: { is: { in: [FunctionDeclaration, FunctionExpression, ArrowFunction, MethodDeclaration, GetAccessor, SetAccessor] } }
-          descendants: { any: { is: { equals: Block } } }
-        name: { isSet: true }
-        report:
-          message: "`{what}` has an empty body. It either must do something or not exist."
-          fix: "Implement it, or delete it and its call sites."
-
-  - id: no-mixed-responsibilities
-    where: [{ node: backend }]
-    ignore:
-      - node: backend-test
-    infer:
-      - declarations:
-          where:
-            # A local value the function CREATES for itself — a call, a `new`, a
-            # literal. No type is named: whether it is a map, a set or an array is
-            # the author's business; what matters is that this function builds
-            # several independent pieces of state of its own.
-            filter:
-              # What makes it a container is the SHAPE of its type, never a list
-              # of library names: a generic (`X<…>`) or an array (`X[]`) in the
-              # type position IS a container, whatever the library calls it.
-              type:
-                or:
-                  - { globMatches: "*<*" }
-                  - { globMatches: "*[]" }
-              # …and it is CREATED here (`new X()`, `[]`) rather than aliased from
-              # a parameter (`const x = state` — that is not state of its own).
-              initializer:
-                is: { in: [CallExpression, NewExpression, ArrayLiteralExpression, ObjectLiteralExpression] }
-            by:
-              length: { gt: 1 }
-        report:
-          message: "`{what}` builds several independent local values (limit 1) — it is accumulating several pieces of state, i.e. doing several things at once."
-          fix: "Split it: each value belongs to its own function; the original becomes a thin orchestrator that passes state between them."
-
-  # ONE FILE, ONE JOB. When helpers, store access and entry-point code share a
-  # file, every rule about that file contradicts another one: "move it to
-  # `packages/utils`" and "a helper may not read the store" cannot both be
-  # satisfied, and the reader is stuck. Naming the mix is the way out.
-  - id: one-role-per-file
-    where: [{ node: backend }]
-    ignore:
-      - node: backend-test
-      - node: backend-feature-store
-      - node: backend-root-store
-    infer:
-      # Only a REAL conflict: helpers (which must move to `packages/utils` and may
-      # touch no store) living in the same file as code that writes the store.
-      # Types next to helpers are fine — flagging every mix was noise.
-      - and:
-          - roles: { any: { equals: pureFunction } }
-          - roles: { any: { equals: action } }
-        report:
-          message: "This file holds both `pureFunction` helpers and `action` code that writes the store (`{roles}`). A helper must move to `packages/utils` and may not touch the store, an action must stay in the feature — the two rules cannot both be satisfied here."
-          fix: "Split it: helpers to `packages/utils`, the store-writing code to the feature's `actions/`."
-
-  # A STORE IS CREATED ONCE, where it is declared. `Model.create(...)` anywhere
-  # else builds a second container with its own copy of the state: the instance
-  # the app already made is then ignored and the two drift apart.
-  # A package is entered through its INDEX. `@md-prettify/utils/apply-changes`
-  # reaches inside the package and pins the caller to its file layout; the index
-  # is the package's own decision about what it offers.
   - id: import-through-package-index
     where: [{ node: root }]
     ignore:
@@ -974,43 +1072,17 @@ invariants:
     infer:
       - imports:
           any:
-            source: { globMatches: "@md-prettify/*/*" }
+            source: { matches: "@md-prettify/*/*" }
         report:
-          message: "This file imports from a package SUBPATH (`@md-prettify/<pkg>/<file>`), which exposes the package's internals instead of its index."
-          fix: "Import from the package itself (`@md-prettify/utils`, `@md-prettify/types`) and let its `index.ts` re-export what the package offers."
-
-  # A package is the layer BELOW the app: the app may import a package, a
-  # package never imports the app back. Without this line the two look
-  # interchangeable, and a shared helper ends up importing `apps/backend/…`,
-  # which inverts the dependency the whole layout is built on — the app could
-  # then no longer be replaced, and the package stops being shareable.
-  #
-  # EVERY package is covered, not only the shared ones: a "shared" helper that
-  # reaches into the app is the usual way this rule gets broken.
-  - id: package-does-not-import-the-app
-    where: [{ node: packages }]
-    # The two IDE adapters are the ONE exception, and it is a real one: they
-    # implement the app's `Host` and call its `activate`, because an adapter is
-    # the outermost layer that STARTS the app. The exception disappears the day
-    # the `Host` interface lives in `packages/types` instead of the app.
-    ignore:
-      - node: vscode-ext
-      - node: webstorm-ext
-    infer:
-      # `imports` holds `import type` too, and that is deliberate: a type the
-      # package NAMES but does not run still points the arrow app-ward, so it is
-      # the same violation and it names the same module.
-      - imports:
-          any:
-            resolved: { startsWith: "apps/" }
-        report:
-          message: "This package imports from the application (`{source}`) — a package sits below the app and must not depend on it, not even for a type."
-          fix: "Remove this import: the declaration it needs has to live in this package (or in `packages/types`), not in the app that consumes it."
+          code: rewrite
+          description: "This file imports from a package SUBPATH (`@md-prettify/<pkg>/<file>`), which exposes the package's internals instead of its index."
+          fix:
+            message: "Import from the package itself (`@md-prettify/utils`, `@md-prettify/types`) and let its `index.ts` re-export what the package offers."
 
   # The backend and the packages are host-NEUTRAL: the same code must run inside
   # VS Code and inside WebStorm. A host API import belongs to the adapter package
   # that speaks for that host, and to nothing else.
-  - id: host-api-only-in-its-adapter
+  - id: no-ide-imports-in-app
     where: [{ node: backend }, { node: packages-utils }, { node: packages-types }]
     infer:
       - imports:
@@ -1020,37 +1092,117 @@ invariants:
             # every IDE, so listing it here told shared code to stop doing its job.
             source: { in: [vscode, webstorm] }
         report:
-          message: "This file calls the `{source}` host API, but it is shared code — it has to run in every IDE."
-          fix: "Move this call behind the `Host` interface and let the adapter do it."
+          code: rewrite
+          description: "This file calls the `{source}` host API, but it is shared code — it has to run in every IDE."
+          fix:
+            message: "Move this call behind the `Host` interface and let the adapter do it."
 
-  # A CHAIN OF CALLS, not a call. Every call the code makes is one more place a
-  # reader cannot see: `toggleLineAction → applyDecorations →
-  # applyActiveEditorDecorations → runDecorationUpdate → applyEntriesToEditor →
-  # applyDecorationEntry → setDecorations` is seven pieces, and the store is
-  # written at the end of it. Nobody at the first line can tell that, and no rule
-  # about WHERE the write may happen can point at the line that made it.
-  #
-  # The demand is not "no helper functions": it is that the path from the store
-  # to an action or a controller stays short enough to follow — a controller calls
-  # an action, an action writes the store. `callDepth` is the number of pieces the
-  # chain passes through, this one included.
-  - id: no-deep-call-chains
-    where: [{ node: backend }]
+
+  #*******************************************************************************************#
+  #************************************* BASE ************************************************#
+  #*******************************************************************************************#
+  - id: no-require
     infer:
-      # `kind.chain` is the LIST OF LINKS this piece calls through — nothing is
-      # counted in the engine. What counts is a query: take the links that are not
-      # a way to reach the state (`getRoot()`, `getStore()` — reaching the store is
-      # the end of the chain, not one more step), and ask how many are left.
-      - kind:
-          chain:
-            where:
-              filter: { name: { not: { in: [getStore, getRoot, getParent, get] } } }
-              by: { length: { gt: 3 } }
+      # 1. A CommonJS import anywhere in the file, module scope or inside a piece.
+      - imports:
+          any:
+            form: { equals: require }
         report:
-          message: "`{what}` reaches the state through more than three calls: {chain}. The write happens at the far end, so this line shows none of it."
-          fix: "Call the writer at the end of the chain directly, and delete the links in between that only pass arguments along: three calls from this line to the state is the limit. A helper does not reach the store at all — if that is what this is, the state has to move into the store of the feature that owns it."
+          code: rewrite
+          description: "This file takes `{source}` through `require(...)`, so the dependency runs when the line runs, is untyped until guessed, and does not appear in the module's own import block."
+          fix:
+            message: "Replace it with an `import` statement at the top of the file (`import * as fs from 'fs'` for a whole module, `import { x } from 'y'` for a symbol). If the module must stay lazy, that is a reason to say so where the dependency is declared — not a reason to hide it in a function body."
+      # 2. A call to `require` itself: `require.resolve(…)`, `require.cache`, …
+      - calls:
+          any:
+            origin: { equals: require }
+            action: { not: { equals: require } }
+        report:
+          code: rewrite
+          description: "`{what}` calls `require.{action}`, reaching into the CommonJS loader at runtime."
+          fix:
+            message: "Drop the `require` call. A path that has to be RESOLVED is a module specifier: import the module and let the bundler resolve it, or resolve the path from the module's own location (`import.meta.url`) — never through the CommonJS loader."
+
+  - id: jsdoc-required
+    where: [{ node: packages }]
+    infer:
+      # A function at MODULE scope (exported or not) must carry a proper JSDoc
+      # block: multi-line, an `@param` for EVERY parameter, an `@returns` when it
+      # yields a value, one tag per line. A variable, a loop counter or a nested
+      # helper is never asked.
+      #
+      # (1) no MULTI-LINE block at all
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          descendants:
+            none:
+              is: { equals: JSDoc }
+              snippet: { contains: "\n" }
+        location: { piece: { isNull: true } }
+        report:
+          code: add
+          description: "`{what}` is a function in a package with no multi-line JSDoc block."
+          fix:
+            message: "Write a multi-line `/** … */` block above `{what}` explaining WHY it exists, with one `@param {Type} name why` per parameter and an `@returns {Type} why` for the value it yields."
+      # (2) some parameter has no own `@param` (tag count != parameter count)
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          descendants:
+            where:
+              filter: { is: { equals: JSDocParameterTag } }
+              by:
+                length: { not: { equals: "$parameters.length" } }
+        location: { piece: { isNull: true } }
+        report:
+          code: add
+          description: "`{what}` documents a different number of parameters than it takes: every parameter needs its own `@param` on its own line."
+          fix:
+            message: "Add a `@param {Type} name why the caller passes it` line for EVERY parameter — one per line."
+      # (3) a `@param` names something that is not a parameter
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          descendants:
+            where:
+              filter: { is: { equals: JSDocParameterTag } }
+              by:
+                not:
+                  every:
+                    name: { in: "$parameters.name" }
+        location: { piece: { isNull: true } }
+        report:
+          code: add
+          description: "`{what}` has a `@param` for a name that is not one of its parameters."
+          fix:
+            message: "Make every `@param` name match a real parameter."
+      # (4) yields a value but has no `@returns`
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          descendants:
+            none: { is: { equals: JSDocReturnTag } }
+        returns: { any: { exprKind: { isSet: true } } }
+        location: { piece: { isNull: true } }
+        report:
+          code: add
+          description: "`{what}` returns a value but has no `@returns` in its JSDoc."
+          fix:
+            message: "Add an `@returns {Type} why` line describing the value the function yields."
+      # (5) two tags share a line — each tag must be on its own line
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          descendants:
+            where:
+              filter: { is: { in: [JSDocParameterTag, JSDocReturnTag] } }
+              by:
+                not:
+                  unique: { field: line }
+        location: { piece: { isNull: true } }
+        report:
+          code: add
+          description: "`{what}` has two JSDoc tags on the same line: every tag must be on its own line."
+          fix:
+            message: "Put every `@param` / `@returns` tag on its own line."
+
   - id: no-re-exports
-    where: [{ node: backend }]
     ignore:
       - node: backend-root-store
       - node: backend-test
@@ -1063,8 +1215,10 @@ invariants:
           any:
             from: { isSet: true }
         report:
-          message: "This file re-exports symbols from another module (`export … from`), which hides where the symbol really comes from."
-          fix: "Delete the `export … from` line and import the symbol from its own module where it is used."
+          code: remove
+          description: "This file re-exports symbols from another module (`export … from`), which hides where the symbol really comes from."
+          fix:
+            message: "Delete the `export … from` line and import the symbol from its own module where it is used."
       # A function whose WHOLE body is one forwarded call is the same thing
       # spelled as a wrapper: `export const xAction = (s, p) => x({ ...p })`.
       # The edge it adds is invisible, and the caller could import `x` directly.
@@ -1088,5 +1242,263 @@ invariants:
         assignments: { length: { equals: 0 } }
         exported: { equals: true }
         report:
-          message: "`{what}` only forwards to another function — a re-export written as a wrapper."
-          fix: "Delete `{what}` and call the original function directly."
+          code: remove
+          description: "`{what}` only forwards to another function — a re-export written as a wrapper."
+          fix:
+            message: "Delete `{what}` and call the original function directly."
+
+  - id: no-props-drilling
+    infer:
+      # `kind.chain` is the LIST OF LINKS this piece calls through — nothing is
+      # counted in the engine. What counts is a query: take the links that are not
+      # a way to reach the state (`getRoot()`, `getStore()` — reaching the store is
+      # the end of the chain, not one more step), and ask how many are left.
+      - kind:
+          chain:
+            where:
+              filter: { name: { not: { in: [getStore, getRoot, getParent, get] } } }
+              by: { length: { gt: 3 } }
+        report:
+          code: remove
+          description: "`{what}` reaches the state through more than three calls: {chain}. The write happens at the far end, so this line shows none of it."
+          fix:
+            message: "Break the chain. Delete every link between `{what}` and the function that actually writes the state — each one that only forwards its arguments — and call the writer directly from here. The path is an entry point calling an action, and the action writing the store: three calls is the LIMIT, not a target. A link that does real work is an action of its own and moves into the feature's `actions/` as its own file. Do not hand a callback down the same path instead — the chain would still be there, only spelled differently."
+
+  - id: import-flow
+    where: [{ node: packages }]
+    # NO EXCEPTION. The arrow is one-way: `package` → `app` is allowed (the app
+    # is the layer above), `app` → `package` is not. An adapter that imports
+    # `apps/backend/index` breaks that arrow, and being "the outermost layer"
+    # does not make it the app: the app publishes its contract through
+    # `packages/types`, and whatever the adapter needs has to live there.
+    infer:
+      # `imports` holds `import type` too, and that is deliberate: a type the
+      # package NAMES but does not run still points the arrow app-ward, so it is
+      # the same violation and it names the same module.
+      - imports:
+          any:
+            resolved: { startsWith: "apps/" }
+        report:
+          code: rewrite
+          description: "This package imports from the application (`{source}`) — a package sits below the app and must not depend on it, not even for a type."
+          fix:
+            message: "Remove this import: the declaration it needs has to live in this package (or in `packages/types`), not in the app that consumes it."
+
+  - id: no-empty-functions
+    ignore:
+      - node: backend-test
+    infer:
+      # Does nothing: no call, no write, no value — and it has a body at all.
+      # The kind is named because a `const f = () => { … }` is TWO candidates (the
+      # variable and the function), and only the function has a body.
+      - calls: { length: { equals: 0 } }
+        assignments: { length: { equals: 0 } }
+        returns: { length: { equals: 0 } }
+        kind:
+          own: { is: { in: [FunctionDeclaration, FunctionExpression, ArrowFunction, MethodDeclaration, GetAccessor, SetAccessor] } }
+          descendants: { any: { is: { equals: Block } } }
+        name: { isSet: true }
+        report:
+          code: remove
+          description: "`{what}` has an empty body. It either must do something or not exist."
+          fix:
+            message: "Implement it, or delete it and its call sites."
+
+  - id: no-useless-functions
+    ignore:
+      - node: backend-test
+    infer:
+      # ONE return, no branches, no locals.
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          # a lambda held by an object property is a field, not a name to inline
+          parent: { is: { notIn: [PropertyAssignment] } }
+        name: { isSet: true }
+        # a local is work of its own
+        assignments: { length: { equals: 0 } }
+        # a branch is a rule the caller must not restate
+        branches: { length: { equals: 0 } }
+        returns:
+          length: { equals: 1 }
+          # except a template: that BUILDS a value
+          any:
+            exprKind: { not: { in: [TemplateExpression] } }
+        report:
+          code: remove
+          description: "`{what}` is one expression given a name: its whole body is a single `return`, with no branch, no local and nothing the caller could not read in place."
+          fix:
+            message: "Inline it at the call sites and delete `{what}`. Do not «fix» it by adding a branch, a check or a variable that does nothing — that passes the check and leaves the same nothing behind. If the expression really is a rule the caller must not restate, keep the function and make it carry that rule: a guard with a reason, a branch, a computed value."
+      # THE SAME SHAPE, VOID: one call and nothing else.
+      - kind:
+          own: { is: { in: [FunctionDeclaration, ArrowFunction, FunctionExpression, MethodDeclaration] } }
+          parent: { is: { notIn: [PropertyAssignment] } }
+        name: { isSet: true }
+        assignments: { length: { equals: 0 } }
+        branches: { length: { equals: 0 } }
+        returns: { length: { equals: 0 } }
+        calls: { length: { equals: 1 } }
+        report:
+          code: remove
+          description: "`{what}` is one call given a name: its whole body is that single call, and the caller could make it directly."
+          fix:
+            message: "Inline it at the call sites and delete `{what}`. If the call needs a guard or a prepared argument, that is the function's job — but then it is the guard that has to be visible here, not a second name for the same call."
+
+  - id: place-where-it-called
+    where: [{ node: apps }, { node: packages }]
+    infer:
+      # 0. Nothing uses it. Not a style question: the repo pays for code every
+      #    reader has to rule out — wherever the helper sits.
+      - role: { equals: pureFunction }
+        references: { usedIn: { length: { equals: 0 } } }
+        report:
+          code: remove
+          description: "`{what}` is called from nowhere — nothing in the repo needs it."
+          fix:
+            message: "Delete it: a helper kept 'for later' is code every reader has to rule out."
+      # 1. It IS in the shared home and exactly one file uses it: not shared code,
+      #    but that file's own step. The caller's place IS the destination, so the
+      #    rule names it.
+      - role: { equals: pureFunction }
+        references: { usedIn: { length: { equals: 1 } } }
+        location: { node: packages-utils }
+        report:
+          code: rules
+          description: "`{what}` is called from one file only (`{usedIn}`) — shared code starts at two callers, so this is that file's own step."
+          fix:
+            message: "Move `{what}` into `{usedIn}` and stop exporting it through `packages/utils`: one caller is not sharing."
+      # 2. It is NOT in the shared home and two or more files use it: code the
+      #    whole repo needs is living in one feature's folder. The destination is
+      #    the shared home itself, which the tree answers for — the rule names the
+      #    role, never a path.
+      #    A STORE file is excluded: what it hands out (`getRoot`, a view) is the
+      #    store's own surface, not a helper someone parked there — its home is
+      #    the store, and the store declares it.
+      - role: { equals: pureFunction }
+        references: { usedIn: { length: { gte: 2 } } }
+        not: { location: { node: packages-utils } }
+        file: { roles: { none: { in: [rootStore, storeModel] } } }
+        report:
+          code: move
+          description: "`{what}` is called from more than one place, and it lives inside one feature — shared code in a feature's folder is code only that feature can find."
+          fix:
+            message: "Move `{what}` into `{destination}`: two or more callers make it shared code, and `packages/utils` is where the rest of the repo already looks for it. Leave behind only what one caller needs."
+            location: [{ node: packages-utils }]
+
+  - id: no-name-repeats-its-neighbours
+    where: [{ node: apps }, { node: packages }]
+    ignore:
+      - node: backend-test
+    infer:
+      # 1. The file is named exactly after its own folder: `store/store.ts`.
+      #    The folder is the second-to-last SEGMENT of the path — the place does
+      #    not keep a `dir` string beside the segments it is made of.
+      - location:
+          segments:
+            at: { index: -2, equals: "$location.fileName" }
+        report:
+          code: rewrite
+          description: "`{basename}` is named after its own folder (`{dir}`) — the name says where it is instead of what it does."
+          fix:
+            message: "Rename it after the one job it does: the folder already says the rest."
+      # 2. One of this name's words is a word a neighbour's name is made of:
+      #    `decorations.ts` next to `load-decorations.ts` is the same concern
+      #    spelled twice. A neighbour is a PLACE — `siblings` holds objects with
+      #    the same fields as this file (`name`, `fileName`, `ext`, `words`, …) —
+      #    so the rule navigates into one and compares its words with
+      #    `$location.words`. Nothing is chopped here: the words are a fact.
+      - location:
+          siblings:
+            any:
+              words:
+                any:
+                  in: "$location.words"
+        report:
+          code: merge
+          description: "`{basename}` repeats a name its neighbour already has — one concern spelled twice in `{dir}`, so a reader has to open both to tell them apart."
+          fix:
+            message: "Merge it with the file it repeats, or rename it after the work it does."
+
+
+
+  - id: no-large-folders
+    # EVERY source folder: the limit is about a human reading a folder, and a
+    # package with 44 files is exactly as unscannable as a feature folder. It used
+    # to name only `apps`, so `packages/utils` (44 files) was never checked.
+    where: [{ node: apps }, { node: packages }]
+    ignore:
+      - node: backend-test
+    dedupeBy: [{ node: backend-feature }]
+    infer:
+      # A PACKAGE of helpers is not a folder to split. Every file there is code a
+      # feature needed and nothing owned — subfolders would only hide that, and
+      # the 32nd file would still have no owner.
+      - location:
+          path: { startsWith: "packages/" }
+          files: { length: { gt: 7 } }
+        report:
+          # No geometry: nothing moves on its own, every file goes to a DIFFERENT
+          # owner — the rule can only say the principle.
+          code: rules
+          description: "Folder `{dir}` holds {files} files — the limit is 7. This is not folder sprawl: it is code no feature owns."
+          fix:
+            message: "Do NOT split it into subfolders — a package is not a home. Send each file to its OWNER: the shape to that feature's `type.ts`, the behaviour to its `actions/`, the sequencing to its `controller.ts`, the state to its `store.ts`. What stays here is only what two or more callers share."
+      # An app folder this size is two features sharing one name.
+      - location:
+          path: { not: { startsWith: "packages/" } }
+          files: { length: { gt: 7 } }
+        report:
+          code: split
+          description: "Folder `{dir}` holds {files} files — the limit is 7. A folder this large is not scannable."
+          fix:
+            message: "Split it by JOB: a feature is `store.ts` + `actions/` + `controller.ts` + `type.ts` — a folder this size is usually two features sharing one name, so give the second one its own folder."
+
+  - id: no-oversized-files
+    infer:
+      # `lines` is the LIST of line numbers, so the size is its length — `gt`
+      # comparing the list to a number was never true, and this rule silently
+      # never fired.
+      - lines: { length: { gt: 200 } }
+        report:
+          code: split
+          description: "File is {lines} lines (max 200). Split it into smaller, focused modules."
+          fix:
+            message: "Extract cohesive groups of functions/types into separate files following the feature-folder layout."
+  - id: one-responsibility
+    infer:
+      # FILE: only a REAL conflict — helpers (which must move to `packages/utils`
+      # and may touch no store) living in the same file as code that writes the
+      # store. Types next to helpers are fine — flagging every mix was noise.
+      - and:
+          - roles: { any: { equals: pureFunction } }
+          - roles: { any: { equals: action } }
+        report:
+          code: split
+          description: "This file holds both `pureFunction` helpers and `action` code that writes the store (`{roles}`). A helper must move to `packages/utils` and may not touch the store, an action must stay in the feature — the two rules cannot both be satisfied here."
+          fix:
+            message: "Split it: helpers to `packages/utils`, the store-writing code to the feature's `actions/`."
+      # FUNCTION: the same demand one level down.
+      - declarations:
+          where:
+            # A local value the function CREATES for itself — a call, a `new`, a
+            # literal. No type is named: whether it is a map, a set or an array
+            # is the author's business; what matters is that this function
+            # builds several independent pieces of state of its own.
+            filter:
+              # What makes it a container is the SHAPE of its type, never a list
+              # of library names: a generic (`X<…>`) or an array (`X[]`) in the
+              # type position IS a container, whatever the library calls it.
+              type:
+                or:
+                  - { matches: "*<*" }
+                  - { matches: "*[]" }
+              # …and it is CREATED here (`new X()`, `[]`) rather than aliased from
+              # a parameter (`const x = state` — that is not state of its own).
+              initializer:
+                is: { in: [CallExpression, NewExpression, ArrayLiteralExpression, ObjectLiteralExpression] }
+            by:
+              length: { gt: 1 }
+        report:
+          code: split
+          description: "`{what}` builds several independent local values (limit 1) — it is accumulating several pieces of state, i.e. doing several things at once."
+          fix:
+            message: "Split it: each value belongs to its own function; the original becomes a thin orchestrator that passes state between them."

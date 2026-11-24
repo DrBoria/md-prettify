@@ -1,41 +1,19 @@
-import type { Disposable } from "../../host";
-import type { DocumentStore } from "../type";
-import type { Substitution } from "../../store.d/type";
-import { loadDecorationsAction, unloadDecorationsAction } from "./load-decorations";
-import { getEditors, onChangeDocument } from "../editor-decorations";
-import { recomputeDecorations } from "../../reparse/apply-changes";
+/**
+ * The document lifecycle action: it builds the map of one open document — its
+ * lines and where each line starts — every other feature reads.
+ */
+import type { TextDocument } from '@md-prettify/types';
+import { lineStartsOf } from '@md-prettify/utils';
+import type { DocumentStore } from '../store';
 
-/** Loads the decorations and subscribes the store to the document's changes. */
-export const initializeController = (state: DocumentStore, substitutions: Substitution[] = []): void => {
-	state.grammarState = [];
-	state.subscriptions = [
-		...(state.subscriptions ?? []),
-		state.host.onDidChangeTextDocument(function (changed, changes) {
-			onChangeDocument(state, changed, changes);
-		}),
-	];
-	loadDecorationsAction(state, substitutions);
-	recomputeDecorations(state);
-};
-
-/** Disposes the controller: unloads decorations, clears subscriptions, resets the store fields. */
-export const disposeController = (state: DocumentStore): void => {
-	unloadDecorationsAction(state);
-
-	for (const sub of state.subscriptions) sub.dispose();
-	(state as DocumentStore & { subscriptions: Disposable[] }).subscriptions = [];
-
-	for (const entry of state.currentDecorations) {
-		for (const editor of getEditors(state)) editor.setDecorations(entry.decoration, []);
-	}
-	state.currentDecorations.clear();
-
-	state.prettySubstitutions.clear();
-	state.lineIndex.clear();
-	state.rangeKeyToCacheKey.clear();
-	state.revealedRanges.clear();
-	state.cursorRanges.clear();
-	state.lastSelections.clear();
-	state.grammar = null;
-	state.grammarState = [];
-};
+/**
+ * refreshDocumentAction: rebuilds the document map from the document the ide
+ * reports, on open and after every edit.
+ * @param {DocumentStore} self the document store being written
+ * @param {TextDocument} doc the document as the ide reports it now
+ */
+export function refreshDocumentAction(self: DocumentStore, doc: TextDocument): void {
+	self.document = doc;
+	self.lines = doc.text.split('\n');
+	self.lineStarts = lineStartsOf(doc.text);
+}

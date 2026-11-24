@@ -15,8 +15,13 @@
   "packageManager": "pnpm@10.8.1",
   "scripts": {
     "dev": "turbo dev",
-    "lint": "eslint apps/backend packages/vscode-extension packages/webstorm-extension",
-    "test": "turbo test"
+    "format": "prettier --write apps packages",
+    "format:check": "prettier --check apps packages",
+    "lint": "eslint apps packages",
+    "typecheck": "tsc -p apps/backend/tsconfig.json --noEmit && tsc -p packages/vscode-extension/tsconfig.json --noEmit && tsc -p packages/webstorm-extension/tsconfig.json --noEmit && tsc -p packages/types/tsconfig.json --noEmit && tsc -p packages/utils/tsconfig.json --noEmit",
+    "build": "rm -rf packages/types/out packages/utils/out && tsc -p packages/types/tsconfig.build.json && tsc -p packages/utils/tsconfig.build.json",
+    "check": "bash scripts/guard.sh 'pnpm format && pnpm build && pnpm lint && pnpm typecheck'",
+    "test": "bash scripts/guard.sh 'bash scripts/test-all.sh'"
   },
   "devDependencies": {
     "@md-code/component-uniqueness": "file:../component-uniqueness",
@@ -26,6 +31,9 @@
     "@md-prettify/eslint": "workspace:*",
     "@vscode/test-electron": "^3.1.0",
     "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.8",
+    "mocha": "^3.1.1",
+    "prettier": "^3.9.10",
     "turbo": "^2.8.1"
   }
 }

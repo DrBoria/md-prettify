@@ -7,72 +7,35 @@
  * gives the TypeScript compiler the shape it needs.
  */
 declare module 'webstorm' {
-	export interface Position {
-		readonly line: number;
-		readonly character: number;
-	}
+	export type Position = import('@md-prettify/types').Position;
 	export const Position: {
 		new (line: number, character: number): Position;
 	};
 
-	export interface Range {
-		readonly start: Position;
-		readonly end: Position;
-	}
+	export type Range = import('@md-prettify/types').Range;
 	export const Range: {
 		new (start: Position, end: Position): Range;
 	};
 
-	export interface Selection {
-		readonly anchor: Position;
-		readonly active: Position;
-	}
+	export type Selection = import('@md-prettify/types').Selection;
 	export const Selection: {
 		new (anchor: Position, active: Position): Selection;
 	};
 
-	export interface TextLine {
-		readonly text: string;
-		readonly range: Range;
-		readonly rangeIncludingLineBreak: Range;
-		readonly lineNumber: number;
-		readonly firstNonWhitespaceCharacterIndex: number;
-	}
-
-	export interface TextDocument {
+	export type TextDocument = import('@md-prettify/types').IdeTextDocument & {
 		readonly uri: Uri;
-		readonly languageId: string;
-		readonly fileName: string;
-		readonly isClosed: boolean;
-		readonly lineCount: number;
-		getText(range?: Range): string;
-		lineAt(line: number): TextLine;
-		positionAt(offset: number): Position;
-		offsetAt(position: Position): number;
-		validateRange(range: Range): Range;
-	}
+	};
 
-	export interface TextEditorDecorationType {
-		dispose(): void;
-	}
+	// The decoration shapes are the backend's own contract: the adapter hands the
+	// same options to the IDE that the engine built, so the types are reused, not
+	// mirrored.
+	export type TextEditorDecorationType = import('@md-prettify/types').TextEditorDecorationType;
 
-	export interface DecorationRenderOptions {
-		rangeBehavior?: DecorationRangeBehavior;
-		color?: string;
-		letterSpacing?: string;
-		fontStyle?: string;
-		fontWeight?: string;
-		backgroundColor?: string;
-		outline?: string;
-		border?: string;
-		borderRadius?: string;
-		textDecoration?: string;
-		cursor?: string;
-		before?: { contentText?: string; color?: string; backgroundColor?: string };
-		after?: { contentText?: string; color?: string; backgroundColor?: string };
+	export type DecorationRenderOptions = Omit<import('@md-prettify/types').DecorationRenderOptions, 'rangeBehavior' | 'dark' | 'light'> & {
+		rangeBehavior?: DecorationRangeBehavior | import('@md-prettify/types').DecorationRangeBehaviorValue;
 		dark?: DecorationRenderOptions;
 		light?: DecorationRenderOptions;
-	}
+	};
 
 	export interface TextEditor {
 		readonly document: TextDocument;
@@ -86,18 +49,11 @@ declare module 'webstorm' {
 		readonly selections: Selection[];
 	}
 
-	export interface ConfigurationChangeEvent {
-		affectsConfiguration(section: string): boolean;
-	}
+	export type ConfigurationChangeEvent = import('@md-prettify/types').ConfigurationChangeEvent;
 
-	export interface Disposable {
-		dispose(): void;
-	}
+	export type Disposable = import('@md-prettify/types').Disposable;
 
-	export interface OutputChannel {
-		appendLine(value: string): void;
-		dispose(): void;
-	}
+	export type OutputChannel = import('@md-prettify/types').OutputChannel;
 
 	export interface Extension {
 		readonly extensionUri: Uri;
@@ -140,9 +96,7 @@ declare module 'webstorm' {
 		getConfiguration(section: string): unknown;
 		onDidOpenTextDocument(cb: (doc: TextDocument) => void): Disposable;
 		onDidCloseTextDocument(cb: (doc: TextDocument) => void): Disposable;
-		onDidChangeTextDocument(
-			cb: (e: { document: TextDocument; contentChanges: { range: Range; text: string }[] }) => void,
-		): Disposable;
+		onDidChangeTextDocument(cb: (e: { document: TextDocument; contentChanges: { range: Range; text: string }[] }) => void): Disposable;
 		onDidChangeConfiguration(cb: (e: ConfigurationChangeEvent) => void): Disposable;
 	};
 

@@ -205,7 +205,7 @@
     },
     // DATA TYPES
     {
-      "ugly": "\\{([^}]+)\\}",
+      "ugly": "\\{([^{}]*)\\}",
       "pretty": "{$1}",
       "style": {
         "color": "#bbbbbb"
@@ -229,17 +229,6 @@
       ]
     },
     {
-      "ugly": "\\{([^}]+)\\}",
-      "pretty": "{$1}",
-      "scope": [
-        "meta.var.expr.ts!",
-        "meta.var.expr.tsx!"
-      ],
-      "style": {
-        "color": "#c678dd"
-      }
-    },
-    {
       "ugly": "\\${([^}]+)}",
       "pretty": " $1 ",
       "scope": [
@@ -248,11 +237,13 @@
       ]
     },
     {
-      "ugly": ";$",
+      "ugly": "(?<!});$",
       "pretty": " ",
       "scope": [
         "punctuation.terminator.statement.ts",
-        "punctuation.terminator.statement.tsx"
+        "punctuation.terminator.statement.tsx",
+        "!meta.export.ts",
+        "!meta.export.tsx"
       ]
     },
   ]
